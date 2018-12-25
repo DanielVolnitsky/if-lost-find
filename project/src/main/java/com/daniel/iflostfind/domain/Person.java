@@ -4,8 +4,8 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
-public class User {
+@Table(name = "person")
+public class Person {
 
     @Column
     @Id
@@ -18,13 +18,21 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    public User(String login, String password) {
+    public Person(String login, String password) {
         this.login = login;
         this.password = password;
     }
 
-    public User() {
+    public Person() {
 
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     @Override
@@ -35,8 +43,8 @@ public class User {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        User user = (User) o;
-        return id == user.id;
+        Person person = (Person) o;
+        return id == person.id;
     }
 
     @Override

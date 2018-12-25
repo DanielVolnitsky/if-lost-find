@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
     <meta charset="UTF-8">
@@ -7,167 +8,174 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title> IfLostFound | Welcome </title>
     <!-- Styles -->
-    <link rel="stylesheet" href="lib/normalize/normalize.css">
-    <link rel="stylesheet" href="lib/foundation/css/foundation.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link th:href="@{/lib/normalize/normalize.css}" rel="stylesheet">
+    <link th:href="@{/lib/foundation/css/foundation.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 
 <body>
-    <!-- Hero & Header start -->
-    <section class="hero">
+<!-- Hero & Header start -->
+<section class="hero">
 
-        <header>
-            <div class="row">
-                <nav class="top-bar" data-topbar role="navigation">
-                    <ul class="title-area">
-                        <li class="name">
-                            <a href="#" class="logo">
-                                <h1>IfLostFound<span class="tld">.java</span></h1>
-                            </a>
-                        </li>
-                        <span class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></span>
-                        </li>
-                    </ul>
-                    <section class="top-bar-section" id="mean_nav">
-                        <ul class="right">
-                            <li><a href="#">Home</a></li>
-                            <li><a href="#">Items</a></li>
-                            <li><a href="#">About</a></li>
-                            <li><a href="#">Contact</a></li>
-                            <li><a href="#">Login</a></li>
-                        </ul>
-                    </section>
-                </nav>
-            </div>
-        </header>
-        <section class="caption">
-            <div class="row">
-                <h1 class="mean_cap">You Lost</h1>
-                <h2 class="sub_cap">We Found.</h2>
-                <a href="#" class="btn_details"><span>More Details</span> <img src="img/arrow-right-outline.png" alt=""
-                        src="" class="arrow"></a>
-            </div>
-        </section>
-
-    </section>
-    <!-- Hero & Header End -->
-
-    <!--  Start Services Section  -->
-    <section class="services" id="services">
+    <header>
         <div class="row">
-            <h1 class="mean_title">Our</h1>
-            <h2 class="sub_title">services.</h2>
+            <nav class="top-bar" data-topbar role="navigation">
+                <ul class="title-area">
+                    <li class="name">
+                        <a href="#" class="logo">
+                            <h1>IfLostFound<span class="tld">.java</span></h1>
+                        </a>
+                    </li>
+                    <span class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></span>
+                    </li>
+                </ul>
+                <section class="top-bar-section" id="mean_nav">
+                    <ul class="right">
+                        <li><a href="#">Home</a></li>
+                        <li><a href="#">Items</a></li>
+                        <li><a href="#">About</a></li>
+                        <li><a href="#">Contact</a></li>
+                        <li><a href="#">Login</a></li>
+                    </ul>
+                </section>
+            </nav>
         </div>
-
-        <div class="row services_list">
-            <div class="small-12 medium-3 large-3 columns">
-                <img src="img/people-outline.png" alt="" title="" class="serv_icon" />
-                <h2 class="title">Big Community</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque delectus praesentium accusantium, voluptatem deserunt et eius enim nam ex! Esse.</p>
-            </div>
-
-            <div class="small-12 medium-3 large-3 columns">
-                <img src="img/car-outline.png" alt="" title="" class="serv_icon" />
-                <h2 class="title">Delivery</h2>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit veritatis debitis ea ad aspernatur? Eligendi blanditiis nihil officia inventore!</p>
-            </div>
-
-            <div class="small-12 medium-3 large-3 columns">
-                <img src="img/shield-outline.png" alt="" title="" class="serv_icon" />
-                <h2 class="title">Security</h2>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint in expedita porro et aut iusto corrupti saepe aspernatur tempore eum.</p>
-            </div>
-
-            <div class="small-12 medium-3 large-3 columns">
-                <img src="img/pin-outline.png" alt="" title="" class="serv_icon" />
-                <h2 class="title">Geolocation</h2>
-                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat voluptate, fuga provident eius pariatur eaque corporis, officiis magni dolores quas qui.</p>
-            </div>
-        </div>
-
-        <div class="btn_holder">
-            <a href="#" class="btn_fancy">
-                <div class="solid_layer"></div>
-                <div class="border_layer"></div>
-                <div class="text_layer">Sign Up</div>
+    </header>
+    <section class="caption">
+        <div class="row">
+            <h1 class="mean_cap">You Lost</h1>
+            <h2 class="sub_cap">We Found.</h2>
+            <a href="#" class="btn_details"><span>More Details</span>
+                <img src="img/arrow-right-outline.png" alt="" class="arrow">
             </a>
         </div>
-
     </section>
 
-    <!--  Start Map Section  -->
-    <section id="map">
-    </section>
-    <!--  End Map Section  -->
+</section>
+<!-- Hero & Header End -->
 
+<!--  Start Services Section  -->
+<section class="services" id="services">
+    <div class="row">
+        <h1 class="mean_title">Our</h1>
+        <h2 class="sub_title">services.</h2>
+    </div>
 
-
-    <!--  Start Footer Section  -->
-    <footer>
-        <div class="row">
-
-            <div class="small-12 medium-4 large-4 columns">
-                <div class="copyrights">
-                    <a class="logo footer--logo" href="#">
-                        <h1>IfLostFound<span class="tld">.java</span></h1>
-                    </a>
-                </div>
-            </div>
-
-            <div class="small-12 medium-8 large-8 columns">
-                <div class="contact_details right">
-                    <nav class="social">
-                        <ul class="no-bullet">
-                            <li><a href="" target="_blank">Facebook</a></li>
-                            <li><a href="" target="_blank">Instagram</a></li>
-                            <li><a href="" target="_blank">Twitter</a></li>
-                            <li><a href="" target="_blank">LinkedIn</a></li>
-                        </ul>
-                    </nav>
-
-                    <div class="contact">
-                        <div class="details">
-                            <p>D_Vartell32@hotmail.com</p>
-                            <p>+8-800-355-555</p>
-                        </div>
-
-                        <p class="adress">Lavonnemouth, 465 Trantow Fall, 66586</p>
-                    </div>
-                </div>
-            </div>
-
+    <div class="row services_list">
+        <div class="small-12 medium-3 large-3 columns">
+            <img src="img/people-outline.png" alt="" title="" class="serv_icon"/>
+            <h2 class="title">Big Community</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Cumque delectus praesentium accusantium,
+                voluptatem deserunt et eius enim nam ex! Esse.</p>
         </div>
-    </footer>
-    <!--  End Footer Section  -->
 
-    <!-- Scripts -->
-    <script>
-        // Initialize and add the map
-        function initMap() {
-            // The location of Uluru
-            var uluru = {
-                lat: -25.344,
-                lng: 131.036
-            };
-            // The map, centered at Uluru
-            var map = new google.maps.Map(
-                document.getElementById('map'), {
-                    zoom: 4,
-                    center: uluru
-                });
-            // The marker, positioned at Uluru
-            var marker = new google.maps.Marker({
-                position: uluru,
-                map: map
+        <div class="small-12 medium-3 large-3 columns">
+            <img src="img/car-outline.png" alt="" title="" class="serv_icon"/>
+            <h2 class="title">Delivery</h2>
+            <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugit veritatis debitis ea ad aspernatur?
+                Eligendi blanditiis nihil officia inventore!</p>
+        </div>
+
+        <div class="small-12 medium-3 large-3 columns">
+            <img src="img/shield-outline.png" alt="" title="" class="serv_icon"/>
+            <h2 class="title">Security</h2>
+            <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Sint in expedita porro et aut iusto corrupti
+                saepe aspernatur tempore eum.</p>
+        </div>
+
+        <div class="small-12 medium-3 large-3 columns">
+            <img src="img/pin-outline.png" alt="" title="" class="serv_icon"/>
+            <h2 class="title">Geolocation</h2>
+            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Repellat voluptate, fuga provident eius
+                pariatur eaque corporis, officiis magni dolores quas qui.</p>
+        </div>
+    </div>
+
+    <div class="btn_holder">
+        <a href="#" class="btn_fancy">
+            <div class="solid_layer"></div>
+            <div class="border_layer"></div>
+            <div class="text_layer">Sign Up</div>
+        </a>
+    </div>
+
+</section>
+
+<!--  Start Map Section  -->
+<section id="map">
+</section>
+<!--  End Map Section  -->
+
+
+<!--  Start Footer Section  -->
+<footer>
+    <div class="row">
+
+        <div class="small-12 medium-4 large-4 columns">
+            <div class="copyrights">
+                <a class="logo footer--logo" href="#">
+                    <h1>IfLostFound<span class="tld">.java</span></h1>
+                </a>
+            </div>
+        </div>
+
+        <div class="small-12 medium-8 large-8 columns">
+            <div class="contact_details right">
+                <nav class="social">
+                    <ul class="no-bullet">
+                        <li><a href="" target="_blank">Facebook</a></li>
+                        <li><a href="" target="_blank">Instagram</a></li>
+                        <li><a href="" target="_blank">Twitter</a></li>
+                        <li><a href="" target="_blank">LinkedIn</a></li>
+                    </ul>
+                </nav>
+
+                <div class="contact">
+                    <div class="details">
+                        <p>D_Vartell32@hotmail.com</p>
+                        <p>+8-800-355-555</p>
+                    </div>
+
+                    <p class="adress">Lavonnemouth, 465 Trantow Fall, 66586</p>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</footer>
+<!--  End Footer Section  -->
+
+<!-- Scripts -->
+<script>
+    // Initialize and add the map
+    function initMap() {
+        // The location of Uluru
+        var uluru = {
+            lat: -25.344,
+            lng: 131.036
+        };
+        // The map, centered at Uluru
+        var map = new google.maps.Map(
+            document.getElementById('map'), {
+                zoom: 4,
+                center: uluru
             });
-        }
-    </script>
-    <script src="lib/jquery/jquery.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhhfHoypHircJb11tjHYeEZvB4Wr8MZQw&callback=initMap"></script>
-    <script src="lib/foundation/js/foundation.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
+        // The marker, positioned at Uluru
+        var marker = new google.maps.Marker({
+            position: uluru,
+            map: map
+        });
+    }
+</script>
+
+<script th:src="@{/lib/jquery/jquery.js}"></script>
+<script async defer
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhhfHoypHircJb11tjHYeEZvB4Wr8MZQw&callback=initMap"></script>
+<script th:src="@{/lib/foundation/js/foundation.js}"></script>
+
+<script>
+    $(document).foundation();
+</script>
 </body>
 
 </html>

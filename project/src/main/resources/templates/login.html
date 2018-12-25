@@ -1,55 +1,57 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en"
+      xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <meta charset="utf-8" />
+    <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title> IfLostFound | Login </title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- Styles -->
-    <link rel="stylesheet" href="lib/normalize/normalize.css">
-    <link rel="stylesheet" href="lib/foundation/css/foundation.min.css">
-    <link rel="stylesheet" href="styles/main.css">
+    <link th:href="@{/lib/normalize/normalize.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/lib/foundation/css/foundation.min.css}" rel="stylesheet">
+    <link th:href="@{/styles/main.css}" rel="stylesheet">
 </head>
 
 <body>
-    <div class="large-3 large-centered columns">
-        <div class="login-box">
-            <div class="row">
-                <div class="large-12 columns">
-                    <form>
-                        <div class="row">
-                            <div class="large-12 columns">
-                                <input type="text" name="username" placeholder="Username" />
+<div class="large-3 large-centered columns">
+    <div class="login-box">
+        <div class="row">
+            <div class="large-12 columns">
+                <form th:action="@{/login}" method="post">
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <input type="text" name="username" placeholder="Username" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 columns">
+                            <input type="password" name="password" placeholder="Password" required/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="large-12 large-centered columns">
+                            <div class="btn_holder">
+                                <button class="btn_fancy">
+                                    <div class="solid_layer"></div>
+                                    <div class="border_layer"></div>
+                                    <div class="text_layer">Log in</div>
+                                </button>
                             </div>
                         </div>
-                        <div class="row">
-                            <div class="large-12 columns">
-                                <input type="password" name="password" placeholder="Password" />
-                            </div>
-                        </div>
-                        <div class="row">
-                            <div class="large-12 large-centered columns">
-                                <div class="btn_holder">
-                                    <a href="#" class="btn_fancy">
-                                        <div class="solid_layer"></div>
-                                        <div class="border_layer"></div>
-                                        <div class="text_layer">Sign Up</div>
-                                    </a>
-                                </div>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </div>
     </div>
+</div>
 
-    <script src="lib/jquery/jquery.js"></script>
-    <script src="lib/foundation/js/foundation.js"></script>
-    <script>
-        $(document).foundation();
-    </script>
+<script th:src="@{/lib/jquery/jquery.js}"></script>
+<script th:src="@{/lib/foundation/js/foundation.js}"></script>
+
+<script>
+    $(document).foundation();
+</script>
 </body>
 
 </html>

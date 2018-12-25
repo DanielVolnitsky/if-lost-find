@@ -1,10 +1,10 @@
 package com.daniel.iflostfind.repository;
 
-import com.daniel.iflostfind.domain.User;
+import com.daniel.iflostfind.domain.Person;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface UserRepository extends CrudRepository<User, Long> {
-    User finUserByLogin(String login);
+public interface PersonRepository extends CrudRepository<Person, Long> {
+    Person findUserByLogin(String login);
 }
