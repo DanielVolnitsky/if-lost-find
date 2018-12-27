@@ -10,5 +10,5 @@ public class SignupController {
     public String toSignUpPage() {
         return "signup";
     }
-    
+
 }
