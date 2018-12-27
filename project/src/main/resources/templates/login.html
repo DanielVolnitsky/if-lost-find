@@ -1,6 +1,7 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="utf-8"/>
@@ -14,6 +15,15 @@
 </head>
 
 <body>
+
+
+<!--test-->
+<div>
+    <span sec:authorize="isAuthenticated()">AAAAAAAAAAAA</span>
+</div>
+
+
+
 <div class="large-3 large-centered columns">
     <div class="login-box">
         <div class="row">
