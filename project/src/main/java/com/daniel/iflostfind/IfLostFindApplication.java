@@ -25,5 +25,6 @@ public class IfLostFindApplication implements CommandLineRunner {
     public void run(String... args) {
         personRepository.save(new Person("k", "k"));
         personRepository.save(new Person("d", "d"));
+        personRepository.save(new Person("test@test.com", "Qwerty1234567"));
     }
 }

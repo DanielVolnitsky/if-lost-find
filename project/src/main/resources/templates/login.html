@@ -18,7 +18,7 @@
                     Log-in to your account
                 </div>
             </h2>
-            <form class="ui large form">
+            <form class="ui large form" th:action="@{/login}" method="post">
                 <div class="ui stacked segment">
                     <div class="field">
                         <div class="ui left icon input">
@@ -41,6 +41,9 @@
 
             <div class="ui message">
                 New to us? <a th:href="@{/signup}">Sign Up</a>
+            </div>
+            <div class="ui message">
+                Home <a th:href="@{/}">Return</a>
             </div>
         </div>
     </div>
