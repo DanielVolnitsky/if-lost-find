@@ -4,12 +4,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
-public class IndexController {
+public class SignupController {
 
-    @GetMapping(path = "/index")
-    public String homePage() {
-        return "index";
+    @GetMapping(path = "/signup")
+    public String toSignUpPage() {
+        return "signup";
     }
 
 }
-
