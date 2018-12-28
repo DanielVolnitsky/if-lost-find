@@ -57,23 +57,41 @@
                     <a class="item">Map</a>
                     <a class="item">Service</a>
                     <a class="item">About</a>
-                    <div class="right item">
+
+                    <!-- This section is visible for anonymous user-->
+                    <div class="right item" sec:authorize="isAnonymous()">
                         <a class="ui inverted button" th:href="@{/login}">Log in</a>
                         <a class="ui inverted button" th:href="@{/signup}">Sign Up</a>
                     </div>
+                    <!-- end -->
+
+                    <!-- This section is visible for authenticated user-->
+                    <div class="right item" sec:authorize="isAuthenticated()">
+                        <a class="ui inverted button" th:href="@{/login}">Account</a>
+                        <a class="ui inverted button" th:href="@{/logout}">Log out</a>
+                    </div>
+                    <!-- end -->
+
                 </div>
             </div>
 
-            <div class="ui text container">
+            <!-- This section is visible for anonymous user-->
+            <div class="ui text container" sec:authorize="isAnonymous()">
                 <h1 class="ui inverted header">
                     IfLostFound.java
                 </h1>
-                <h2 sec:authentication="isAuthenticated()">Hello</h2>
                 <h2>Find your stuff.</h2>
                 <div class="ui huge primary button">Get Started <i class="right arrow icon"></i></div>
             </div>
+            <!-- end -->
 
+            <!-- This section is visible for authenticated user-->
+            <div class="ui text container" sec:authorize="isAuthenticated()">
+                <h1 class="ui inverted header">Welcome, <span sec:authentication="name"></span></h1>
+            </div>
+            <!-- end -->
         </div>
+
 
         <div class="ui vertical stripe segment">
             <div class="ui middle aligned stackable grid container">
