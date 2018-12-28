@@ -2,6 +2,13 @@ $(document).ready(function () {
     $('.ui.form')
         .form({
             fields: {
+                username: {
+                    identifier: 'username',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Please enter your username',
+                    }],
+                },
                 email: {
                     identifier: 'email',
                     rules: [{
@@ -13,6 +20,20 @@ $(document).ready(function () {
                             prompt: 'Please enter a valid e-mail'
                         }
                     ]
+                },
+                country: {
+                    identifier: 'country',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Country field is blank',
+                    }],
+                },
+                city: {
+                    identifier: 'city',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'City field is blank',
+                    }]
                 },
                 password: {
                     identifier: 'password',
