@@ -2,11 +2,18 @@ $(document).ready(function () {
     $('.ui.form')
         .form({
             fields: {
-                username: {
-                    identifier: 'username',
+                name: {
+                    identifier: 'name',
                     rules: [{
                         type: 'empty',
-                        prompt: 'Please enter your username',
+                        prompt: 'Please enter your name',
+                    }],
+                },
+                surname: {
+                    identifier: 'surname',
+                    rules: [{
+                        type: 'empty',
+                        prompt: 'Please enter your surname',
                     }],
                 },
                 email: {
