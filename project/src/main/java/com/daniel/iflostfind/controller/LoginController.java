@@ -11,6 +11,7 @@ public class LoginController {
 
     @GetMapping(path = "/login")
     public String toLoginPage() {
+        //TODO make aop or filter
         Authentication a = SecurityContextHolder.getContext().getAuthentication();
         if (!(a instanceof AnonymousAuthenticationToken)) {
             return "redirect:/index";

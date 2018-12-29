@@ -1,8 +1,8 @@
-package com.daniel.iflostfind.service;
+package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.configuration.security.PersonDetails;
-import com.daniel.iflostfind.domain.Person;
-import com.daniel.iflostfind.repository.PersonRepository;
+import com.daniel.iflostfind.domain.User;
+import com.daniel.iflostfind.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
@@ -14,16 +14,16 @@ import java.util.Objects;
 @Service
 public class PersonDetailsService implements UserDetailsService {
 
-    private final PersonRepository personRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public PersonDetailsService(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public PersonDetailsService(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     @Override
     public UserDetails loadUserByUsername(String u) throws UsernameNotFoundException {
-        Person p = personRepository.findUserByLogin(u);
+        User p = userRepository.findUserByEmail(u);
         if (Objects.isNull(p)) {
             throw new UsernameNotFoundException("no username found with login " + u);
         }

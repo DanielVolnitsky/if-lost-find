@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.configuration.security;
 
-import com.daniel.iflostfind.domain.Person;
+import com.daniel.iflostfind.domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -11,11 +11,11 @@ import java.util.Collections;
 
 public class PersonDetails implements UserDetails {
 
-    private final Person person;
+    private final User user;
 
     @Autowired
-    public PersonDetails(Person person) {
-        this.person = person;
+    public PersonDetails(User user) {
+        this.user = user;
     }
 
     @Override
@@ -25,12 +25,12 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public String getPassword() {
-        return person.getPassword();
+        return user.getPassword();
     }
 
     @Override
     public String getUsername() {
-        return person.getLogin();
+        return user.getName();
     }
 
     @Override

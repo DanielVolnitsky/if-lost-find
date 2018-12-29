@@ -21,42 +21,48 @@
                 Sign Up
             </div>
         </h2>
-        <form class="ui large form" th:action="@{/signup}" method="post">
+        <form class="ui large form" th:action="@{/signup}" th:object="${user}" method="post">
             <div class="ui stacked segment">
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="user icon"></i>
-                        <input type="username" name="username" placeholder="Username">
+                        <input th:field="*{firstName}" type="text" name="name" placeholder="Name">
+                    </div>
+                </div>
+                <div class="field">
+                    <div class="ui left icon input">
+                        <i class="user icon"></i>
+                        <input th:field="*{lastName}" type="text" name="last_name" placeholder="Surname">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="envelope icon"></i>
-                        <input type="email" name="email" placeholder="E-mail address">
+                        <input th:field="*{email}" type="email" name="email" placeholder="E-mail">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="flag icon"></i>
-                        <input type="text" name="country" placeholder="Country">
+                        <input th:field="*{country}" type="text" name="country" placeholder="Country">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="building icon"></i>
-                        <input type="text" name="city" placeholder="City">
+                        <input th:field="*{city}" type="text" name="city" placeholder="City">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" id="password" name="password" placeholder="Password">
+                        <input th:field="*{password}" type="password" id="password" name="password" placeholder="Password">
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui left icon input">
                         <i class="lock icon"></i>
-                        <input type="password" id="password_confirm" name="password_confirm" placeholder="Confirm password">
+                        <input th:field="*{matchingPassword}" type="password" id="password_confirm" name="password_confirm" placeholder="Confirm password">
                     </div>
                 </div>
                 <div class="ui fluid large teal submit button">Submit</div>
