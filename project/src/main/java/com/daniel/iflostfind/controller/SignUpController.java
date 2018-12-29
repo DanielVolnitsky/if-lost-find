@@ -50,7 +50,7 @@ public class SignUpController {
         }
 
         if (Objects.isNull(registeredUser)) {
-            bindingResult.rejectValue("email", "user with this email already exists");
+            bindingResult.rejectValue("email", "email.invalid", "user with this email already exists");
         }
 
         String viewName = bindingResult.hasErrors() ? SIGN_UP_PAGE : LoginController.LOGIN_PAGE;
