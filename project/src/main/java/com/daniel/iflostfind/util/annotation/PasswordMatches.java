@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.annotation;
+package com.daniel.iflostfind.util.annotation;
 
 import com.daniel.iflostfind.util.validation.PasswordMatchesValidator;
 

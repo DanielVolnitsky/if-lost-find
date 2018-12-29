@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.dto;
 
-import com.daniel.iflostfind.annotation.PasswordMatches;
-import com.daniel.iflostfind.annotation.ValidEmail;
+import com.daniel.iflostfind.util.annotation.PasswordMatches;
+import com.daniel.iflostfind.util.annotation.ValidEmail;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

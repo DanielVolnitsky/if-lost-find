@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.util.validation;
 
-import com.daniel.iflostfind.annotation.ValidEmail;
+import com.daniel.iflostfind.util.annotation.ValidEmail;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;

@@ -1,10 +1,10 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.annotation.NotAccessibleIfAuthenticated;
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.dto.UserDto;
-import com.daniel.iflostfind.exception.UserAlreadyExistsException;
 import com.daniel.iflostfind.service.UserService;
+import com.daniel.iflostfind.util.annotation.NotAccessibleIfAuthenticated;
+import com.daniel.iflostfind.util.exception.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,6 +21,10 @@ import java.util.Objects;
 @NotAccessibleIfAuthenticated
 public class SignUpController {
 
+    static final String SIGN_UP_PATH = "/signup";
+    static final String SIGN_UP_PAGE = "signup";
+    static final String USER_MODEL_NAME = "user";
+
     private UserService userService;
 
     @Autowired
@@ -28,16 +32,16 @@ public class SignUpController {
         this.userService = userService;
     }
 
-    @GetMapping(path = "/signup")
+    @GetMapping(path = SIGN_UP_PATH)
     public String toSignUpPage(Model model) {
 
         UserDto userDto = new UserDto();
-        model.addAttribute("user", userDto);
-        return "signup";
+        model.addAttribute(USER_MODEL_NAME, userDto);
+        return SIGN_UP_PAGE;
     }
 
-    @PostMapping(path = "/signup")
-    public ModelAndView signUp(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult) {
+    @PostMapping(path = SIGN_UP_PATH)
+    public ModelAndView signUp(@ModelAttribute(USER_MODEL_NAME) @Valid UserDto userDto, BindingResult bindingResult) {
 
         User registeredUser = null;
 
@@ -49,8 +53,8 @@ public class SignUpController {
             bindingResult.rejectValue("email", "user with this email already exists");
         }
 
-        String viewName = bindingResult.hasErrors() ? "signup" : "login";
-        return new ModelAndView(viewName, "user", userDto);
+        String viewName = bindingResult.hasErrors() ? SIGN_UP_PAGE : LoginController.LOGIN_PAGE;
+        return new ModelAndView(viewName, USER_MODEL_NAME, userDto);
     }
 
     private User registerNewUserAccount(UserDto userDto) {
