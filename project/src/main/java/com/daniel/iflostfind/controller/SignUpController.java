@@ -2,7 +2,7 @@ package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.dto.UserDto;
-import com.daniel.iflostfind.exception.UserAlreadyExistsExeption;
+import com.daniel.iflostfind.exception.UserAlreadyExistsException;
 import com.daniel.iflostfind.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -71,7 +71,7 @@ public class SignUpController {
 
         try {
             registered = userService.registerNewUserAccount(userDto);
-        } catch (UserAlreadyExistsExeption e) {
+        } catch (UserAlreadyExistsException e) {
             //TODO log
         }
 
