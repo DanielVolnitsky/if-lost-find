@@ -1,13 +1,11 @@
 package com.daniel.iflostfind.controller;
 
+import com.daniel.iflostfind.annotation.NotAccessibleIfAuthenticated;
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.dto.UserDto;
 import com.daniel.iflostfind.exception.UserAlreadyExistsException;
 import com.daniel.iflostfind.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,6 +18,7 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 @Controller
+@NotAccessibleIfAuthenticated
 public class SignUpController {
 
     private UserService userService;
@@ -32,13 +31,8 @@ public class SignUpController {
     @GetMapping(path = "/signup")
     public String toSignUpPage(Model model) {
 
-        //TODO make aop
-        Authentication a = SecurityContextHolder.getContext().getAuthentication();
-        if (!(a instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/index";
-        }
-
-        model.addAttribute("user", new UserDto());
+        UserDto userDto = new UserDto();
+        model.addAttribute("user", userDto);
         return "signup";
     }
 

@@ -26,7 +26,7 @@ public class IfLostFindApplication implements CommandLineRunner {
 
         User dan = User.builder()
             .name("d").lastName("v")
-            .email("d@mail.com").password("d")
+            .email("d@m.com").password("dddddd")
             .country("c").city("c")
             .build();
 
