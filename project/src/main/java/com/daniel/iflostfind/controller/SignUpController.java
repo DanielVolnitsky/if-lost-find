@@ -36,8 +36,6 @@ public class SignUpController {
         return "signup";
     }
 
-
-    //TODO add passwords matching check
     @PostMapping(path = "/signup")
     public ModelAndView signUp(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult) {
 
