@@ -2,7 +2,7 @@ package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.dto.UserDto;
-import com.daniel.iflostfind.exception.UserAlreadyExistsExeption;
+import com.daniel.iflostfind.exception.UserAlreadyExistsException;
 import com.daniel.iflostfind.repository.UserRepository;
 import com.daniel.iflostfind.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public User registerNewUserAccount(UserDto dto) {
         if (userExists(dto.getEmail())) {
-            throw new UserAlreadyExistsExeption("There is already a user with email - " + dto.getEmail() + " in the system");
+            throw new UserAlreadyExistsException("There is already a user with email - " + dto.getEmail() + " in the system");
         }
 
         User user = User.builder()
