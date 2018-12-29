@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.annotation;
+package com.daniel.iflostfind.util.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.aspect;
+package com.daniel.iflostfind.util.aspect;
 
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -18,7 +18,7 @@ public class SecurityAspect {
 
     }
 
-    @Pointcut("@target(com.daniel.iflostfind.annotation.NotAccessibleIfAuthenticated)")
+    @Pointcut("@target(com.daniel.iflostfind.util.annotation.NotAccessibleIfAuthenticated)")
     public void notAccessibleIfAuthenticated() {
 
     }

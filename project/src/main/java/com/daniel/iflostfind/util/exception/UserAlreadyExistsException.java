@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.exception;
+package com.daniel.iflostfind.util.exception;
 
 public class UserAlreadyExistsException extends RuntimeException {
 

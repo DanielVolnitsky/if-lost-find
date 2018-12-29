@@ -2,9 +2,9 @@ package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.dto.UserDto;
-import com.daniel.iflostfind.exception.UserAlreadyExistsException;
 import com.daniel.iflostfind.repository.UserRepository;
 import com.daniel.iflostfind.service.UserService;
+import com.daniel.iflostfind.util.exception.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

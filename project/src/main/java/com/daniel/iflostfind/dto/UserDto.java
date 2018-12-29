@@ -1,8 +1,12 @@
 package com.daniel.iflostfind.dto;
 
+import com.daniel.iflostfind.util.annotation.PasswordMatches;
+import com.daniel.iflostfind.util.annotation.ValidEmail;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+@PasswordMatches
 public class UserDto {
 
     @NotNull
@@ -17,10 +21,13 @@ public class UserDto {
     @NotEmpty
     private String password;
 
+    @NotNull
+    @NotEmpty
     private String matchingPassword;
 
     @NotNull
     @NotEmpty
+    @ValidEmail
     private String email;
 
     @NotNull
