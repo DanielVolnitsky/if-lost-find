@@ -36,7 +36,7 @@ public class SignUpController {
         return "signup";
     }
 
-    //TODO add email check
+
     //TODO add passwords matching check
     @PostMapping(path = "/signup")
     public ModelAndView signUp(@ModelAttribute("user") @Valid UserDto userDto, BindingResult bindingResult) {
@@ -51,12 +51,8 @@ public class SignUpController {
             bindingResult.rejectValue("email", "user with this email already exists");
         }
 
-        //TODO discover how to display errors in html
-        if (bindingResult.hasErrors()) {
-            return new ModelAndView("signup", "user", userDto);
-        } else {
-            return new ModelAndView("login", "user", userDto);
-        }
+        String viewName = bindingResult.hasErrors() ? "signup" : "login";
+        return new ModelAndView(viewName, "user", userDto);
     }
 
     private User registerNewUserAccount(UserDto userDto) {

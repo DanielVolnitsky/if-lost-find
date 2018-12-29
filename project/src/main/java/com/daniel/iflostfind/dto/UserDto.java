@@ -1,5 +1,7 @@
 package com.daniel.iflostfind.dto;
 
+import com.daniel.iflostfind.annotation.ValidEmail;
+
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
@@ -21,6 +23,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
+    @ValidEmail
     private String email;
 
     @NotNull
