@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en"
-      xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="UTF-8">
@@ -19,9 +17,9 @@
     <div class="ui large top fixed hidden menu">
         <div class="ui container">
             <a class="active item">Home</a>
-            <a class="item">Work</a>
-            <a class="item">Company</a>
-            <a class="item">Careers</a>
+            <a class="item">Map</a>
+            <a class="item">Feed</a>
+            <a class="item">About</a>
             <div class="right menu">
                 <div class="item">
                     <a class="ui button">Log in</a>
@@ -36,9 +34,9 @@
     <!-- Sidebar Menu -->
     <div class="ui vertical inverted sidebar menu">
         <a class="active item">Home</a>
-        <a class="item">Work</a>
-        <a class="item">Company</a>
-        <a class="item">Careers</a>
+        <a class="item">Map</a>
+        <a class="item">Feed</a>
+        <a class="item">About</a>
         <a class="item">Login</a>
         <a class="item">Signup</a>
     </div>
@@ -53,10 +51,10 @@
                     <a class="toc item">
                         <i class="sidebar icon"></i>
                     </a>
-                    <a class="active item">Home</a>
+                    <a class="active item" th:href="@{/}">Home</a>
                     <a class="item">Map</a>
-                    <a class="item">Service</a>
-                    <a class="item">About</a>
+                    <a class="item">Feed</a>
+                    <a class="item" th:href="@{/about}">About</a>
 
                     <!-- This section is visible for anonymous user-->
                     <div class="right item" sec:authorize="isAnonymous()">
@@ -98,7 +96,8 @@
                 <div class="row">
                     <div class="eight wide column">
                         <h3 class="ui header">We Help Peoples</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aperiam, minima quod sint vel vero.</p>
+                        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquid aperiam, minima quod sint
+                            vel vero.</p>
                         <h3 class="ui header">Ass We Can</h3>
                         <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ea, sequi.</p>
                     </div>
@@ -135,13 +134,16 @@
         <div class="ui vertical stripe segment">
             <div class="ui text container">
                 <h3 class="ui header">Lorem ipsum dolor sit amet, consectetur adipisicing.n</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos enim, est eveniet illum incidunt nisi non officia perspiciatis placeat repellat sed similique voluptates voluptatibus?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos enim, est eveniet illum
+                    incidunt nisi non officia perspiciatis placeat repellat sed similique voluptates voluptatibus?</p>
                 <a class="ui custom-green large button">Read More</a>
                 <h4 class="ui horizontal header divider">
                     <a href="#" class="custom-link">Case</a>
                 </h4>
                 <h3 class="ui header">Lorem ipsum dolor sit amet.</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eaque error ipsa minus, neque optio quas sunt ullam unde! Alias consequuntur delectus dolorum ipsum odit praesentium suscipit, voluptatum?</p>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dignissimos eaque error ipsa minus, neque
+                    optio quas sunt ullam unde! Alias consequuntur delectus dolorum ipsum odit praesentium suscipit,
+                    voluptatum?</p>
                 <a class="ui custom-green large button">Lorem ipsum dolor sit amet.</a>
             </div>
         </div>
@@ -159,7 +161,7 @@
                         </div>
                     </div>
                     <div class="three wide column">
-                        <h4 class="ui inverted header">Services</h4>
+                        <h4 class="ui inverted header">Feeds</h4>
                         <div class="ui inverted link list">
                             <a href="#" class="item">FAQ</a>
                             <a href="#" class="item">How To Access</a>
@@ -176,12 +178,9 @@
     </div>
 
     <!-- Scripts -->
-
-
     <script th:src="@{/libs/jQuery/jquery.js}"></script>
     <script th:src="@{/js/map.js}"></script>
-    <script async defer
-            src="https://maps.googleapis.com/maps/api/js?token"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?token"></script>
     <script th:src="@{/libs/semantic/semantic.js}"></script>
 
 </body>

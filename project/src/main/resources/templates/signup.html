@@ -1,7 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
-      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="utf-8" />
@@ -28,9 +26,8 @@
                             <i class="user circle icon"></i>
                             <input th:field="*{firstName}" type="text" name="name" placeholder="Name">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('firstName')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('firstName')}"
+                            th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
@@ -39,9 +36,8 @@
                             <i class="user icon"></i>
                             <input th:field="*{lastName}" type="text" name="last_name" placeholder="Surname">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('lastName')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('lastName')}"
+                            th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
@@ -50,9 +46,7 @@
                             <i class="envelope icon"></i>
                             <input th:field="*{email}" type="email" name="email" placeholder="E-mail">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('email')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('email')}" th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
@@ -61,9 +55,7 @@
                             <i class="flag icon"></i>
                             <input th:field="*{country}" type="text" name="country" placeholder="Country">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('country')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('country')}" th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
@@ -72,9 +64,7 @@
                             <i class="building icon"></i>
                             <input th:field="*{city}" type="text" name="city" placeholder="City">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('city')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('city')}" th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
@@ -83,20 +73,19 @@
                             <i class="lock icon"></i>
                             <input th:field="*{password}" type="password" id="password" name="password" placeholder="Password">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('password')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('password')}"
+                            th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="lock icon"></i>
-                            <input th:field="*{matchingPassword}" type="password" id="password_confirm" name="password_confirm" placeholder="Confirm password">
+                            <input th:field="*{matchingPassword}" type="password" id="password_confirm" name="password_confirm"
+                                placeholder="Confirm password">
                         </div>
-                        <div class="ui pointing red basic label"
-                             th:each="error : ${#fields.errors('password')}"
-                             th:text="${error}">
+                        <div class="ui pointing red basic label" th:each="error : ${#fields.errors('password')}"
+                            th:text="${error}">
                             Please enter a value
                         </div>
                     </div>
