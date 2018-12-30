@@ -7,7 +7,7 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
-    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link th:href="@{/css/page.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -52,7 +52,7 @@
                     </a>
                     <a class="item" th:href="@{/}">Home</a>
                     <a class="item">Map</a>
-                    <a class="item">Feed</a>
+                    <a class="item" th:href=@{/feed}>Feed</a>
                     <a class="active item" th:href="@{/about}">About</a>
 
                     <!-- This section is visible for anonymous user-->
@@ -70,10 +70,6 @@
                     <!-- end -->
 
                 </div>
-            </div>
-            <div class="ui text container">
-                <h1 class="ui inverted header">IfLostFound.java</h1>
-                <h2>About</h2>
             </div>
         </div>
     </div>
