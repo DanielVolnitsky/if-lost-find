@@ -6,9 +6,13 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    @GetMapping(path = "/index")
+    static final String INDEX_PATH = "/index";
+    static final String INDEX_PAGE = "index";
+
+    @GetMapping(path = INDEX_PATH)
     public String homePage() {
-        return "index";
+        return INDEX_PAGE;
     }
+
 }
 

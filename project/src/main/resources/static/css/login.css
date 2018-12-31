@@ -1,0 +1,40 @@
+body {
+    background-color: #4d4947;
+}
+
+body>.grid {
+    height: 100%;
+}
+
+a {
+    color: #68bd45;
+}
+
+a:hover {
+    color: #77c458;
+    text-decoration: none;
+}
+
+.column {
+    max-width: 450px;
+}
+
+.ui.teal.header {
+    color: #68bd45 !important;
+}
+
+.ui.teal.buttons .button, .ui.teal.button {
+    background-color: #68bd45;
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
+.ui.teal.buttons .button:hover, .ui.teal.button:hover {
+    background-color: #77c458;
+    color: #FFFFFF;
+    text-shadow: none;
+}
+
+.ui.form .fields .field .ui.input input, .ui.form .field .ui.input input:focus {
+    border-color: #68bd45;
+}

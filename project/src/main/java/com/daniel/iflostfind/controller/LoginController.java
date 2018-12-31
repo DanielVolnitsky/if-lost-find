@@ -1,20 +1,18 @@
 package com.daniel.iflostfind.controller;
 
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import com.daniel.iflostfind.util.annotation.NotAccessibleIfAuthenticated;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
+@NotAccessibleIfAuthenticated
 public class LoginController {
 
-    @GetMapping(path = "/login")
+    static final String LOGIN_PATH = "/login";
+    static final String LOGIN_PAGE = "login";
+
+    @GetMapping(path = LOGIN_PATH)
     public String toLoginPage() {
-        Authentication a = SecurityContextHolder.getContext().getAuthentication();
-        if (!(a instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/index";
-        }
-        return "login";
+        return LOGIN_PAGE;
     }
 }

@@ -1,7 +1,7 @@
 package com.daniel.iflostfind;
 
-import com.daniel.iflostfind.domain.Person;
-import com.daniel.iflostfind.repository.PersonRepository;
+import com.daniel.iflostfind.domain.User;
+import com.daniel.iflostfind.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -10,11 +10,11 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class IfLostFindApplication implements CommandLineRunner {
 
-    private final PersonRepository personRepository;
+    private final UserRepository userRepository;
 
     @Autowired
-    public IfLostFindApplication(PersonRepository personRepository) {
-        this.personRepository = personRepository;
+    public IfLostFindApplication(UserRepository userRepository) {
+        this.userRepository = userRepository;
     }
 
     public static void main(String[] args) {
@@ -23,7 +23,21 @@ public class IfLostFindApplication implements CommandLineRunner {
 
     @Override
     public void run(String... args) {
-        personRepository.save(new Person("k", "k"));
-        personRepository.save(new Person("d", "d"));
+
+        User dan = User.builder()
+            .name("d").lastName("v")
+            .email("d@m.com").password("dddddd")
+            .country("c").city("c")
+            .build();
+
+        userRepository.save(dan);
+
+        User kir = User.builder()
+            .name("k").lastName("a")
+            .email("test@test.com").password("Qwerty1234567")
+            .country("c").city("c")
+            .build();
+
+        userRepository.save(kir);
     }
 }
