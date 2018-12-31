@@ -16,7 +16,7 @@
     <div class="ui large top fixed hidden menu">
         <div class="ui container">
             <a class="item" th:href="@{/}">Home</a>
-            <a class="item">Map</a>
+            <a class="item" th:href="@{/map}">Map</a>
             <a class="item">Feed</a>
             <a class="active item" th:href="@{/about}">About</a>
             <div class="right menu">
@@ -52,8 +52,7 @@
                     </a>
                     <a class="item" th:href="@{/}">Home</a>
                     <a class="item">Map</a>
-                    <a class="item" th:href=@{/feed}>Feed</a>
-                    <a class="active item" th:href="@{/about}">About</a>
+                    <a class="item" th:href=@{/feed}>Feed </a> <a class="active item" th:href="@{/about}">About</a>
 
                     <!-- This section is visible for anonymous user-->
                     <div class="right item" sec:authorize="isAnonymous()">

@@ -1,0 +1,44 @@
+.ui.attached.menu:not(.tabular) {
+    border: 1px solid #68bd68;
+    background: #4d4947;
+}
+
+.ui.inverted.menu {
+    background: #4d4947;
+}
+
+.ui.inverted.icon.menu .item {
+    color: #ffffff;
+}
+
+.ui.link.inverted.menu .item:hover,
+.ui.inverted.menu .dropdown.item:hover,
+.ui.inverted.menu .link.item:hover,
+.ui.inverted.menu a.item:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #68bd45;
+}
+
+.ui.link.menu .item,
+.ui.menu .dropdown.item,
+.ui.menu .link.item,
+.ui.menu a.item {
+    color: #ffffff;
+}
+
+.ui.link.menu .item:hover,
+.ui.menu .dropdown.item:hover,
+.ui.menu .link.item:hover,
+.ui.menu a.item:hover {
+    cursor: pointer;
+    color: #68bd68;
+}
+
+.ui.inverted.menu .item,
+.ui.inverted.menu .item>a:not(.ui) {
+    color: #ffffff;
+}
+
+#map {
+    height: 100%;
+}

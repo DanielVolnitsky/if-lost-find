@@ -7,51 +7,44 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
-    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link th:href="@{/css/map.css}" rel="stylesheet">
 </head>
 
 <body>
+
     <div class="ui top attached demo menu">
         <a class="item">
-            <i class="sidebar icon"></i>
-            Menu
+            <i class="sidebar icon"></i> Menu
         </a>
     </div>
-    <div class="ui bottom attached segment pushable">
-        <div class="ui inverted labeled icon left inline vertical sidebar menu" style="">
-            <a class="item">
-                <i class="home icon"></i>
-                Home
+    <div class="ui bottom attached segment">
+        <div class="ui inverted labeled icon left inline vertical demo sidebar menu">
+            <a class="item" th:href="@{/}">
+                <i class="home icon"></i> Home
             </a>
-            <a class="item">
-                <i class="block layout icon"></i>
-                Topics
+            <a class="item" th:href="@{/map}">
+                <i class="search icon"></i> Search
             </a>
-            <a class="item">
-                <i class="smile icon"></i>
-                Friends
+            <a class="item" th:href="@{/feed.html}">
+                <i class="map outline icon"></i> Feed
             </a>
-            <a class="item">
-                <i class="calendar icon"></i>
-                History
+            <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+                <i class="sign-out icon"></i> Log Out
             </a>
         </div>
         <div class="pusher">
             <div class="ui basic segment">
-                <h3 class="ui header">Application Content</h3>
-                <p></p>
-                <p></p>
-                <p></p>
-                <p></p>
+                <div class="ui embed" id="map" data-source="google-maps"></div>
             </div>
         </div>
     </div>
 
+
     <!-- Scripts -->
     <script th:src="@{/libs/jQuery/jquery.js}"></script>
-    <script th:src="@{/js/map.js}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?token"></script>
     <script th:src="@{/libs/semantic/semantic.js}"></script>
+    <script th:src="@{/js/map.js}"></script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=token&callback=initMap"></script>
 
 </body>
 
