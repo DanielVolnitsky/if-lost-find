@@ -42,3 +42,18 @@
 #map {
     height: 100%;
 }
+
+.ui.grid>.column:not(.row) {
+    padding-top: 1.7rem;
+    padding-bottom: 1.7rem;
+}
+
+.ui.grid>.column:not(.row),
+.ui.grid>.row>.column {
+    padding-left: 1.7rem;
+    padding-right: 1.7rem;
+}
+
+.ui.form .six.wide.field {
+    width: 100% !important;
+}

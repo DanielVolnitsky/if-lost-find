@@ -45,3 +45,21 @@ function initMap() {
 $('.ui.sidebar').sidebar({
     context: $('.bottom.segment')
 }).sidebar('attach events', '.menu .item');
+
+$(function () {
+    $("#formular").click(function () {
+        $(".popyup").modal('show');
+    });
+    $(".popyup").modal({
+        closable: true
+    });
+});
+
+$('.ui.form .ui.selection.dropdown').dropdown({
+    clearable: true
+});
+
+$('.clearable.example .ui.inline.dropdown').dropdown({
+    clearable: true,
+    placeholder: 'any'
+});

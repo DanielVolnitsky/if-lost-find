@@ -7,20 +7,26 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
+    <link th:href="@{/css/login.css}" rel="stylesheet">
     <link th:href="@{/css/map.css}" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="ui top attached demo menu">
+    <div class="ui top attached menu">
         <a class="item">
             <i class="sidebar icon"></i> Menu
         </a>
     </div>
     <div class="ui bottom attached segment">
-        <div class="ui inverted labeled icon left inline vertical demo sidebar menu">
+        <div class="ui inverted labeled icon left inline vertical sidebar menu">
             <a class="item" th:href="@{/}">
                 <i class="home icon"></i> Home
+            </a>
+            <a class="item" id="formular">
+                <i class="compass icon"></i> Add
+                <div class="ui modal popyup" th:insert="~{request_form :: popupform}">
+                </div>
             </a>
             <a class="item" th:href="@{/map}">
                 <i class="search icon"></i> Search
