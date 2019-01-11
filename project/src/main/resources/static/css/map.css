@@ -57,3 +57,11 @@
 .ui.form .six.wide.field {
     width: 100% !important;
 }
+
+#infowindow-content {
+    display: none;
+}
+#map #infowindow-content {
+    display: inline;
+}
+

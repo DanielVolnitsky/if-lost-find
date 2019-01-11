@@ -10,6 +10,6 @@ public class FeedController {
     final String FEED_PAGE = "feed";
 
     @GetMapping(path = FEED_PATH)
-    public String toFeedPage() { return FEED_PAGE;}
+    public String toFeedPage() { return FEED_PAGE; }
 
 }

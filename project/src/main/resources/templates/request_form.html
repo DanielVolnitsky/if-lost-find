@@ -4,7 +4,7 @@
 
 <body>
 
-    <div class="ui middle aligned center aligned grid" th:fragment="popupform">
+    <div class="ui middle aligned center aligned grid" id="requestForm" th:fragment="popupform">
         <div class="column">
             <form class="ui form">
                 <h4 class="ui dividing header">Information</h4>
@@ -23,7 +23,7 @@
                     <label>Address</label>
                     <div class="fields">
                         <div class="twelve wide field">
-                            <input type="text" name="city" placeholder="City">
+                            <input type="text" name="city" placeholder="City" id="cityInputId">
                         </div>
                         <div class="four wide field">
                             <input type="text" name="street" placeholder="Street">
@@ -378,7 +378,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="ui positive basic button">Submit Request</div>
+                <div class="ui positive basic button" id="submitButton">Submit Request</div>
             </form>
         </div>
     </div>
