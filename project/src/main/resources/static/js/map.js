@@ -8,10 +8,12 @@ function initMap() {
     let map = new google.maps.Map(
         document.getElementById('map'), {
             zoom: 20,
-            center: planetarium
+            center: planetarium,
+            streetViewControl: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         });
 
-    let geoInput = document.getElementById("cityInputId");
+    let geoInput = document.getElementById("geosearch");
 
     let autocomplete = new google.maps.places.Autocomplete(geoInput);
     autocomplete.bindTo('bounds', map);
@@ -56,7 +58,11 @@ function initMap() {
         infowindow.open(map, marker);
     });
 
-    document.getElementById("submitButton").addEventListener('click', () => {
+    geoInput.addEventListener('click', () => {
+        geoInput.value = '';
+    });
+
+    document.getElementById("submitIcon").addEventListener('click', () => {
         infowindow.close();
         let place = autocomplete.getPlace();
         if (!place.geometry) {
@@ -79,8 +85,7 @@ function initMap() {
 
         infowindowContent.children['place-name'].textContent = place.name;
         infowindowContent.children['place-id'].textContent = place.place_id;
-        infowindowContent.children['place-address'].textContent =
-            place.formatted_address;
+        infowindowContent.children['place-address'].textContent = place.formatted_address;
         infowindow.open(map, marker);
     });
 
@@ -88,7 +93,7 @@ function initMap() {
 
 $('.ui.sidebar').sidebar({
     context: $('.bottom.segment')
-}).sidebar('attach events', '.menu .item');
+}).sidebar('attach events', '.menu .menu-item');
 
 $(function () {
     $("#formular").click(function () {

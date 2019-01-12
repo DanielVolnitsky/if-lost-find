@@ -58,6 +58,12 @@
     width: 100% !important;
 }
 
+.pushable {
+    height: 90%;
+    overflow-x: hidden;
+    padding: 0em !important;
+}
+
 #infowindow-content {
     display: none;
 }
