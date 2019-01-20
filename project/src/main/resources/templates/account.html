@@ -42,8 +42,74 @@
             </div>
         </div>
     </div>
-    <h1 sec:authorize="isAnonymous()">Hello, World!</h1>
-    <h2 sec:authorize="isAuthenticated()" sec:authentication="name"></h2>
+    <h1 sec:authorize="isAnonymous()">Please Login</h1>
+    <div class="ui vertical stripe segment" sec:authorize="isAuthenticated()">
+        <div class="ui equal width stackable internally celled grid">
+            <div class="center aligned row">
+                <div class="column">
+                    <div class="ui centered card">
+                        <div class="image">
+                            <img th:src="@{/images/user.svg}">
+                        </div>
+                        <div class="meta">
+                            <a>Edit Profile</a>
+                        </div>
+                        <div class="content">
+                            <i class="ug flag"></i>
+                            <a class="header" sec:authentication="name"></a>
+                        </div>
+                        <div class="extra content">
+                            <span class="right floated">
+                                Joined in 2018
+                            </span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column">
+                    <h3>Active requests.</h3>
+                    <table class="ui green table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Place</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Pen</td>
+                                <td>Irpien</td>
+                                <td>15$</td>
+                            </tr>
+                            <tr>
+                                <td>Phone</td>
+                                <td>Kiev</td>
+                                <td>100$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                    <h3>My requests.</h3>
+                    <table class="ui green table">
+                        <thead>
+                            <tr>
+                                <th>Item</th>
+                                <th>Place</th>
+                                <th>Price</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Apple</td>
+                                <td>Lviv</td>
+                                <td>1,99$</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Scripts -->
     <script th:src="@{/libs/jQuery/jquery.js}"></script>
