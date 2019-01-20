@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>ILF</title>
+    <title>ILF | Log In</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
     <link th:href="@{/css/login.css}" rel="stylesheet">
@@ -21,6 +21,9 @@
             </h2>
             <form class="ui large form" th:action="@{/login}" method="post">
                 <div class="ui stacked segment">
+                    <div th:if="${param.error}">
+                        <div class="ui red message">Invalid username or password.</div>
+                    </div>
                     <div class="field">
                         <div class="ui left icon input">
                             <i class="user icon"></i>
@@ -39,7 +42,7 @@
                 <div class="ui error message"></div>
 
             </form>
-
+            <!-- <div class="ui error message" th:if="${param.error}"></div> -->
             <div class="ui message">
                 New to us? <a th:href="@{/signup}">Sign Up</a>
             </div>

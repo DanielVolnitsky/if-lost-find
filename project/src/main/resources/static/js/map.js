@@ -44,7 +44,6 @@ function initMap() {
         map: map,
         draggable: true,
         animation: google.maps.Animation.DROP,
-        // title: "Planetarium",
         icon: '../images/dolma.png',
     });
 

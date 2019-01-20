@@ -64,6 +64,10 @@
     padding: 0em !important;
 }
 
+.ui.icon.input > input {
+    padding-right: 10.67142857em !important;
+}
+
 #infowindow-content {
     display: none;
 }
