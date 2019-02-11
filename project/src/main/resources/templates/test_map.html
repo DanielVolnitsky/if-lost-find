@@ -3,41 +3,33 @@
       xmlns="http://www.w3.org/1999/xhtml">
 
 <head>
-    <title>Simple Map</title>
-    <meta name="viewport" content="initial-scale=1.0">
+    <title>Test map</title>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <style>
-        /* Always set the map height explicitly to define the size of the div
-         * element that contains the map. */
-        #map {
-            height: 100%;
-        }
-
-        /* Optional: Makes the sample page fill the window. */
-        html, body {
-            height: 95%;
-            margin: 40px 5px 5px 5px;
-            padding: 0;
-        }
-    </style>
+    <link th:href="@{/css/test_map.css}" rel="stylesheet">
 </head>
 <body>
+<div class="pac-card" id="pac-card">
+    <div>
+        <div id="title">
+            Enter your location:
+        </div>
+    </div>
+    <div id="pac-container">
+        <input id="location-input" type="text" placeholder="Enter a location">
+    </div>
+</div>
 <div id="map"></div>
+<div id="infowindow-content">
+    <img src="" width="16" height="16" id="place-icon">
+    <span id="place-name"  class="title"></span><br>
+    <span id="place-address"></span>
+</div>
 
-<script>
-    var map;
-
-    function initMap() {
-        map = new google.maps.Map(document.getElementById('map'), {
-            center: {lat: 50.5166516, lng: 30.2500322},
-            zoom: 17
-        });
-    }
-</script>
-
+<script th:src="@{/libs/jQuery/jquery.js}"></script>
+<script th:src="@{/js/test_map.js}"></script>
 <script async defer
-        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, callback='initMap')}">
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}">
 </script>
-
 </body>
 </html>
