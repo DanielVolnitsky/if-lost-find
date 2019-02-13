@@ -9,10 +9,15 @@
     <link th:href="@{/css/test_map.css}" rel="stylesheet">
 </head>
 <body>
+<form th:action="@{/test}" method="post">
+    <input type="hidden" name="latitude">
+    <input type="hidden" name="longitude">
+    <button>Submit</button>
+</form>
 <div class="pac-card" id="pac-card">
     <div>
         <div id="title">
-            Enter your location:
+            Enter location:
         </div>
     </div>
     <div id="pac-container">

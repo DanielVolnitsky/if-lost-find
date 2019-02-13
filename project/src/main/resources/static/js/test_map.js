@@ -12,15 +12,10 @@ $(function () {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(locationInputBlock);
 
     var autocomplete = new google.maps.places.Autocomplete(locationInput);
-
-    // Bind the map's bounds (viewport) property to the autocomplete object,
-    // so that the autocomplete requests use the current map bounds for the
-    // bounds option in the request.
     autocomplete.bindTo('bounds', map);
 
     // Set the data fields to return when the user selects a place.
-    autocomplete.setFields(
-        ['address_components', 'geometry', 'icon', 'name']);
+    autocomplete.setFields(['address_components', 'geometry', 'icon', 'name']);
 
     var locationInfoWindow = new google.maps.InfoWindow();
     var locationInfoWindowContent = document.getElementById('infowindow-content');
@@ -49,6 +44,13 @@ $(function () {
             map.setCenter(place.geometry.location);
             map.setZoom(17);  // Why 17? Because it looks good.
         }
+
+        var latitude = place.geometry.location.lat();
+        var longitude = place.geometry.location.lng();
+
+        $('input[name=latitude]').val(latitude);
+        $('input[name=longitude]').val(longitude);
+
         marker.setPosition(place.geometry.location);
         marker.setVisible(true);
 

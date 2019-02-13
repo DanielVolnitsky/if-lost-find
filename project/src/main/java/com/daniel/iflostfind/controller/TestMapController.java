@@ -5,6 +5,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class TestMapController {
@@ -26,5 +28,11 @@ public class TestMapController {
         model.addAttribute("google_map_key", key);
 
         return TEST_MAP_PAGE;
+    }
+
+    @PostMapping(path = TEST_MAP_PAGE_PATH)
+    public String getLostItemData(@RequestParam("latitude") String lat, @RequestParam("longitude") String lng) {
+
+        return "redirect:" + TEST_MAP_PAGE_PATH;
     }
 }
