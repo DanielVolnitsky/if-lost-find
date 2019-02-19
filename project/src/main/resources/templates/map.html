@@ -7,45 +7,91 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
+    <link th:href="@{/libs/fullpage/fullpage.css}" rel="stylesheet">
+    <link th:href="@{/css/page.css}" rel="stylesheet">
     <link th:href="@{/css/map.css}" rel="stylesheet">
 </head>
 
 <body>
+    <div class="ui inverted vertical center aligned segment">
+        <div class="ui container">
+            <div class="ui large secondary inverted pointing menu">
+                <a class="toc item">
+                    <i class="sidebar icon"></i>
+                </a>
+                <a class="item" th:href="@{/}">Home</a>
+                <a class="active  item" th:href="@{/map}">Map</a>
+                <a class="item" th:href="@{/feed}">Feed</a>
+                <a class="item" th:href="@{/about}">About</a>
 
-    <div class="ui top attached demo menu">
-        <a class="item">
-            <i class="sidebar icon"></i> Menu
-        </a>
-    </div>
-    <div class="ui bottom attached segment">
-        <div class="ui inverted labeled icon left inline vertical demo sidebar menu">
-            <a class="item" th:href="@{/}">
-                <i class="home icon"></i> Home
-            </a>
-            <a class="item" th:href="@{/map}">
-                <i class="search icon"></i> Search
-            </a>
-            <a class="item" th:href="@{/feed.html}">
-                <i class="map outline icon"></i> Feed
-            </a>
-            <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()">
-                <i class="sign-out icon"></i> Log Out
-            </a>
-        </div>
-        <div class="pusher">
-            <div class="ui basic segment">
-                <div class="ui embed" id="map" data-source="google-maps"></div>
+                <!-- This section is visible for anonymous user-->
+                <div class="right item" sec:authorize="isAnonymous()">
+                    <a class="ui inverted button" th:href="@{/login}">Log in</a>
+                    <a class="ui inverted button" th:href="@{/signup}">Sign Up</a>
+                </div>
+                <!-- end -->
+
+                <!-- This section is visible for authenticated user-->
+                <div class="right item" sec:authorize="isAuthenticated()">
+                    <a class="ui inverted button" th:href="@{/login}">Account</a>
+                    <a class="ui inverted button" th:href="@{/logout}">Log out</a>
+                </div>
+                <!-- end -->
+
             </div>
         </div>
     </div>
-
+    <div id="fullpage">
+        <div class="section">
+            <div class="ui center aligned container form-container">
+                <h1>Information</h1>
+                <form class="ui form segment">
+                    <div class="field">
+                        <label>Place</label>
+                        <input id="autocomplete" type="text" placeholder="Search..." onfocus="geolocate()">
+                    </div>
+                    <div class="field">
+                        <label>Title</label>
+                        <input type="text" name="title" placeholder="Title">
+                    </div>
+                    <div class="field" style="position: relative;">
+                        <label>Short description</label>
+                        <textarea rows="2"></textarea>
+                    </div>
+                    <div class="field">
+                        <label>Type</label>
+                        <div class="ui selection dropdown">
+                            <input type="hidden" name="type">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Type</div>
+                            <div class="menu">
+                                <div class="item" data-value="1">A</div>
+                                <div class="item" data-value="2">B</div>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="ui positive button" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+        <div class="section">
+            <div id="map"></div>
+        </div>
+        <div class="section">
+            <div class="tenor-gif-embed" data-postid="13427812" data-share-method="host" data-width="100%"
+                data-aspect-ratio="1.6071428571428572"><a href="https://tenor.com/view/naruto-ricardo-kurama-milos-meme-gif-13427812">Naruto
+                    Ricardo Kurama GIF</a> from
+                <a href="https://tenor.com/search/naruto-gifs">Naruto GIFs</a></div>
+            <script type="text/javascript" async src="https://tenor.com/embed.js"></script>
+        </div>
+    </div>
 
     <!-- Scripts -->
     <script th:src="@{/libs/jQuery/jquery.js}"></script>
     <script th:src="@{/libs/semantic/semantic.js}"></script>
+    <script th:src="@{/libs/fullpage/fullpage.js}"></script>
     <script th:src="@{/js/map.js}"></script>
-    <script async defer
-            th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, callback='initMap')}"></script>
+    <script async defer th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
 
 </body>
 
