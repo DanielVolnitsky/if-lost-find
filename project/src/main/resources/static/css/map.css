@@ -40,44 +40,6 @@
 }
 
 #map {
-<<<<<<< HEAD
     height: 85%;
     margin-top: 10px;
 }
-=======
-    height: 100%;
-}
-
-.ui.grid>.column:not(.row) {
-    padding-top: 1.7rem;
-    padding-bottom: 1.7rem;
-}
-
-.ui.grid>.column:not(.row),
-.ui.grid>.row>.column {
-    padding-left: 1.7rem;
-    padding-right: 1.7rem;
-}
-
-.ui.form .six.wide.field {
-    width: 100% !important;
-}
-
-.pushable {
-    height: 90%;
-    overflow-x: hidden;
-    padding: 0em !important;
-}
-
-.ui.icon.input > input {
-    padding-right: 10.67142857em !important;
-}
-
-#infowindow-content {
-    display: none;
-}
-#map #infowindow-content {
-    display: inline;
-}
-
->>>>>>> c325aac74ca57a86bd5290f2b7df889c3996dd1e

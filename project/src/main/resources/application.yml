@@ -12,8 +12,4 @@ spring:
 #
 hidden:
   file:
-<<<<<<< HEAD
     path: "project/src/main/resources/hidden/hidden.json"
-=======
-    path: "/home/daniel/Programs/java/IfLostFind/project/src/main/resources/hidden/hidden.json"
->>>>>>> c325aac74ca57a86bd5290f2b7df889c3996dd1e
