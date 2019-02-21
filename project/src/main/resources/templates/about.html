@@ -63,7 +63,7 @@
 
                     <!-- This section is visible for authenticated user-->
                     <div class="right item" sec:authorize="isAuthenticated()">
-                        <a class="ui inverted button" th:href="@{/login}">Account</a>
+                        <a class="ui inverted button" th:href="@{/account}">Account</a>
                         <a class="ui inverted button" th:href="@{/logout}">Log out</a>
                     </div>
                     <!-- end -->

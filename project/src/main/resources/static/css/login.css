@@ -38,3 +38,7 @@ a:hover {
 .ui.form .fields .field .ui.input input, .ui.form .field .ui.input input:focus {
     border-color: #68bd45;
 }
+
+.ui.form .message:first-child {
+    margin-bottom: 15px;
+}

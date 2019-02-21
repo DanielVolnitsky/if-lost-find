@@ -7,13 +7,18 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
+<<<<<<< HEAD
     <link th:href="@{/libs/fullpage/fullpage.css}" rel="stylesheet">
     <link th:href="@{/css/page.css}" rel="stylesheet">
+=======
+    <link th:href="@{/css/login.css}" rel="stylesheet">
+>>>>>>> c325aac74ca57a86bd5290f2b7df889c3996dd1e
     <link th:href="@{/css/map.css}" rel="stylesheet">
 </head>
 
 <body>
 
+<<<<<<< HEAD
     <div id="fullpage">
         <div class="section">
             <div class="ui center aligned container">
@@ -60,6 +65,44 @@
                     <button class="ui positive button" type="submit">Submit</button>
                 </form>
             </div>
+=======
+    <div class="ui top attached menu">
+        <a class="item menu-item">
+            <i class="sidebar icon"></i> Menu
+        </a>
+        <div class="right menu">
+            <div class="item">
+                <div class="ui icon input">
+                    <input type="text" placeholder="Search..." id="geosearch">
+                    <i class="search link icon" id="submitIcon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="ui bottom attached segment">
+        <div class="ui inverted labeled icon left inline vertical sidebar menu">
+            <a class="item menu-item" th:href="@{/}">
+                <i class="home icon"></i> Home
+            </a>
+            <a class="item menu-item" id="formular">
+                <i class="compass icon"></i> Add
+                <div class="ui modal popyup" th:insert="~{request_form :: popupform}">
+                </div>
+            </a>
+            <a class="item menu-item" th:href="@{/map}">
+                <i class="search icon"></i> Search
+            </a>
+            <a class="item menu-item" th:href="@{/feed}">
+                <i class="map outline icon"></i> Feed
+            </a>
+            <a class="item menu-item" th:href="@{/logout}" sec:authorize="isAuthenticated()">
+                <i class="sign-out icon"></i> Log Out
+            </a>
+        </div>
+        <div class="pusher">
+            <div class="ui embed" id="map" data-source="google-maps"></div>
+>>>>>>> c325aac74ca57a86bd5290f2b7df889c3996dd1e
         </div>
         <div class="section">
             <div class="ui center aligned container tenor-gif-embed" data-postid="13427812" data-share-method="host"
@@ -70,12 +113,26 @@
         </div>
     </div>
 
+<<<<<<< HEAD
+=======
+    <div id="infowindow-content">
+        <span id="place-name"  class="title"></span><br>
+        Place ID <span id="place-id"></span><br>
+        <span id="place-address"></span>
+    </div>
+
+>>>>>>> c325aac74ca57a86bd5290f2b7df889c3996dd1e
     <!-- Scripts -->
     <script th:src="@{/libs/jQuery/jquery.js}"></script>
     <script th:src="@{/libs/semantic/semantic.js}"></script>
     <script th:src="@{/libs/fullpage/fullpage.js}"></script>
     <script th:src="@{/js/map.js}"></script>
+<<<<<<< HEAD
     <script async defer th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
+=======
+    <script async defer
+            th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
+>>>>>>> c325aac74ca57a86bd5290f2b7df889c3996dd1e
 
 </body>
 

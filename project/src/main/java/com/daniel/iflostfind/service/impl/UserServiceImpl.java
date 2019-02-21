@@ -28,14 +28,13 @@ public class UserServiceImpl implements UserService {
             throw new UserAlreadyExistsException("There is already a user with email - " + dto.getEmail() + " in the system");
         }
 
-        User user = User.builder()
-            .name(dto.getFirstName())
-            .lastName(dto.getLastName())
-            .email(dto.getEmail())
-            .password(dto.getPassword())
-            .city(dto.getCity())
-            .country(dto.getCountry())
-            .build();
+        User user = new User();
+        user.setName(dto.getFirstName());
+        user.setLastName(dto.getLastName());
+        user.setEmail(dto.getEmail());
+        user.setPassword(dto.getPassword());
+        user.setCountry(dto.getCountry());
+        user.setCity(dto.getCity());
 
         return userRepository.save(user);
     }

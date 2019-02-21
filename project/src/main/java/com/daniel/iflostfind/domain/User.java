@@ -1,15 +1,16 @@
 package com.daniel.iflostfind.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 @Entity
 @Table(name = "person")
 public class User {
 
-    @Column
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id;
 
     @Column(unique = true, nullable = false)
@@ -31,78 +32,98 @@ public class User {
     @Column(nullable = false)
     private String city;
 
-    User() {
+    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<MissingItem> losses = new ArrayList<>();
 
+    @OneToMany(mappedBy = "finder", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<MissingItem> finds = new ArrayList<>();
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getEmail() {
         return email;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getLastName() {
         return lastName;
     }
 
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public String getCountry() {
         return country;
     }
 
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
     public String getCity() {
         return city;
     }
 
-    public static Builder builder() {
-        return new User().new Builder();
+    public void setCity(String city) {
+        this.city = city;
     }
 
-    public class Builder {
+    public List<MissingItem> getLosses() {
+        return new ArrayList<>(losses);
+    }
 
-        private Builder() {
-
+    public void addLoss(MissingItem l) {
+        if (Objects.isNull(l)) {
+            throw new NullPointerException("Attempt to add nullable loss");
+        }
+        if (Objects.nonNull(l.getOwner())) {
+            throw new IllegalStateException("Loss is already owned by another person");
         }
 
-        public Builder name(String name) {
-            User.this.name = name;
-            return this;
+        losses.add(l);
+        l.setOwner(this);
+    }
+
+    public List<MissingItem> getFinds() {
+        return new ArrayList<>(finds);
+    }
+
+    public void addFind(MissingItem f) {
+        if (Objects.isNull(f)) {
+            throw new NullPointerException("Attempt to add nullable find");
+        }
+        if (Objects.nonNull(f.getOwner())) {
+            throw new IllegalStateException("Find is already owned by another person");
         }
 
-        public Builder lastName(String lastName) {
-            User.this.lastName = lastName;
-            return this;
-        }
-
-        public Builder password(String password) {
-            User.this.password = password;
-            return this;
-        }
-
-        public Builder email(String email) {
-            User.this.email = email;
-            return this;
-        }
-
-        public Builder country(String country) {
-            User.this.country = country;
-            return this;
-        }
-
-        public Builder city(String city) {
-            User.this.city = city;
-            return this;
-        }
-
-        //TODO add validation
-        public User build() {
-            return User.this;
-        }
+        finds.add(f);
+        f.setFinder(this);
     }
 
     @Override
