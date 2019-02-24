@@ -48,11 +48,11 @@
 <div id="fullpage">
 
     <div id="loss-location" class="section">
-        <h2>location</h2>
+        <h2>where have you lost it?</h2>
         <div class="container">
             <div id="location-input-wrapper" class="row">
                 <div id="autocomplete-wrapper" class="ui action input">
-                    <input id="autocomplete" type="text" placeholder="Search..." onfocus="geolocate()">
+                    <input id="autocomplete" type="text" placeholder="Address..." onfocus="geolocate()">
                 </div>
             </div>
             <div id="map" class="row"></div>
@@ -61,19 +61,19 @@
 
     <div id="loss-info" class="section">
         <div id="loss-info-wrapper">
-            <h2>information</h2>
+            <h2>specify the loss details</h2>
             <div class="container">
                 <div class="row loss-info-form-wrapper">
                     <div class="col-6">
-                        <form class="ui medium form">
+                        <form class="ui large form">
                             <div class="field">
                                 <label>Name</label>
-                                <input type="text" name="loss-name" placeholder="Name..">
+                                <input type="text" name="loss-name" placeholder="Name.." required>
                             </div>
                             <div class="field">
                                 <label>Type</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="loss-type">
+                                    <input type="hidden" name="loss-type" required>
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Type</div>
                                     <div class="menu">
@@ -85,11 +85,11 @@
                             <div class="fields">
                                 <div class="seven wide field">
                                     <label>Date</label>
-                                    <input type="text" name="loss-name" placeholder="Name..">
+                                    <input type="date" name="loss-date" placeholder="Date..." required>
                                 </div>
                                 <div class="seven wide field">
                                     <label>Time</label>
-                                    <input type="text" name="loss-name" placeholder="Name..">
+                                    <input type="time" name="loss-time" required>
                                 </div>
                                 <div class="two wide field">
                                     <label>Now?</label>
@@ -120,6 +120,11 @@
 <script th:src="@{/libs/jQuery/jquery.js}"></script>
 <script th:src="@{/js/map.js}"></script>
 <script th:src="@{/libs/semantic/semantic.js}"></script>
+
+<script>
+    $('.ui.checkbox').checkbox();
+</script>
+
 <script th:src="@{/libs/fullpage/fullpage.js}"></script>
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
