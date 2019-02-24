@@ -1,113 +1,136 @@
+let map, marker, infowindow, searchBox;
+
 function initMap() {
+    map = new google.maps.Map(document.getElementById('map'), {
+        zoom: 17,
+        mapTypeControl: false,
+        zoomControl: true,
+        scaleControl: true,
+        streetViewControl: false,
+        fullscreenControl: false
+    });
 
-    let planetarium = {
-        lat: 50.431782,
-        lng: 30.516382
-    };
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(50.431782, 30.516382),
+        draggable: true
+    });
 
-    let map = new google.maps.Map(
-        document.getElementById('map'), {
-            zoom: 20,
-            center: planetarium,
-            streetViewControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+    map.setCenter(marker.position);
+    marker.setMap(map);
+
+    infoWindow = new google.maps.InfoWindow;
+
+    autocomplete = new google.maps.places.Autocomplete(
+        document.getElementById('autocomplete'), {
+            types: ['geocode']
         });
 
-    let geoInput = document.getElementById("geosearch");
+    // Create the search box and link it to the UI element.
+    let wrapper = document.getElementById('autocomplete-wrapper');
+    let input = document.getElementById('autocomplete');
+    searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
 
-    let autocomplete = new google.maps.places.Autocomplete(geoInput);
-    autocomplete.bindTo('bounds', map);
-
-    /* let contentString = '<div id="content">' +
-            '<div id="siteNotice">' +
-            '</div>' +
-            '<h1 id="firstHeading" class="firstHeading">Request №12</h1>' +
-            '<div id="bodyContent">' +
-            '<p><b>Lost Phone</b></p>' +
-            '<p>Lost phone near planetarium </p>' +
-            '<p>Author: test@test.com</p>' +
-            '<p>Attr: Black Phone, without screen</p>' +
-            '<p>(Posted 29.02.2018).</p>' +
-            '</div>' +
-            '</div>';
-        let infowindow = new google.maps.InfoWindow({
-            content: contentString
-        }); */
-
-    let infowindow = new google.maps.InfoWindow();
-    let infowindowContent = document.getElementById('infowindow-content');
-    infowindow.setContent(infowindowContent);
-
-
-    let marker = new google.maps.Marker({
-        // position: planetarium,
-        map: map,
-        draggable: true,
-        animation: google.maps.Animation.DROP,
-        icon: '../images/dolma.png',
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function () {
+        searchBox.setBounds(map.getBounds());
     });
 
-    marker.addListener('click', () => {
-        if (marker.getAnimation() !== null) {
-            marker.setAnimation(null);
-        } else {
-            marker.setAnimation(google.maps.Animation.BOUNCE);
-        }
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function () {
+        let places = searchBox.getPlaces();
 
-        infowindow.open(map, marker);
-    });
-
-    geoInput.addEventListener('click', () => {
-        geoInput.value = '';
-    });
-
-    document.getElementById("submitIcon").addEventListener('click', () => {
-        infowindow.close();
-        let place = autocomplete.getPlace();
-        if (!place.geometry) {
+        if (places.length == 0) {
             return;
         }
 
-        if (place.geometry.viewport) {
-            map.fitBounds(place.geometry.viewport);
-        } else {
-            map.setCenter(place.geometry.location);
-            map.setZoom(17);
+        let place = places[0];
+
+        marker.setMap(null);
+
+        let bounds = new google.maps.LatLngBounds();
+
+        if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
         }
 
-        // Set the position of the marker using the place ID and location.
-        marker.setPlace({
-            placeId: place.place_id,
-            location: place.geometry.location
-        });
-        marker.setVisible(true);
+        moveMarkerToLocation(place.geometry.location);
 
-        infowindowContent.children['place-name'].textContent = place.name;
-        infowindowContent.children['place-id'].textContent = place.place_id;
-        infowindowContent.children['place-address'].textContent = place.formatted_address;
-        infowindow.open(map, marker);
+        if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+        } else {
+            bounds.extend(place.geometry.location);
+        }
+
+        map.fitBounds(bounds);
     });
 
+    google.maps.event.addListener(map, 'click', function (event) {
+        moveMarkerToLocation(event.latLng);
+    });
+
+    focusOnCurrentLocation();
 }
 
-$('.ui.sidebar').sidebar({
-    context: $('.bottom.segment')
-}).sidebar('attach events', '.menu .menu-item');
+function focusOnCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+            var pos = {
+                lat: position.coords.latitude,
+                lng: position.coords.longitude
+            };
 
-$(function () {
-    $("#formular").click(function () {
-        $(".popyup").modal('show');
+            moveMarkerToLocation(pos);
+
+            map.setCenter(marker.position);
+        }, function () {
+            handleLocationError(true, infoWindow, map.getCenter());
+        });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
+    }
+}
+
+function moveMarkerToLocation(location) {
+    marker.setMap(null);
+    marker = new google.maps.Marker({
+        position: location,
+        map: map,
+        draggable: true
     });
-    $(".popyup").modal({
-        closable: true
+}
+
+function getMarkerGeolocation() {
+    return marker.getPosition();
+}
+
+function handleLocationError(browserHasGeolocation, infoWindow, pos) {
+    infoWindow.setPosition(pos);
+    infoWindow.setContent(browserHasGeolocation ?
+        'Error: The Geolocation service failed.' :
+        'Error: Your browser doesn\'t support geolocation.');
+    infoWindow.open(map);
+}
+
+$(document).ready(function () {
+    $('#fullpage').fullpage({
+        autoScrolling: true,
+        scrollHorizontally: false
     });
-});
 
-$('.ui.form .ui.selection.dropdown').dropdown({
-    clearable: true
-});
+    $('.ui.form .ui.selection.dropdown').dropdown({
+        clearable: true
+    });
 
-$('.clearable.example .ui.inline.dropdown').dropdown({
-    clearable: true,
-    placeholder: 'any'
+    $('.clearable.example .ui.inline.dropdown').dropdown({
+        clearable: true,
+        placeholder: 'any'
+    });
+
+
+    $('select.dropdown').dropdown();
 });
