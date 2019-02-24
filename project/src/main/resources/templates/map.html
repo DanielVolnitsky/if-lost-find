@@ -52,7 +52,7 @@
         <div class="container">
             <div id="location-input-wrapper" class="row">
                 <div id="autocomplete-wrapper" class="ui action input">
-                    <input id="autocomplete" type="text" placeholder="Address..." onfocus="geolocate()">
+                    <input id="autocomplete" type="text" placeholder="Address...">
                 </div>
             </div>
             <div id="map" class="row"></div>
@@ -65,7 +65,7 @@
             <div class="container">
                 <div class="row loss-info-form-wrapper">
                     <div class="col-6">
-                        <form class="ui large form">
+                        <form class="ui large form" th:action="@{/loss}" th:object="${user}" method="post">
                             <div class="field">
                                 <label>Name</label>
                                 <input type="text" name="loss-name" placeholder="Name.." required>

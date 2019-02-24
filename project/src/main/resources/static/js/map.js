@@ -1,14 +1,7 @@
-const labels = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-
-let map, infowindow, placeSearch;
-let labelIndex = 0;
+let map, marker, infowindow, searchBox;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
-        center: {
-            lat: 50.431782,
-            lng: 30.516382
-        },
         zoom: 17,
         mapTypeControl: false,
         zoomControl: true,
@@ -16,6 +9,14 @@ function initMap() {
         streetViewControl: false,
         fullscreenControl: false
     });
+
+    marker = new google.maps.Marker({
+        position: new google.maps.LatLng(50.431782, 30.516382),
+        draggable: true
+    });
+
+    map.setCenter(marker.position);
+    marker.setMap(map);
 
     infoWindow = new google.maps.InfoWindow;
 
@@ -25,45 +26,87 @@ function initMap() {
         });
 
     // Create the search box and link it to the UI element.
-    var wrapper = document.getElementById('autocomplete-wrapper');
-    var input = document.getElementById('autocomplete');
-    var searchBox = new google.maps.places.SearchBox(input);
+    let wrapper = document.getElementById('autocomplete-wrapper');
+    let input = document.getElementById('autocomplete');
+    searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
 
-    // This event listener calls addMarker() when the map is clicked.
-    google.maps.event.addListener(map, 'click', function (event) {
-        addMarker(event.latLng, map);
+    // Bias the SearchBox results towards current map's viewport.
+    map.addListener('bounds_changed', function () {
+        searchBox.setBounds(map.getBounds());
     });
+
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function () {
+        let places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return;
+        }
+
+        let place = places[0];
+
+        marker.setMap(null);
+
+        let bounds = new google.maps.LatLngBounds();
+
+        if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+        }
+
+        moveMarkerToLocation(place.geometry.location);
+
+        if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+        } else {
+            bounds.extend(place.geometry.location);
+        }
+
+        map.fitBounds(bounds);
+    });
+
+    google.maps.event.addListener(map, 'click', function (event) {
+        moveMarkerToLocation(event.latLng);
+    });
+
+    focusOnCurrentLocation();
 }
 
-function geolocate() {
+function focusOnCurrentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            let geolocation = {
+            var pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
-            let circle = new google.maps.Circle({
-                center: geolocation,
-                radius: position.coords.accuracy
-            });
-            autocomplete.setBounds(circle.getBounds());
+
+            moveMarkerToLocation(pos);
+
+            map.setCenter(marker.position);
+        }, function () {
+            handleLocationError(true, infoWindow, map.getCenter());
         });
+    } else {
+        // Browser doesn't support Geolocation
+        handleLocationError(false, infoWindow, map.getCenter());
     }
 }
 
-
-// Adds a marker to the map.
-function addMarker(location, map) {
-    // Add the marker at the clicked location, and add the next-available label
-    // from the array of alphabetical characters.
-    let marker = new google.maps.Marker({
+function moveMarkerToLocation(location) {
+    marker.setMap(null);
+    marker = new google.maps.Marker({
         position: location,
-        label: labels[labelIndex++ % labels.length],
-        map: map
+        map: map,
+        draggable: true
     });
 }
 
+function getMarkerGeolocation() {
+    return marker.getPosition();
+}
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);
@@ -76,7 +119,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 $(document).ready(function () {
     $('#fullpage').fullpage({
         autoScrolling: true,
-        scrollHorizontally: true
+        scrollHorizontally: false
     });
 
     $('.ui.form .ui.selection.dropdown').dropdown({
