@@ -103,14 +103,6 @@
     display: none;
 }
 
-#map {
-    width: 100%;
-    height: 400px;
-    background-color: grey;
-    position: relative;
-    overflow: hidden;
-}
-
 .custom-container {
     padding-top: 50px;
 }

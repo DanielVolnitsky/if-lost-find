@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="UTF-8">
@@ -7,45 +8,126 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
+    <link th:href="@{/libs/fullpage/fullpage.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link th:href="@{/css/page.css}" rel="stylesheet">
     <link th:href="@{/css/map.css}" rel="stylesheet">
 </head>
 
 <body>
 
-    <div class="ui top attached demo menu">
-        <a class="item">
-            <i class="sidebar icon"></i> Menu
-        </a>
-    </div>
-    <div class="ui bottom attached segment">
-        <div class="ui inverted labeled icon left inline vertical demo sidebar menu">
-            <a class="item" th:href="@{/}">
-                <i class="home icon"></i> Home
+<div class="ui inverted vertical center aligned segment header">
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a class="toc item">
+                <i class="sidebar icon"></i>
             </a>
-            <a class="item" th:href="@{/map}">
-                <i class="search icon"></i> Search
-            </a>
-            <a class="item" th:href="@{/feed.html}">
-                <i class="map outline icon"></i> Feed
-            </a>
-            <a class="item" th:href="@{/logout}" sec:authorize="isAuthenticated()">
-                <i class="sign-out icon"></i> Log Out
-            </a>
+            <a class="item" th:href="@{/}">Home</a>
+            <a class="active item" th:href="@{/map}">Map</a>
+            <a class="item" th:href="@{/feed}">Feed</a>
+            <a class="item" th:href="@{/about}">About</a>
+
+            <!-- This section is visible for anonymous user-->
+            <div class="right item" sec:authorize="isAnonymous()">
+                <a class="ui inverted button" th:href="@{/login}">Log in</a>
+                <a class="ui inverted button" th:href="@{/signup}">Sign Up</a>
+            </div>
+            <!-- end -->
+
+            <!-- This section is visible for authenticated user-->
+            <div class="right item" sec:authorize="isAuthenticated()">
+                <a class="ui inverted button" th:href="@{/account}">Account</a>
+                <a class="ui inverted button" th:href="@{/logout}">Log out</a>
+            </div>
+            <!-- end -->
         </div>
-        <div class="pusher">
-            <div class="ui basic segment">
-                <div class="ui embed" id="map" data-source="google-maps"></div>
+    </div>
+</div>
+
+<div id="fullpage">
+
+    <div id="loss-location" class="section">
+        <h2>where have you lost it?</h2>
+        <div class="container">
+            <div id="location-input-wrapper" class="row">
+                <div id="autocomplete-wrapper" class="ui action input">
+                    <input id="autocomplete" type="text" placeholder="Address...">
+                </div>
+            </div>
+            <div id="map" class="row"></div>
+        </div>
+    </div>
+
+    <div id="loss-info" class="section">
+        <div id="loss-info-wrapper">
+            <h2>specify the loss details</h2>
+            <div class="container">
+                <div class="row loss-info-form-wrapper">
+                    <div class="col-6">
+                        <form class="ui large form" th:action="@{/loss}" th:object="${user}" method="post">
+                            <div class="field">
+                                <label>Name</label>
+                                <input type="text" name="loss-name" placeholder="Name.." required>
+                            </div>
+                            <div class="field">
+                                <label>Type</label>
+                                <div class="ui selection dropdown">
+                                    <input type="hidden" name="loss-type" required>
+                                    <i class="dropdown icon"></i>
+                                    <div class="default text">Type</div>
+                                    <div class="menu">
+                                        <div class="item" data-value="1">Gadget</div>
+                                        <div class="item" data-value="0">Animal</div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="fields">
+                                <div class="seven wide field">
+                                    <label>Date</label>
+                                    <input type="date" name="loss-date" placeholder="Date..." required>
+                                </div>
+                                <div class="seven wide field">
+                                    <label>Time</label>
+                                    <input type="time" name="loss-time" required>
+                                </div>
+                                <div class="two wide field">
+                                    <label>Now?</label>
+                                    <div class="inline field">
+                                        <div class="ui toggle checkbox">
+                                            <input type="checkbox" tabindex="0" class="hidden">
+                                            <label></label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <label>Description</label>
+                                <textarea rows="3"></textarea>
+                            </div>
+                            <div id="submit-btn-wrapper">
+                                <button class="ui green button" type="submit">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+</div>
 
+<!-- Scripts -->
+<script th:src="@{/libs/jQuery/jquery.js}"></script>
+<script th:src="@{/js/map.js}"></script>
+<script th:src="@{/libs/semantic/semantic.js}"></script>
 
-    <!-- Scripts -->
-    <script th:src="@{/libs/jQuery/jquery.js}"></script>
-    <script th:src="@{/libs/semantic/semantic.js}"></script>
-    <script th:src="@{/js/map.js}"></script>
-    <script async defer
-            th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, callback='initMap')}"></script>
+<script>
+    $('.ui.checkbox').checkbox();
+</script>
+
+<script th:src="@{/libs/fullpage/fullpage.js}"></script>
+<script async defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
 
 </body>
 

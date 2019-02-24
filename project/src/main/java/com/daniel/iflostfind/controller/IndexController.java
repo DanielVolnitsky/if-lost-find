@@ -13,6 +13,5 @@ public class IndexController {
     public String homePage() {
         return INDEX_PAGE;
     }
-
 }
 
