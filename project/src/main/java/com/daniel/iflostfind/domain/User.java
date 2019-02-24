@@ -32,11 +32,11 @@ public class User {
     @Column(nullable = false)
     private String city;
 
-    @OneToMany(mappedBy = "owner", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<MissingItem> losses = new ArrayList<>();
+    @OneToMany(mappedBy = "reporter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
+    private List<Loss> losses = new ArrayList<>();
 
     @OneToMany(mappedBy = "finder", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
-    private List<MissingItem> finds = new ArrayList<>();
+    private List<Loss> finds = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -94,31 +94,31 @@ public class User {
         this.city = city;
     }
 
-    public List<MissingItem> getLosses() {
+    public List<Loss> getLosses() {
         return new ArrayList<>(losses);
     }
 
-    public void addLoss(MissingItem l) {
+    public void addLoss(Loss l) {
         if (Objects.isNull(l)) {
             throw new NullPointerException("Attempt to add nullable loss");
         }
-        if (Objects.nonNull(l.getOwner())) {
+        if (Objects.nonNull(l.getReporter())) {
             throw new IllegalStateException("Loss is already owned by another person");
         }
 
         losses.add(l);
-        l.setOwner(this);
+        l.setReporter(this);
     }
 
-    public List<MissingItem> getFinds() {
+    public List<Loss> getFinds() {
         return new ArrayList<>(finds);
     }
 
-    public void addFind(MissingItem f) {
+    public void addFind(Loss f) {
         if (Objects.isNull(f)) {
             throw new NullPointerException("Attempt to add nullable find");
         }
-        if (Objects.nonNull(f.getOwner())) {
+        if (Objects.nonNull(f.getReporter())) {
             throw new IllegalStateException("Find is already owned by another person");
         }
 

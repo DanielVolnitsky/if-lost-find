@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
       xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="UTF-8">
-    <title>IfLostFound | Map</title>
+    <title>IfLostFound | Loss</title>
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
@@ -65,37 +66,34 @@
             <div class="container">
                 <div class="row loss-info-form-wrapper">
                     <div class="col-6">
-                        <form class="ui large form" th:action="@{/loss}" th:object="${user}" method="post">
+                        <form class="ui large form" th:action="@{/map}" th:object="${loss}" method="post">
+                            <input id="loss-lat" type="hidden" th:field="*{latitude}">
+                            <input id="loss-lng" type="hidden" th:field="*{longitude}">
                             <div class="field">
                                 <label>Name</label>
-                                <input type="text" name="loss-name" placeholder="Name.." required>
+                                <input type="text" th:field="*{name}" placeholder="Specify name.." required>
                             </div>
                             <div class="field">
                                 <label>Type</label>
                                 <div class="ui selection dropdown">
-                                    <input type="hidden" name="loss-type" required>
+                                    <input type="hidden" th:field="*{type}">
                                     <i class="dropdown icon"></i>
-                                    <div class="default text">Type</div>
+                                    <div class="default text">Choose type..</div>
                                     <div class="menu">
-                                        <div class="item" data-value="1">Gadget</div>
-                                        <div class="item" data-value="0">Animal</div>
+                                        <div th:each="type: ${lossTypes}" class="item" th:text="${type}" th:data-value="${type}"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="fields">
-                                <div class="seven wide field">
+                                <div class="fourteen wide field">
                                     <label>Date</label>
-                                    <input type="date" name="loss-date" placeholder="Date..." required>
-                                </div>
-                                <div class="seven wide field">
-                                    <label>Time</label>
-                                    <input type="time" name="loss-time" required>
+                                    <input id="loss-date" type="date" th:field="*{lossDate}" name="loss-date" placeholder="Date..." >
                                 </div>
                                 <div class="two wide field">
-                                    <label>Now?</label>
+                                    <label>Today?</label>
                                     <div class="inline field">
                                         <div class="ui toggle checkbox">
-                                            <input type="checkbox" tabindex="0" class="hidden">
+                                            <input id="today-loss-cbx" type="checkbox" tabindex="0" class="hidden">
                                             <label></label>
                                         </div>
                                     </div>
@@ -103,7 +101,7 @@
                             </div>
                             <div class="field">
                                 <label>Description</label>
-                                <textarea rows="3"></textarea>
+                                <textarea th:field="*{description}" rows="3"></textarea>
                             </div>
                             <div id="submit-btn-wrapper">
                                 <button class="ui green button" type="submit">Submit</button>
@@ -120,12 +118,8 @@
 <script th:src="@{/libs/jQuery/jquery.js}"></script>
 <script th:src="@{/js/map.js}"></script>
 <script th:src="@{/libs/semantic/semantic.js}"></script>
-
-<script>
-    $('.ui.checkbox').checkbox();
-</script>
-
 <script th:src="@{/libs/fullpage/fullpage.js}"></script>
+
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
 

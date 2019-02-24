@@ -1,8 +1,8 @@
 package com.daniel.iflostfind.configuration.bean;
 
 import com.daniel.iflostfind.domain.Location;
-import com.daniel.iflostfind.domain.MissingItem;
-import com.daniel.iflostfind.domain.MissingItemGroup;
+import com.daniel.iflostfind.domain.Loss;
+import com.daniel.iflostfind.domain.LossType;
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.repository.MissingItemRepository;
 import com.daniel.iflostfind.repository.UserRepository;
@@ -32,17 +32,17 @@ public class DemoDataBeanConfiguration {
         return args -> {
 
             //Missing items
-            MissingItem i1 = new MissingItem();
+            Loss i1 = new Loss();
             i1.setName("Iphone X");
             i1.setDescription("Silver Iphone X, Red case and spider-man as a wallpaper");
-            i1.setGroup(MissingItemGroup.GADGET);
+            i1.setType(LossType.GADGET);
             i1.setLocation(new Location(50.519196, 30.251947));
             i1.setLossTime(LocalDate.now());
 
-            MissingItem i2 = new MissingItem();
+            Loss i2 = new Loss();
             i2.setName("Iphone XS");
             i2.setDescription("Silver Iphone XS, Red case and spider-man as a wallpaper");
-            i2.setGroup(MissingItemGroup.GADGET);
+            i2.setType(LossType.GADGET);
             i2.setLocation(new Location(50.522713, 30.247875));
             i2.setLossTime(LocalDate.now());
 
