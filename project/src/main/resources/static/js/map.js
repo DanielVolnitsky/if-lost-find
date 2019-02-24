@@ -9,7 +9,12 @@ function initMap() {
             lat: 50.431782,
             lng: 30.516382
         },
-        zoom: 20
+        zoom: 17,
+        mapTypeControl: false,
+        zoomControl: true,
+        scaleControl: true,
+        streetViewControl: false,
+        fullscreenControl: false
     });
 
     infoWindow = new google.maps.InfoWindow;
@@ -18,6 +23,12 @@ function initMap() {
         document.getElementById('autocomplete'), {
             types: ['geocode']
         });
+
+    // Create the search box and link it to the UI element.
+    var wrapper = document.getElementById('autocomplete-wrapper');
+    var input = document.getElementById('autocomplete');
+    var searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
 
     // This event listener calls addMarker() when the map is clicked.
     google.maps.event.addListener(map, 'click', function (event) {

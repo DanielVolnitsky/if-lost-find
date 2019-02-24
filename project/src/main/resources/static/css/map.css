@@ -1,43 +1,43 @@
-.ui.attached.menu:not(.tabular) {
-    border: 1px solid #68bd68;
-    background: #4d4947;
-}
+/*.ui.attached.menu:not(.tabular) {*/
+    /*border: 1px solid #68bd68;*/
+    /*background: #4d4947;*/
+/*}*/
 
-.ui.inverted.menu {
-    background: #4d4947;
-}
+/*.ui.inverted.menu {*/
+    /*background: #4d4947;*/
+/*}*/
 
-.ui.inverted.icon.menu .item {
-    color: #ffffff;
-}
+/*.ui.inverted.icon.menu .item {*/
+    /*color: #ffffff;*/
+/*}*/
 
-.ui.link.inverted.menu .item:hover,
-.ui.inverted.menu .dropdown.item:hover,
-.ui.inverted.menu .link.item:hover,
-.ui.inverted.menu a.item:hover {
-    background: rgba(255, 255, 255, 0.08);
-    color: #68bd45;
-}
+/*.ui.link.inverted.menu .item:hover,*/
+/*.ui.inverted.menu .dropdown.item:hover,*/
+/*.ui.inverted.menu .link.item:hover,*/
+/*.ui.inverted.menu a.item:hover {*/
+    /*background: rgba(255, 255, 255, 0.08);*/
+    /*color: #68bd45;*/
+/*}*/
 
-.ui.link.menu .item,
-.ui.menu .dropdown.item,
-.ui.menu .link.item,
-.ui.menu a.item {
-    color: #ffffff;
-}
+/*.ui.link.menu .item,*/
+/*.ui.menu .dropdown.item,*/
+/*.ui.menu .link.item,*/
+/*.ui.menu a.item {*/
+    /*color: #ffffff;*/
+/*}*/
 
-.ui.link.menu .item:hover,
-.ui.menu .dropdown.item:hover,
-.ui.menu .link.item:hover,
-.ui.menu a.item:hover {
-    cursor: pointer;
-    color: #68bd68;
-}
+/*.ui.link.menu .item:hover,*/
+/*.ui.menu .dropdown.item:hover,*/
+/*.ui.menu .link.item:hover,*/
+/*.ui.menu a.item:hover {*/
+    /*cursor: pointer;*/
+    /*color: #68bd68;*/
+/*}*/
 
-.ui.inverted.menu .item,
-.ui.inverted.menu .item>a:not(.ui) {
-    color: #ffffff;
-}
+/*.ui.inverted.menu .item,*/
+/*.ui.inverted.menu .item>a:not(.ui) {*/
+    /*color: #ffffff;*/
+/*}*/
 
 .header {
     position: fixed;
@@ -50,7 +50,49 @@
     padding: 20px 0 0 0;
 }
 
-#map {
-    height: 85%;
+/*---------------------------------------------------------*/
+h2 {
+    text-transform: uppercase;
+    margin-top: 20px !important;
+    margin-bottom: 10px;
+}
+
+#loss-location,
+#loss-info {
+    text-align: center;
+    display: flex !important;
+}
+
+#location-input-wrapper,
+.loss-info-form-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#autocomplete-wrapper {
+    margin-right: 10px;
     margin-top: 10px;
+    height: 35px;
+    width: 300px;
+}
+
+#map {
+    margin-top: 5px;
+    height: 600px;
+}
+
+
+#loss-info-wrapper {
+    height: 400px;
+    margin-top: 110px;
+}
+
+.loss-info-form-wrapper {
+    display: flex;
+    justify-content: center;
+    text-align: left;
+}
+
+#submit-btn-wrapper {
+    text-align: center;
 }
