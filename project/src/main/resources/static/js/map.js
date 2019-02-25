@@ -78,7 +78,7 @@ function initMap() {
 function focusOnCurrentLocation() {
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
+            let pos = {
                 lat: position.coords.latitude,
                 lng: position.coords.longitude
             };
@@ -97,15 +97,25 @@ function focusOnCurrentLocation() {
 
 function moveMarkerToLocation(location) {
     marker.setMap(null);
+
     marker = new google.maps.Marker({
         position: location,
         map: map,
         draggable: true
     });
+
+    setGeolocationData();
 }
 
-function getMarkerGeolocation() {
-    return marker.getPosition();
+function setGeolocationData() {
+    debugger;
+    let location = marker.getPosition();
+
+    let latitude = location.lat();
+    let longitude = location.lng();
+
+    $('#loss-lat').val(latitude);
+    $('#loss-lng').val(longitude);
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -116,7 +126,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.open(map);
 }
 
-$(document).ready(function () {
+$(function() {
     $('#fullpage').fullpage({
         autoScrolling: true,
         scrollHorizontally: false
@@ -131,6 +141,12 @@ $(document).ready(function () {
         placeholder: 'any'
     });
 
-
     $('select.dropdown').dropdown();
+
+    $('.ui.checkbox').checkbox();
+
+    $("#today-loss-cbx").change(function () {
+        let lossDateInput = document.getElementById("loss-date");
+        lossDateInput.valueAsDate = this.checked ? new Date() : null;
+    });
 });
