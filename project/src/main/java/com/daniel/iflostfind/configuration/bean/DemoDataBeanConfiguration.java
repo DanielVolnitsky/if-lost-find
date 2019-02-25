@@ -37,14 +37,14 @@ public class DemoDataBeanConfiguration {
             i1.setDescription("Silver Iphone X, Red case and spider-man as a wallpaper");
             i1.setType(LossType.GADGET);
             i1.setLocation(new Location(50.519196, 30.251947));
-            i1.setLossTime(LocalDate.now());
+            i1.setLossDate(LocalDate.now());
 
             Loss i2 = new Loss();
             i2.setName("Iphone XS");
             i2.setDescription("Silver Iphone XS, Red case and spider-man as a wallpaper");
             i2.setType(LossType.GADGET);
             i2.setLocation(new Location(50.522713, 30.247875));
-            i2.setLossTime(LocalDate.now());
+            i2.setLossDate(LocalDate.now());
 
             //Users
             User dan = new User();

@@ -15,7 +15,7 @@ public class Loss {
     @GeneratedValue
     @Getter
     @Setter
-    private long id;
+    private Long id;
 
     @Getter
     @Setter
@@ -27,7 +27,7 @@ public class Loss {
 
     @Getter
     @Setter
-    private LocalDate lossTime;
+    private LocalDate lossDate;
 
     @Enumerated(EnumType.STRING)
     @Getter
