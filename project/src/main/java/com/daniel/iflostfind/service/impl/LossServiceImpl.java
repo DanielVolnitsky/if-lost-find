@@ -6,6 +6,8 @@ import com.daniel.iflostfind.service.LossService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LossServiceImpl implements LossService {
 
@@ -19,5 +21,10 @@ public class LossServiceImpl implements LossService {
     @Override
     public void add(Loss loss) {
         lossRepository.save(loss);
+    }
+
+    @Override
+    public List<Loss> getAll() {
+        return (List<Loss>) lossRepository.findAll();
     }
 }

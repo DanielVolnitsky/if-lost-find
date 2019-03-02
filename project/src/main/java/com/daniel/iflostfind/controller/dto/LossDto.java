@@ -1,10 +1,13 @@
 package com.daniel.iflostfind.controller.dto;
 
 import lombok.Getter;
+import lombok.NonNull;
 import lombok.Setter;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.time.LocalDate;
 
 public class LossDto {
 
@@ -22,23 +25,23 @@ public class LossDto {
     @Setter
     private String description;
 
-    @NotBlank
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
     @Getter
     @Setter
-    private String lossDate;
+    private LocalDate lossDate;
 
     @NotBlank
     @Getter
     @Setter
     private String type;
 
-    @NotBlank
+    @NonNull
     @Getter
     @Setter
-    private String latitude;
+    private Double latitude;
 
-    @NotBlank
+    @NonNull
     @Getter
     @Setter
-    private String longitude;
+    private Double longitude;
 }

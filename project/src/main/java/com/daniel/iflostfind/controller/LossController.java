@@ -38,13 +38,13 @@ public class LossController {
         m.addAttribute("loss", new LossDto());
         m.addAttribute("lossTypes", LossType.values());
 
-        return "map";
+        return "loss";
     }
 
     @PostMapping(path = LOSS_PAGE_PATH)
     public String createLoss(@ModelAttribute("loss") @Valid LossDto lossDto) {
 
-        Loss loss = lossConverter.reverseConvert(lossDto);
+        Loss loss = lossConverter.convertDtoToEntity(lossDto);
         lossService.add(loss);
 
         return "redirect:" + LOSS_PAGE_PATH;
