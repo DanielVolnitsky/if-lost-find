@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.domain.User;
-import com.daniel.iflostfind.dto.UserDto;
+import com.daniel.iflostfind.controller.dto.UserDto;
 import com.daniel.iflostfind.repository.UserRepository;
 import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.util.exception.UserAlreadyExistsException;

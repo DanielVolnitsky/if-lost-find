@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.converter;
+package com.daniel.iflostfind.controller.converter;
 
 public interface ReversibleDtoConverter<E, D> extends DtoConverter<E, D>
 {

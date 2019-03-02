@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.dto;
+package com.daniel.iflostfind.controller.dto;
 
 import lombok.Getter;
 import lombok.Setter;

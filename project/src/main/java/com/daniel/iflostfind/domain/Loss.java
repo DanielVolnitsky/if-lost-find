@@ -1,5 +1,6 @@
 package com.daniel.iflostfind.domain;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -9,6 +10,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "loss")
+@Builder
 public class Loss {
 
     @Id

@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.dto;
+package com.daniel.iflostfind.controller.dto;
 
 import com.daniel.iflostfind.util.annotation.PasswordMatches;
 import com.daniel.iflostfind.util.annotation.ValidEmail;

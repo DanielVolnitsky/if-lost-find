@@ -1,9 +1,9 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.converter.impl.LossConverter;
+import com.daniel.iflostfind.controller.converter.impl.LossConverter;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
-import com.daniel.iflostfind.dto.LossDto;
+import com.daniel.iflostfind.controller.dto.LossDto;
 import com.daniel.iflostfind.service.HiddenInfoService;
 import com.daniel.iflostfind.service.LossService;
 import org.springframework.beans.factory.annotation.Autowired;

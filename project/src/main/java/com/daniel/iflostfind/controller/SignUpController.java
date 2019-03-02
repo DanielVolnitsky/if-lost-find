@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.domain.User;
-import com.daniel.iflostfind.dto.UserDto;
+import com.daniel.iflostfind.controller.dto.UserDto;
 import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.util.annotation.NotAccessibleIfAuthenticated;
 import com.daniel.iflostfind.util.exception.UserAlreadyExistsException;

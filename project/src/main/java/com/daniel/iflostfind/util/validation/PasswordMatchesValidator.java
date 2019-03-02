@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.util.validation;
 
-import com.daniel.iflostfind.dto.UserDto;
+import com.daniel.iflostfind.controller.dto.UserDto;
 import com.daniel.iflostfind.util.annotation.PasswordMatches;
 
 import javax.validation.ConstraintValidator;
