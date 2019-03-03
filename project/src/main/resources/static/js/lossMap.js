@@ -1,4 +1,4 @@
-let map, marker, infowindow;
+let map;
 
 function initMap() {
     map = new google.maps.Map(document.getElementById('map'), {
@@ -26,7 +26,29 @@ function initMap() {
         searchBox.setBounds(map.getBounds());
     });
 
+    loadAllLosses();
     focusOnCurrentLocation();
+}
+
+function loadAllLosses() {
+
+    $.get("http://localhost:8080/api/losses", function (losses) {
+
+        $.each(losses, function( index, loss ) {
+
+            let lossMarker = new google.maps.Marker({
+                position: {lat: loss.latitude, lng: loss.longitude},
+                map: map,
+                title: loss.name,
+                draggable: true
+            });
+            lossMarker.setMap(map);
+        });
+
+    })
+        .fail(function () {
+            alert("error");
+        })
 }
 
 function focusOnCurrentLocation() {
@@ -46,7 +68,6 @@ function focusOnCurrentLocation() {
         handleLocationError(false, infoWindow, map.getCenter());
     }
 }
-
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
     infoWindow.setPosition(pos);

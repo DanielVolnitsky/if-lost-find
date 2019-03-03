@@ -46,11 +46,12 @@
     </div>
 </div>
 
+
 <div id="fullpage">
 
     <div id="loss-location" class="section">
-        <h2>where have you lost it?</h2>
-        <div class="container">
+        <h2 id="current">where have you lost it?</h2>
+        <div class="container-fluid">
             <div id="location-input-wrapper" class="row">
                 <div id="autocomplete-wrapper" class="ui action input">
                     <input id="autocomplete" type="text" placeholder="Address...">
@@ -80,14 +81,16 @@
                                     <i class="dropdown icon"></i>
                                     <div class="default text">Choose type..</div>
                                     <div class="menu">
-                                        <div th:each="type: ${lossTypes}" class="item" th:text="${type}" th:data-value="${type}"></div>
+                                        <div th:each="type: ${lossTypes}" class="item" th:text="${type}"
+                                             th:data-value="${type}"></div>
                                     </div>
                                 </div>
                             </div>
                             <div class="fields">
                                 <div class="fourteen wide field">
                                     <label>Date</label>
-                                    <input id="loss-date" type="date" th:field="*{lossDate}" name="loss-date" placeholder="Date..." >
+                                    <input id="loss-date" type="date" th:field="*{lossDate}" name="loss-date"
+                                           placeholder="Date...">
                                 </div>
                                 <div class="two wide field">
                                     <label>Today?</label>

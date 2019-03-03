@@ -1,8 +1,14 @@
-let map, marker, infowindow, searchBox;
+let map, lossMarker, searchBox;
 
+//TODO return current location logic
 function initMap() {
+
+    let initialPosition = new google.maps.LatLng(50.455565037464346, 30.473669036770616);
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
+        center: initialPosition,
+        mapTypeId: 'roadmap',
         mapTypeControl: false,
         zoomControl: true,
         scaleControl: true,
@@ -10,32 +16,40 @@ function initMap() {
         fullscreenControl: false
     });
 
-    marker = new google.maps.Marker({
-        position: new google.maps.LatLng(50.431782, 30.516382),
-        draggable: true
+    lossMarker = new google.maps.Marker({
+        position: initialPosition,
+        draggable: true,
+        map: map
     });
 
-    map.setCenter(marker.position);
-    marker.setMap(map);
+    moveLocationSearchControl();
+    setLossMarkerEvents();
+    setMapEvents();
+    setSearchBoxEvents();
 
-    infoWindow = new google.maps.InfoWindow;
+    // focusOnCurrentLocation();
+    loadAllLosses();
+}
 
-    autocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('autocomplete'), {
-            types: ['geocode']
-        });
-
-    // Create the search box and link it to the UI element.
-    let wrapper = document.getElementById('autocomplete-wrapper');
-    let input = document.getElementById('autocomplete');
-    searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
-
+function setMapEvents() {
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
     });
 
+    map.addListener('click', function (event) {
+        moveMarkerToLocation(event.latLng);
+    });
+}
+
+function setLossMarkerEvents() {
+    lossMarker.addListener('dragend', function (evt) {
+        setLocationData(evt.latLng);
+        document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
+    });
+}
+
+function setSearchBoxEvents() {
     // Listen for the event fired when the user selects a prediction and retrieve
     // more details for that place.
     searchBox.addListener('places_changed', function () {
@@ -46,8 +60,6 @@ function initMap() {
         }
 
         let place = places[0];
-
-        marker.setMap(null);
 
         let bounds = new google.maps.LatLngBounds();
 
@@ -67,66 +79,66 @@ function initMap() {
 
         map.fitBounds(bounds);
     });
-
-    google.maps.event.addListener(map, 'click', function (event) {
-        moveMarkerToLocation(event.latLng);
-    });
-
-    focusOnCurrentLocation();
 }
 
-function focusOnCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            let pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
+function moveLocationSearchControl() {
+    let wrapper = document.getElementById('autocomplete-wrapper');
+    let input = document.getElementById('autocomplete');
+    searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
+}
 
-            moveMarkerToLocation(pos);
+function loadAllLosses() {
 
-            map.setCenter(marker.position);
-        }, function () {
-            handleLocationError(true, infoWindow, map.getCenter());
+    $.get("http://localhost:8080/api/losses", function (losses) {
+        $.each(losses, function (index, loss) {
+
+            new google.maps.Marker({
+                position: new google.maps.LatLng(loss.latitude, loss.longitude),
+                map: map,
+                title: loss.name,
+            });
         });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
+
+    }).fail(function () {
+        alert("error");
+    })
 }
 
 function moveMarkerToLocation(location) {
-    marker.setMap(null);
+    lossMarker.setMap(null);
 
-    marker = new google.maps.Marker({
+    lossMarker = new google.maps.Marker({
         position: location,
         map: map,
         draggable: true
     });
 
-    setGeolocationData();
+    setLossMarkerEvents();
+    setLocationData(location);
 }
 
-function setGeolocationData() {
-    debugger;
-    let location = marker.getPosition();
-
-    let latitude = location.lat();
-    let longitude = location.lng();
-
-    $('#loss-lat').val(latitude);
-    $('#loss-lng').val(longitude);
+function setLocationData(location) {
+    $('#loss-lat').val(location.lat());
+    $('#loss-lng').val(location.lng());
 }
 
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
+function focusOnCurrentLocation() {
+    if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(function (position) {
+
+            map.setCenter(position);
+            moveMarkerToLocation(position);
+
+        }, function () {
+            alert("Failed to obtain geolocation information.");
+        });
+    } else {
+        alert("Browser doesn't support Geolocation.");
+    }
 }
 
-$(function() {
+$(function () {
     $('#fullpage').fullpage({
         autoScrolling: true,
         scrollHorizontally: false
