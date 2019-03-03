@@ -17,7 +17,7 @@ import java.util.List;
 public class LossMapController {
 
     final String LOSSES_MAP_PAGE_PATH = "/losses";
-    final String LOSSES_MAP_PAGE = "losses";
+    final String LOSSES_MAP_PAGE = "lossMap";
 
     private final HiddenInfoService hiddenInfoService;
     private final LossService lossService;

@@ -1,0 +1,20 @@
+#map {
+    height: 100vh;
+    background-color: darkkhaki;
+}
+
+#controls {
+    height: 60px;
+}
+
+#autocomplete-wrapper {
+    margin-right: 10px;
+    margin-top: 10px;
+    height: 35px;
+    width: 300px;
+}
+
+#footer {
+    height: 100px;
+    background-color: blueviolet;
+}

@@ -44,11 +44,13 @@ public class LossConverter implements
         LossDto dto = new LossDto();
 
         dto.setId(loss.getId());
-        dto.setName(dto.getName());
+        dto.setName(loss.getName());
         dto.setDescription(loss.getDescription());
 
         String lossType = loss.getType().toString();
         dto.setType(lossType);
+
+        dto.setLossDate(loss.getLossDate());
 
         Location lossLoc = loss.getLocation();
         dto.setLatitude(lossLoc.getLatitude());
