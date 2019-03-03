@@ -16,6 +16,8 @@
 </head>
 
 <body>
+
+<!--header-->
 <div class="ui inverted vertical center aligned segment header">
     <div class="ui container">
         <div class="ui large secondary inverted pointing menu">
@@ -23,7 +25,8 @@
                 <i class="sidebar icon"></i>
             </a>
             <a class="item" th:href="@{/}">Home</a>
-            <a class="active item" th:href="@{/map}">Map</a>
+            <a class="item" th:href="@{/loss/report}">Report</a>
+            <a class="active item" th:href="@{/loss/map}">Map</a>
             <a class="item" th:href="@{/feed}">Feed</a>
             <a class="item" th:href="@{/about}">About</a>
 
@@ -43,12 +46,10 @@
         </div>
     </div>
 </div>
+<!--header-->
 
 <section id="loss-map">
     <div id="loss-map-container" class="container-fluid">
-        <div id="controls" class="row">
-            place for controls
-        </div>
         <div id="autocomplete-wrapper" class="ui action input">
             <input id="autocomplete" type="text" placeholder="Address...">
         </div>
@@ -56,9 +57,7 @@
     </div>
 </section>
 
-<section id="footer">
-
-</section>
+<footer th:replace="partials/footer.html :: footer"></footer>
 
 <script th:src="@{/libs/jQuery/jquery.js}"></script>
 <script th:src="@{/js/lossMap.js}"></script>

@@ -91,7 +91,7 @@ function moveLocationSearchControl() {
 
 function loadAllLosses() {
 
-    $.get("http://localhost:8080/api/losses", function (losses) {
+    $.get("/api/losses", function (losses) {
         $.each(losses, function (index, loss) {
 
             new google.maps.Marker({
