@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link th:href="@{/css/page.css}" rel="stylesheet">
-    <link th:href="@{/css/map.css}" rel="stylesheet">
+    <link th:href="@{/css/lossReport.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -25,7 +25,7 @@
                 <i class="sidebar icon"></i>
             </a>
             <a class="item" th:href="@{/}">Home</a>
-            <a class="active item" th:href="@{/map}">Map</a>
+            <a class="active item" th:href="@{/loss/report}">Report</a>
             <a class="item" th:href="@{/feed}">Feed</a>
             <a class="item" th:href="@{/about}">About</a>
 
@@ -67,7 +67,7 @@
             <div class="container">
                 <div class="row loss-info-form-wrapper">
                     <div class="col-6">
-                        <form class="ui large form" th:action="@{/map}" th:object="${loss}" method="post">
+                        <form class="ui large form" th:action="@{/loss/report}" th:object="${loss}" method="post">
                             <input id="loss-lat" type="hidden" th:field="*{latitude}">
                             <input id="loss-lng" type="hidden" th:field="*{longitude}">
                             <div class="field">
@@ -119,7 +119,7 @@
 
 <!-- Scripts -->
 <script th:src="@{/libs/jQuery/jquery.js}"></script>
-<script th:src="@{/js/map.js}"></script>
+<script th:src="@{/js/lossReport.js}"></script>
 <script th:src="@{/libs/semantic/semantic.js}"></script>
 <script th:src="@{/libs/fullpage/fullpage.js}"></script>
 

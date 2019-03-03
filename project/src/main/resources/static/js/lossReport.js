@@ -78,6 +78,7 @@ function setSearchBoxEvents() {
         }
 
         map.fitBounds(bounds);
+        map.setZoom(17);
     });
 }
 
