@@ -13,8 +13,39 @@
 </head>
 
 <body>
-    <header th:replace="partials/header.html :: header"></header>
-    <main th:replace="partials/home/content.html :: content"></main>
+
+<!--header-->
+<div class="ui inverted vertical center aligned segment header">
+    <div class="ui container">
+        <div class="ui large secondary inverted pointing menu">
+            <a class="toc item">
+                <i class="sidebar icon"></i>
+            </a>
+            <a class="active item" th:href="@{/}">Home</a>
+            <a class="item" th:href="@{/loss/report}">Report</a>
+            <a class="item" th:href="@{/loss/map}">Map</a>
+            <a class="item" th:href="@{/feed}">Feed</a>
+            <a class="item" th:href="@{/about}">About</a>
+
+            <!-- This section is visible for anonymous user-->
+            <div class="right item" sec:authorize="isAnonymous()">
+                <a class="ui inverted button" th:href="@{/login}">Log in</a>
+                <a class="ui inverted button" th:href="@{/signup}">Sign Up</a>
+            </div>
+            <!-- end -->
+
+            <!-- This section is visible for authenticated user-->
+            <div class="right item" sec:authorize="isAuthenticated()">
+                <a class="ui inverted button" th:href="@{/account}">Account</a>
+                <a class="ui inverted button" th:href="@{/logout}">Log out</a>
+            </div>
+            <!-- end -->
+        </div>
+    </div>
+</div>
+<!--header-->
+
+<main th:replace="partials/home/content.html :: content"></main>
     <footer th:replace="partials/footer.html :: footer"></footer>
 
     <!-- Scripts -->

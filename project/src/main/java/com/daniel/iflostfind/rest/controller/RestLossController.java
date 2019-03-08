@@ -2,13 +2,14 @@ package com.daniel.iflostfind.rest.controller;
 
 import com.daniel.iflostfind.controller.converter.impl.LossConverter;
 import com.daniel.iflostfind.controller.dto.LossDto;
+import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.service.LossService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.Collection;
 import java.util.List;
 
 @RestController
@@ -24,11 +25,14 @@ public class RestLossController {
     }
 
     @GetMapping("/api/losses")
-    public List<LossDto> getAllLosses() {
+    public List<LossDto> getNearbyLosses(
+            @RequestParam("pivotLat") double lat,
+            @RequestParam("pivotLng") double lng,
+            @RequestParam("radius") int r) {
 
-        List<Loss> losses = lossService.getAll();
-        Collection<LossDto> lossDtos = lossConverter.convertEntitiesToDtos(losses);
+        Coordinate pivot = new Coordinate(lat, lng);
+        List<Loss> losses = lossService.getAllWithinRadiusOfCoordinate(pivot, r);
 
-        return (List<LossDto>) lossDtos;
+        return (List<LossDto>) lossConverter.convertEntitiesToDtos(losses);
     }
 }

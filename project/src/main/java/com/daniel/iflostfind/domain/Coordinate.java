@@ -12,7 +12,7 @@ import javax.persistence.Embeddable;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class Location {
-    private double longitude;
+public class Coordinate {
     private double latitude;
+    private double longitude;
 }

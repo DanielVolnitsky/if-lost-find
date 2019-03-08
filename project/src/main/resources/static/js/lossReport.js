@@ -1,6 +1,6 @@
 let map, lossMarker, searchBox;
 
-//TODO return current location logic
+//TODO return current coordinate logic
 function initMap() {
 
     let initialPosition = new google.maps.LatLng(50.455565037464346, 30.473669036770616);
@@ -28,7 +28,6 @@ function initMap() {
     setSearchBoxEvents();
 
     // focusOnCurrentLocation();
-    loadAllLosses();
 }
 
 function setMapEvents() {
@@ -45,7 +44,6 @@ function setMapEvents() {
 function setLossMarkerEvents() {
     lossMarker.addListener('dragend', function (evt) {
         setLocationData(evt.latLng);
-        document.getElementById('current').innerHTML = '<p>Marker dropped: Current Lat: ' + evt.latLng.lat() + ' Current Lng: ' + evt.latLng.lng() + '</p>';
     });
 }
 
@@ -89,23 +87,6 @@ function moveLocationSearchControl() {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
 }
 
-function loadAllLosses() {
-
-    $.get("/api/losses", function (losses) {
-        $.each(losses, function (index, loss) {
-
-            new google.maps.Marker({
-                position: new google.maps.LatLng(loss.latitude, loss.longitude),
-                map: map,
-                title: loss.name,
-            });
-        });
-
-    }).fail(function () {
-        alert("error");
-    })
-}
-
 function moveMarkerToLocation(location) {
     lossMarker.setMap(null);
 
@@ -122,21 +103,6 @@ function moveMarkerToLocation(location) {
 function setLocationData(location) {
     $('#loss-lat').val(location.lat());
     $('#loss-lng').val(location.lng());
-}
-
-function focusOnCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-
-            map.setCenter(position);
-            moveMarkerToLocation(position);
-
-        }, function () {
-            alert("Failed to obtain geolocation information.");
-        });
-    } else {
-        alert("Browser doesn't support Geolocation.");
-    }
 }
 
 $(function () {
@@ -163,3 +129,6 @@ $(function () {
         lossDateInput.valueAsDate = this.checked ? new Date() : null;
     });
 });
+
+
+

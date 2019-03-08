@@ -1,8 +1,15 @@
-let map;
+const nearbyLossesUrl = "/api/losses";
+let map, searchBox;
 
+//TODO return current coordinate logic
 function initMap() {
+
+    let initialPosition = new google.maps.LatLng(50.455565037464346, 30.473669036770616);
+
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: 17,
+        center: initialPosition,
+        mapTypeId: 'roadmap',
         mapTypeControl: false,
         zoomControl: true,
         scaleControl: true,
@@ -10,69 +17,77 @@ function initMap() {
         fullscreenControl: false
     });
 
-    autocomplete = new google.maps.places.Autocomplete(
-        document.getElementById('autocomplete'), {
-            types: ['geocode']
-        });
+    moveLocationSearchControl();
 
-    // Create the search box and link it to the UI element.
-    var wrapper = document.getElementById('autocomplete-wrapper');
-    var input = document.getElementById('autocomplete');
-    var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
+    setMapEvents();
+    setSearchBoxEvents();
 
+    // focusOnCurrentLocation();
+    loadNearbyLosses(initialPosition, 1);
+}
+
+function setSearchBoxEvents() {
+    // Listen for the event fired when the user selects a prediction and retrieve
+    // more details for that place.
+    searchBox.addListener('places_changed', function () {
+        let places = searchBox.getPlaces();
+
+        if (places.length == 0) {
+            return;
+        }
+
+        let place = places[0];
+        let bounds = new google.maps.LatLngBounds();
+
+        if (!place.geometry) {
+            console.log("Returned place contains no geometry");
+            return;
+        }
+
+        if (place.geometry.viewport) {
+            // Only geocodes have viewport.
+            bounds.union(place.geometry.viewport);
+        } else {
+            bounds.extend(place.geometry.location);
+        }
+
+        map.fitBounds(bounds);
+        map.setZoom(17);
+    });
+}
+
+function setMapEvents() {
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
     });
-
-    loadAllLosses();
-    focusOnCurrentLocation();
 }
 
-function loadAllLosses() {
+function moveLocationSearchControl() {
+    let wrapper = document.getElementById('autocomplete-wrapper');
+    let input = document.getElementById('autocomplete');
+    searchBox = new google.maps.places.SearchBox(input);
+    map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
+}
 
-    $.get("http://localhost:8080/api/losses", function (losses) {
+function loadNearbyLosses(location, radius) {
 
-        $.each(losses, function( index, loss ) {
+    let query = nearbyLossesUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
 
-            let lossMarker = new google.maps.Marker({
-                position: {lat: loss.latitude, lng: loss.longitude},
+    $.get(query, function (losses) {
+
+        $.each(losses, function (index, loss) {
+
+            new google.maps.Marker({
+                position: new google.maps.LatLng(loss.latitude, loss.longitude),
                 map: map,
                 title: loss.name,
-                draggable: true
             });
-            lossMarker.setMap(map);
         });
 
+    }).fail(function () {
+        alert("Failed to upload nearby losses.");
     })
-        .fail(function () {
-            alert("error");
-        })
 }
 
-function focusOnCurrentLocation() {
-    if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-            var pos = {
-                lat: position.coords.latitude,
-                lng: position.coords.longitude
-            };
 
-            map.setCenter(pos);
-        }, function () {
-            handleLocationError(true, infoWindow, map.getCenter());
-        });
-    } else {
-        // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
-    }
-}
-
-function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-    infoWindow.setPosition(pos);
-    infoWindow.setContent(browserHasGeolocation ?
-        'Error: The Geolocation service failed.' :
-        'Error: Your browser doesn\'t support geolocation.');
-    infoWindow.open(map);
-}

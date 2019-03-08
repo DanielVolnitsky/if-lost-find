@@ -39,7 +39,7 @@ public class Loss {
     @Embedded
     @Getter
     @Setter
-    private Location location;
+    private Coordinate coordinate;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "reporter_id")

@@ -4,7 +4,7 @@ import com.daniel.iflostfind.controller.converter.DtoToEntityConverter;
 import com.daniel.iflostfind.controller.converter.EntityToDtoCollectionConverter;
 import com.daniel.iflostfind.controller.converter.EntityToDtoConverter;
 import com.daniel.iflostfind.controller.dto.LossDto;
-import com.daniel.iflostfind.domain.Location;
+import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
 import org.springframework.stereotype.Component;
@@ -24,7 +24,7 @@ public class LossConverter implements
 
         LossType lossType = LossType.valueOf(dto.getType());
 
-        Location location = Location.builder()
+        Coordinate coordinate = Coordinate.builder()
                 .latitude(dto.getLatitude())
                 .longitude(dto.getLongitude())
                 .build();
@@ -35,7 +35,7 @@ public class LossConverter implements
                 .description(dto.getDescription())
                 .type(lossType)
                 .lossDate(dto.getLossDate())
-                .location(location)
+                .coordinate(coordinate)
                 .build();
     }
 
@@ -52,7 +52,7 @@ public class LossConverter implements
 
         dto.setLossDate(loss.getLossDate());
 
-        Location lossLoc = loss.getLocation();
+        Coordinate lossLoc = loss.getCoordinate();
         dto.setLatitude(lossLoc.getLatitude());
         dto.setLongitude(lossLoc.getLongitude());
 
