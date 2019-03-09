@@ -1,14 +1,10 @@
 let map, lossMarker, searchBox;
 
-//TODO return current coordinate logic
 function initMap() {
 
-    let initialPosition = new google.maps.LatLng(50.455565037464346, 30.473669036770616);
-
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: 17,
-        center: initialPosition,
-        mapTypeId: 'roadmap',
+        zoom: mapZoom,
+        mapTypeId: mapType,
         mapTypeControl: false,
         zoomControl: true,
         scaleControl: true,
@@ -17,7 +13,6 @@ function initMap() {
     });
 
     lossMarker = new google.maps.Marker({
-        position: initialPosition,
         draggable: true,
         map: map
     });
@@ -27,7 +22,12 @@ function initMap() {
     setMapEvents();
     setSearchBoxEvents();
 
-    // focusOnCurrentLocation();
+    processCurrentLocation(function (position) {
+        let loc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+
+        map.setCenter(loc);
+        lossMarker.setPosition(loc);
+    });
 }
 
 function setMapEvents() {
@@ -76,7 +76,7 @@ function setSearchBoxEvents() {
         }
 
         map.fitBounds(bounds);
-        map.setZoom(17);
+        map.setZoom(mapZoom);
     });
 }
 

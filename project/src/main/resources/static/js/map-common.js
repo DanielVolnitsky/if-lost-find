@@ -1,11 +1,9 @@
-function focusOnCurrentLocation() {
+const mapZoom = 17;
+const mapType = 'roadmap';
+
+function processCurrentLocation(successCallback) {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(function (position) {
-
-            map.setCenter(position);
-            moveMarkerToLocation(position);
-
-        }, function () {
+        navigator.geolocation.getCurrentPosition(successCallback, function () {
             alert("Failed to obtain geolocation information.");
         });
     } else {
