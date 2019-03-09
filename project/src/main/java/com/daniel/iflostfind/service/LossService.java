@@ -10,5 +10,5 @@ public interface LossService {
 
     List<Loss> getAll();
 
-    List<Loss> getAllWithinRadiusOfCoordinate(Coordinate coordinate, int radiusKm);
+    List<Loss> getAllWithinRadiusOfCoordinate(Coordinate coordinate, double radiusKm);
 }

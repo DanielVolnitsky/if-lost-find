@@ -33,18 +33,18 @@ public class LossServiceImpl implements LossService {
 
     //TODO optimize
     @Override
-    public List<Loss> getAllWithinRadiusOfCoordinate(Coordinate pivot, int radius) {
+    public List<Loss> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
         List<Loss> all = getAll();
         return getFilteredNearbyLosses(pivot, radius, all);
     }
 
-    private List<Loss> getFilteredNearbyLosses(Coordinate pivot, int radius, List<Loss> all) {
+    private List<Loss> getFilteredNearbyLosses(Coordinate pivot, double radius, List<Loss> all) {
         return all.stream()
                 .filter(l -> isCoordinateWithinRadiusOfAnother(pivot, l.getCoordinate(), radius))
                 .collect(toList());
     }
 
-    private boolean isCoordinateWithinRadiusOfAnother(Coordinate pivot, Coordinate other, int radiusKm) {
+    private boolean isCoordinateWithinRadiusOfAnother(Coordinate pivot, Coordinate other, double radiusKm) {
 
         double ky = (double) 40000 / 360;
         double kx = Math.cos(Math.PI * pivot.getLatitude() / 180.0) * ky;

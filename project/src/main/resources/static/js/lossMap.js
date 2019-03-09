@@ -1,5 +1,5 @@
 const nearbyLossesUrl = "/api/losses";
-const lossesRadiusKm = 1;
+const lossesRadiusKm = 0.5;
 
 function initMap() {
 
@@ -59,6 +59,10 @@ function setMapEvents() {
     // Bias the SearchBox results towards current map's viewport.
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
+    });
+
+    map.addListener('idle', function(e) {
+        loadNearbyLosses(this.getCenter(), lossesRadiusKm);
     });
 }
 

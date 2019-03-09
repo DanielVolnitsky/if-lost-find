@@ -96,8 +96,40 @@ public class DemoDataBeanConfiguration {
                     .coordinate(Coordinate.builder().latitude(50.51767457997845 ).longitude(30.251613693917875).build())
                     .build();
 
+            Loss l9 = Loss.builder()
+                    .name("Park druzhbi")
+                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .type(LossType.GADGET)
+                    .lossDate(LocalDate.now())
+                    .coordinate(Coordinate.builder().latitude(50.52432833288968).longitude(30.238248476525428).build())
+                    .build();
+
+            Loss l10 = Loss.builder()
+                    .name("Park Pravika")
+                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .type(LossType.GADGET)
+                    .lossDate(LocalDate.now())
+                    .coordinate(Coordinate.builder().latitude(50.526327206757394).longitude(30.238197159577226).build())
+                    .build();
+
+            Loss l11 = Loss.builder()
+                    .name("EKO")
+                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .type(LossType.GADGET)
+                    .lossDate(LocalDate.now())
+                    .coordinate(Coordinate.builder().latitude(50.518481247806264).longitude(30.238570579531824).build())
+                    .build();
+
+            Loss l12 = Loss.builder()
+                    .name("Tonus")
+                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .type(LossType.GADGET)
+                    .lossDate(LocalDate.now())
+                    .coordinate(Coordinate.builder().latitude(50.52173174720019).longitude(30.23883194276118).build())
+                    .build();
+
             lossRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
-            lossRepository.saveAll(Arrays.asList(l6, l7, l8));
+            lossRepository.saveAll(Arrays.asList(l6, l7, l8, l9, l10, l11, l12));
         };
     }
 

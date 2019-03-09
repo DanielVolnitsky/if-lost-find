@@ -28,7 +28,7 @@ public class RestLossController {
     public List<LossDto> getNearbyLosses(
             @RequestParam("pivotLat") double lat,
             @RequestParam("pivotLng") double lng,
-            @RequestParam("radius") int r) {
+            @RequestParam("radius") double r) {
 
         Coordinate pivot = new Coordinate(lat, lng);
         List<Loss> losses = lossService.getAllWithinRadiusOfCoordinate(pivot, r);
