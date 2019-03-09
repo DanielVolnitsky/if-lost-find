@@ -1,6 +1,8 @@
 const nearbyLossesUrl = "/api/losses";
 const lossesRadiusKm = 0.5;
 
+let lossMarkers = [];
+
 function initMap() {
 
     map = new google.maps.Map(document.getElementById('map'), {
@@ -61,9 +63,37 @@ function setMapEvents() {
         searchBox.setBounds(map.getBounds());
     });
 
-    map.addListener('idle', function(e) {
+    map.addListener('idle', function () {
+        let center = this.getCenter();
+
+        removeOutOfBoundsLossMarkers(center);
         loadNearbyLosses(this.getCenter(), lossesRadiusKm);
     });
+}
+
+//TODO optimize
+function removeOutOfBoundsLossMarkers(center) {
+
+    lossMarkers
+        .filter(marker => !isMarkerInBounds(marker, center))
+        .forEach(marker => marker.setMap(null));
+
+    lossMarkers = lossMarkers.filter(marker => isMarkerInBounds(marker, center));
+}
+
+function isMarkerInBounds(marker, center) {
+    let checkPoint = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
+    let centerPoint = {lat: center.lat(), lng: center.lng()};
+
+    return arePointsNear(checkPoint, centerPoint, lossesRadiusKm);
+}
+
+function arePointsNear(checkPoint, centerPoint, km) {
+    let ky = 40000 / 360;
+    let kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    let dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    let dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    return Math.sqrt(dx * dx + dy * dy) <= km;
 }
 
 function moveLocationSearchControl() {
@@ -81,11 +111,17 @@ function loadNearbyLosses(location, radius) {
 
         $.each(losses, function (index, loss) {
 
-            new google.maps.Marker({
+            let newLossMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(loss.latitude, loss.longitude),
                 map: map,
                 title: loss.name,
             });
+
+            //TODO check for validity
+            let existingMarker = lossMarkers.find(m => areObjectsEqual(m, newLossMarker));
+            if (existingMarker === undefined) {
+                lossMarkers.push(newLossMarker);
+            }
         });
 
     }).fail(function () {
