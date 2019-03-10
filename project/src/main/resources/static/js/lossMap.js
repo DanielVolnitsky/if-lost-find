@@ -1,5 +1,5 @@
 const nearbyLossesUrl = "/api/losses";
-const lossesRadiusKm = 0.5;
+const lossesRadiusKm = 0.8;
 
 let lossMarkers = [];
 
@@ -76,27 +76,9 @@ function removeOutOfBoundsLossMarkers(center) {
 
     lossMarkers
         .filter(marker => !isMarkerInBounds(marker, center))
-        .forEach(marker => {
-            marker.setMap(null);
-            console.log("remove" + marker.title);
-        } );
+        .forEach(marker => marker.setMap(null));
 
     lossMarkers = lossMarkers.filter(marker => isMarkerInBounds(marker, center));
-}
-
-function isMarkerInBounds(marker, center) {
-    let checkPoint = {lat: marker.getPosition().lat(), lng: marker.getPosition().lng()};
-    let centerPoint = {lat: center.lat(), lng: center.lng()};
-
-    return arePointsNear(checkPoint, centerPoint, lossesRadiusKm);
-}
-
-function arePointsNear(checkPoint, centerPoint, km) {
-    let ky = 40000 / 360;
-    let kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
-    let dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
-    let dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
-    return Math.sqrt(dx * dx + dy * dy) <= km;
 }
 
 function moveLocationSearchControl() {
@@ -116,24 +98,38 @@ function loadNearbyLosses(location, radius) {
 
             let newLossMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(loss.latitude, loss.longitude),
-                map: map,
-                title: loss.name,
-                draggable: true
+                title: loss.name
             });
 
-            //TODO check for validity
             let existingMarker = lossMarkers.find(m => areLossMarkersEqual(m, newLossMarker));
             if (existingMarker === undefined) {
+                newLossMarker.setMap(map);
                 lossMarkers.push(newLossMarker);
-                console.log("push" + newLossMarker.title);
-            } else {
-                console.log("already pres"  + newLossMarker.title);
             }
         });
 
     }).fail(function () {
         alert("Failed to upload nearby losses.");
     })
+}
+
+function isMarkerInBounds(marker, center) {
+    let checkPoint = {
+        lat: marker.getPosition().lat(),
+        lng: marker.getPosition().lng()
+    };
+
+    let centerPoint = {lat: center.lat(), lng: center.lng()};
+
+    return arePointsInBounds(checkPoint, centerPoint, lossesRadiusKm);
+}
+
+function arePointsInBounds(checkPoint, centerPoint, km) {
+    let ky = 40000 / 360;
+    let kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
+    let dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
+    let dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
+    return Math.sqrt(dx * dx + dy * dy) <= km;
 }
 
 
