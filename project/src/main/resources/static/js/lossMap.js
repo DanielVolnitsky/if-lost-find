@@ -76,7 +76,10 @@ function removeOutOfBoundsLossMarkers(center) {
 
     lossMarkers
         .filter(marker => !isMarkerInBounds(marker, center))
-        .forEach(marker => marker.setMap(null));
+        .forEach(marker => {
+            marker.setMap(null);
+            console.log("remove" + marker.title);
+        } );
 
     lossMarkers = lossMarkers.filter(marker => isMarkerInBounds(marker, center));
 }
@@ -115,12 +118,16 @@ function loadNearbyLosses(location, radius) {
                 position: new google.maps.LatLng(loss.latitude, loss.longitude),
                 map: map,
                 title: loss.name,
+                draggable: true
             });
 
             //TODO check for validity
-            let existingMarker = lossMarkers.find(m => areObjectsEqual(m, newLossMarker));
+            let existingMarker = lossMarkers.find(m => areLossMarkersEqual(m, newLossMarker));
             if (existingMarker === undefined) {
                 lossMarkers.push(newLossMarker);
+                console.log("push" + newLossMarker.title);
+            } else {
+                console.log("already pres"  + newLossMarker.title);
             }
         });
 
