@@ -13,13 +13,13 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class RestLossController {
+public class LossRestController {
 
     private final LossService lossService;
     private final LossConverter lossConverter;
 
     @Autowired
-    public RestLossController(LossService lossService, LossConverter lossConverter) {
+    public LossRestController(LossService lossService, LossConverter lossConverter) {
         this.lossService = lossService;
         this.lossConverter = lossConverter;
     }

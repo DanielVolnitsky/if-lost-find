@@ -10,7 +10,9 @@
     <!-- Styles -->
     <link th:href="@{/libs/normalize/normalize.css}" rel="stylesheet">
     <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
-    <link th:href="@{/css/home.css}" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link th:href="@{/css/index.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -45,10 +47,14 @@
 <!--header-->
 
 
-<footer th:replace="partials/footer.html :: footer"></footer>
+
+<!--<footer th:replace="partials/footer.html :: footer"></footer>-->
 
 <!-- Scripts -->
-<script async defer src="https://maps.googleapis.com/maps/api/js?token"></script>
+<script async defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}">
+</script>
+
 <script th:src="@{/libs/jQuery/jquery.js}"></script>
 <script th:src="@{/libs/semantic/semantic.js}"></script>
 
