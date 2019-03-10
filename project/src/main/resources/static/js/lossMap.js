@@ -103,14 +103,38 @@ function loadNearbyLosses(location, radius) {
 
             let existingMarker = lossMarkers.find(m => areLossMarkersEqual(m, newLossMarker));
             if (existingMarker === undefined) {
+
                 newLossMarker.setMap(map);
                 lossMarkers.push(newLossMarker);
+
+                let lossInfoWindow = new google.maps.InfoWindow({
+                    content: buildLossInfoWindowContent(loss)
+                });
+
+                newLossMarker.addListener('click', function () {
+                    if(isInfoWindowOpen(lossInfoWindow)){
+                        lossInfoWindow.close();
+                    } else {
+                        lossInfoWindow.open(map, newLossMarker);
+                    }
+                });
+
             }
         });
 
     }).fail(function () {
         alert("Failed to upload nearby losses.");
     })
+}
+
+function buildLossInfoWindowContent(loss) {
+    return "<div>" +
+        "        <h5 class=\"loss-info-head\">" + loss.name + "</h5>" +
+        "        <div class=\"loss-info-desc\">" + loss.description + "</div>" +
+        "        <a href=\"/loss/info/" + loss.id + "\" class=\"loss-info-fullinfo-link\">View a full info</a>" +
+        "        |" +
+        "        <a href=\"/api/found/" + loss.id + "\" class=\"loss-info-found-link\">Report a find</a>" +
+        "   </div>"
 }
 
 function isMarkerInBounds(marker, center) {

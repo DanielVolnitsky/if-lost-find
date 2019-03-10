@@ -13,3 +13,11 @@
     height: 100px;
     background-color: blueviolet;
 }
+
+.loss-info-head{
+    margin-bottom: 15px;
+}
+
+.loss-info-desc{
+    margin-bottom: 10px;
+}
