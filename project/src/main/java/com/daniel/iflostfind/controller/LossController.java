@@ -1,9 +1,9 @@
 package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.controller.converter.impl.LossConverter;
+import com.daniel.iflostfind.controller.dto.LossDto;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
-import com.daniel.iflostfind.controller.dto.LossDto;
 import com.daniel.iflostfind.service.HiddenInfoService;
 import com.daniel.iflostfind.service.LossService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +18,8 @@ import javax.validation.Valid;
 @Controller
 public class LossController {
 
-    final static String LOSS_REPORT_PAGE_PATH = "/loss/report";
+    static final String LOSS_REPORT_PAGE_PATH = "/loss/report";
+    static final String LOSS_REPORT_PAGE = "loss_report";
 
     private final LossConverter lossConverter;
     private final LossService lossService;
@@ -38,7 +39,7 @@ public class LossController {
         m.addAttribute("loss", new LossDto());
         m.addAttribute("lossTypes", LossType.values());
 
-        return "lossReport";
+        return LOSS_REPORT_PAGE;
     }
 
     @PostMapping(LOSS_REPORT_PAGE_PATH)

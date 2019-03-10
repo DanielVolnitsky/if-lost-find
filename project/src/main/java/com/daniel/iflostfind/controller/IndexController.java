@@ -19,7 +19,7 @@ public class IndexController {
         this.hiddenInfoService = hiddenInfoService;
     }
 
-    @GetMapping(path = INDEX_PATH)
+    @GetMapping(path = {"/", INDEX_PATH})
     public String toIndexPage(Model m) {
 
         m.addAttribute("google_map_key", hiddenInfoService.getMapKey());

@@ -13,7 +13,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
           integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
     <link th:href="@{/css/page.css}" rel="stylesheet">
-    <link th:href="@{/css/lossReport.css}" rel="stylesheet">
+    <link th:href="@{/css/loss-report.css}" rel="stylesheet">
 </head>
 
 <body>
@@ -27,7 +27,6 @@
             </a>
             <a class="item" th:href="@{/}">Home</a>
             <a class="active item" th:href="@{/loss/report}">Report</a>
-            <a class="item" th:href="@{/loss/map}">Map</a>
 
             <!-- This section is visible for anonymous user-->
             <div class="right item" sec:authorize="isAnonymous()">
@@ -120,7 +119,7 @@
 <!-- Scripts -->
 <script th:src="@{/libs/jQuery/jquery.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
-<script th:src="@{/js/lossReport.js}"></script>
+<script th:src="@{/js/loss-report.js}"></script>
 <script th:src="@{/libs/semantic/semantic.js}"></script>
 <script th:src="@{/libs/fullpage/fullpage.js}"></script>
 
