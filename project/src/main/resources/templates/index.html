@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="UTF-8">
@@ -24,8 +25,6 @@
             <a class="active item" th:href="@{/}">Home</a>
             <a class="item" th:href="@{/loss/report}">Report</a>
             <a class="item" th:href="@{/loss/map}">Map</a>
-            <a class="item" th:href="@{/feed}">Feed</a>
-            <a class="item" th:href="@{/about}">About</a>
 
             <!-- This section is visible for anonymous user-->
             <div class="right item" sec:authorize="isAnonymous()">
@@ -45,14 +44,13 @@
 </div>
 <!--header-->
 
-<main th:replace="partials/home/content.html :: content"></main>
-    <footer th:replace="partials/footer.html :: footer"></footer>
 
-    <!-- Scripts -->
-    <script th:src="@{/libs/jQuery/jquery.js}"></script>
-    <script th:src="@{/js/lossReport.js}"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?token"></script>
-    <script th:src="@{/libs/semantic/semantic.js}"></script>
+<footer th:replace="partials/footer.html :: footer"></footer>
+
+<!-- Scripts -->
+<script async defer src="https://maps.googleapis.com/maps/api/js?token"></script>
+<script th:src="@{/libs/jQuery/jquery.js}"></script>
+<script th:src="@{/libs/semantic/semantic.js}"></script>
 
 </body>
 

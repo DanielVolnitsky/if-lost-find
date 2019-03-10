@@ -27,8 +27,6 @@
             <a class="item" th:href="@{/}">Home</a>
             <a class="item" th:href="@{/loss/report}">Report</a>
             <a class="active item" th:href="@{/loss/map}">Map</a>
-            <a class="item" th:href="@{/feed}">Feed</a>
-            <a class="item" th:href="@{/about}">About</a>
 
             <!-- This section is visible for anonymous user-->
             <div class="right item" sec:authorize="isAnonymous()">
