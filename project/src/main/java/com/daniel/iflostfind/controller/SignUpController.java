@@ -18,11 +18,9 @@ import javax.validation.Valid;
 import java.util.Objects;
 
 @Controller
-@NotAccessibleIfAuthenticated
 public class SignUpController {
 
-    static final String SIGN_UP_PATH = "/signup";
-    static final String SIGN_UP_PAGE = "signup";
+    static final String SIGN_UP_PATH = "/register";
     static final String USER_MODEL_NAME = "user";
 
     private UserService userService;
@@ -37,7 +35,7 @@ public class SignUpController {
 
         UserDto userDto = new UserDto();
         model.addAttribute(USER_MODEL_NAME, userDto);
-        return SIGN_UP_PAGE;
+        return "login";
     }
 
     @PostMapping(path = SIGN_UP_PATH)
@@ -53,8 +51,7 @@ public class SignUpController {
             bindingResult.rejectValue("email", "email.invalid", "user with this email already exists");
         }
 
-        String viewName = bindingResult.hasErrors() ? SIGN_UP_PAGE : LoginController.LOGIN_PAGE;
-        return new ModelAndView(viewName, USER_MODEL_NAME, userDto);
+        return new ModelAndView("login", USER_MODEL_NAME, userDto);
     }
 
     private User registerNewUserAccount(UserDto userDto) {

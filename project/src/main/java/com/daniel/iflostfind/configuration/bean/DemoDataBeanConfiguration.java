@@ -142,16 +142,14 @@ public class DemoDataBeanConfiguration {
             dan.setLastName("v");
             dan.setEmail("test@test.com");
             dan.setPassword("Qwerty1234567");
-            dan.setCountry("Ukraine");
-            dan.setCity("Irpin");
+            dan.setDefaultLocation("Irpin");
 
             User kir = new User();
             kir.setName("k");
             kir.setLastName("a");
             kir.setEmail("d@m.com");
             kir.setPassword("dddddd");
-            kir.setCountry("Ukraine");
-            kir.setCity("Irpin");
+            kir.setDefaultLocation("Irpin");
 
             userRepository.saveAll(Arrays.asList(dan, kir));
         };

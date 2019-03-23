@@ -25,12 +25,8 @@ public class User {
     @Column(nullable = false)
     private String password;
 
-    //TODO make embeddable
     @Column(nullable = false)
-    private String country;
-
-    @Column(nullable = false)
-    private String city;
+    private String defaultLocation;
 
     @OneToMany(mappedBy = "reporter", fetch = FetchType.LAZY, cascade = CascadeType.PERSIST)
     private List<Loss> losses = new ArrayList<>();
@@ -78,20 +74,12 @@ public class User {
         this.password = password;
     }
 
-    public String getCountry() {
-        return country;
+    public String getDefaultLocation() {
+        return defaultLocation;
     }
 
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public void setCity(String city) {
-        this.city = city;
+    public void setDefaultLocation(String defaultLocation) {
+        this.defaultLocation = defaultLocation;
     }
 
     public List<Loss> getLosses() {
