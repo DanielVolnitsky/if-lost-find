@@ -13,22 +13,23 @@ import org.springframework.stereotype.Component;
 @Component
 public class SecurityAspect {
 
-    @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
-    public void getMappedControllerMethods() {
-
-    }
-
-    @Pointcut("@target(com.daniel.iflostfind.util.annotation.NotAccessibleIfAuthenticated)")
-    public void notAccessibleIfAuthenticated() {
-
-    }
-
-    @Around("notAccessibleIfAuthenticated() && getMappedControllerMethods()")
-    public Object redirectToIndexIfAlreadyAuthenticated(ProceedingJoinPoint pjp) throws Throwable {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (!(auth instanceof AnonymousAuthenticationToken)) {
-            return "redirect:/index";
-        }
-        return pjp.proceed();
-    }
+    //TODO
+//    @Pointcut("@annotation(org.springframework.web.bind.annotation.GetMapping)")
+//    public void getMappedControllerMethods() {
+//
+//    }
+//
+//    @Pointcut("@target(com.daniel.iflostfind.util.annotation.NotAccessibleIfAuthenticated)")
+//    public void notAccessibleIfAuthenticated() {
+//
+//    }
+//
+//    @Around("notAccessibleIfAuthenticated() && getMappedControllerMethods()")
+//    public Object redirectToIndexIfAlreadyAuthenticated(ProceedingJoinPoint pjp) throws Throwable {
+//        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+//        if (!(auth instanceof AnonymousAuthenticationToken)) {
+//            return "redirect:/index";
+//        }
+//        return pjp.proceed();
+//    }
 }

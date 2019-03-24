@@ -1,14 +1,11 @@
-package com.daniel.iflostfind.dto;
+package com.daniel.iflostfind.controller.dto;
 
-import com.daniel.iflostfind.util.annotation.PasswordMatches;
-import com.daniel.iflostfind.util.annotation.ValidEmail;
 import lombok.Getter;
 import lombok.Setter;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
-@PasswordMatches
 public class UserDto {
 
     @NotNull
@@ -31,13 +28,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
-    @Getter
-    @Setter
-    private String matchingPassword;
-
-    @NotNull
-    @NotEmpty
-    @ValidEmail
+//TODO restore    @ValidEmail
     @Getter
     @Setter
     private String email;
@@ -46,11 +37,5 @@ public class UserDto {
     @NotEmpty
     @Getter
     @Setter
-    private String country;
-
-    @NotNull
-    @NotEmpty
-    @Getter
-    @Setter
-    private String city;
+    private String defaultLocation;
 }
