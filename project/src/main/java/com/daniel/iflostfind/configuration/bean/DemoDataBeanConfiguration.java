@@ -140,8 +140,8 @@ public class DemoDataBeanConfiguration {
             User dan = new User();
             dan.setName("d");
             dan.setLastName("v");
-            dan.setEmail("test@test.com");
-            dan.setPassword("Qwerty1234567");
+            dan.setEmail("d@d");
+            dan.setPassword("d");
             dan.setDefaultLocation("Irpin");
 
             User kir = new User();

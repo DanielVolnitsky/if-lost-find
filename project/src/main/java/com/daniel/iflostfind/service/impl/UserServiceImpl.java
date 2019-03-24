@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.service.impl;
 
-import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.controller.dto.UserDto;
+import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.repository.UserRepository;
 import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.util.exception.UserAlreadyExistsException;
@@ -23,23 +23,25 @@ public class UserServiceImpl implements UserService {
 
     @Transactional
     @Override
-    public User registerNewUserAccount(UserDto dto) {
-        if (userExists(dto.getEmail())) {
-            throw new UserAlreadyExistsException("There is already a user with email - " + dto.getEmail() + " in the system");
-        }
+    public User registerNewUserAccount(UserDto userDto) {
+
+        checkIfUserAlreadyExists(userDto);
 
         User user = new User();
-        user.setName(dto.getFirstName());
-        user.setLastName(dto.getLastName());
-        user.setEmail(dto.getEmail());
-        user.setPassword(dto.getPassword());
-        user.setDefaultLocation(dto.getDefaultLocation());
+        user.setName(userDto.getFirstName());
+        user.setLastName(userDto.getLastName());
+        user.setEmail(userDto.getEmail());
+        user.setPassword(userDto.getPassword());
+        user.setDefaultLocation(userDto.getDefaultLocation());
 
         return userRepository.save(user);
     }
 
-    private boolean userExists(String email) {
-        User user = userRepository.findUserByEmail(email);
-        return Objects.nonNull(user);
+    private void checkIfUserAlreadyExists(UserDto user) {
+        User found = userRepository.findUserByEmail(user.getEmail());
+        if (Objects.nonNull(found)) {
+            throw new UserAlreadyExistsException(
+                    "There is already a user with email - " + user.getEmail() + " in the system");
+        }
     }
 }

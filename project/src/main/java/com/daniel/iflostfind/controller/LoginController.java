@@ -23,7 +23,7 @@ public class LoginController {
     public String toLoginPage(Model m) {
 
         m.addAttribute("google_map_key", hiddenInfoService.getMapKey());
-        m.addAttribute(SignUpController.USER_MODEL_NAME, new UserDto());
+        m.addAttribute(RegistrationController.USER_MODEL_NAME, new UserDto());
         return "login";
     }
 }

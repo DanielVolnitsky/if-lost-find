@@ -29,7 +29,7 @@ public class UserDto {
 
     @NotNull
     @NotEmpty
-    @ValidEmail
+//TODO restore    @ValidEmail
     @Getter
     @Setter
     private String email;
