@@ -1,6 +1,5 @@
 package com.daniel.iflostfind.controller.dto;
 
-import com.daniel.iflostfind.util.annotation.ValidEmail;
 import lombok.Getter;
 import lombok.Setter;
 

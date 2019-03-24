@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en" xmlns="http://www.w3.org/1999/xhtml"
->
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
     <title>Home</title>
 
-    <link th:href="@{/libs/semantic/semantic.css}" rel="stylesheet">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-    <link th:href="@{/css/index.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/libs/semantic/semantic.css}">
+    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 
 <body>
@@ -23,16 +24,17 @@
         <a class="p-2 text-dark" href="#">IFound</a>
         <a class="p-2 text-dark" th:href="@{/loss/report}">ILost</a>
     </nav>
-    <a class="btn btn-outline-success" th:href="@{/login}">Log In</a>
+    <a class="btn btn-outline-success" sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a>
+    <a class="btn btn-outline-danger" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
 </header>
 
 <section id="loss-map">
     <h2>Lost & Found</h2>
     <div class="container-fluid index-container">
-        <div id="autocomplete-wrapper" class="ui action input">
-            <input id="autocomplete" type="text" placeholder="Address...">
+        <div class="ui action input" id="autocomplete-wrapper">
+            <input id="autocomplete" placeholder="Address..." type="text">
         </div>
-        <div id="map" class="row"></div>
+        <div class="row" id="map"></div>
     </div>
 </section>
 
@@ -50,7 +52,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad odio deleniti odit sequi nam
                         tempore et distinctio, ipsam impedit est quod quas perspiciatis.
                     </div>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-success">Found It</button>
+                    <button class="btn btn-lg btn-block btn-outline-success" type="button">Found It</button>
                 </div>
             </div>
             <div class="card mb-4 shadow-sm">
@@ -63,7 +65,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad odio deleniti odit sequi nam
                         tempore et distinctio, ipsam impedit est quod quas perspiciatis.
                     </div>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-success">Found It</button>
+                    <button class="btn btn-lg btn-block btn-outline-success" type="button">Found It</button>
                 </div>
             </div>
             <div class="card mb-4 shadow-sm">
@@ -76,7 +78,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad odio deleniti odit sequi nam
                         tempore et distinctio, ipsam impedit est quod quas perspiciatis.
                     </div>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-success">Found It</button>
+                    <button class="btn btn-lg btn-block btn-outline-success" type="button">Found It</button>
                 </div>
             </div>
             <div class="card mb-4 shadow-sm">
@@ -89,7 +91,7 @@
                         Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ad odio deleniti odit sequi nam
                         tempore et distinctio, ipsam impedit est quod quas perspiciatis.
                     </div>
-                    <button type="button" class="btn btn-lg btn-block btn-outline-success">Found It</button>
+                    <button class="btn btn-lg btn-block btn-outline-success" type="button">Found It</button>
                 </div>
             </div>
         </div>
