@@ -13,9 +13,12 @@ public class PersonDetails implements UserDetails {
 
     private final User user;
 
-    @Autowired
     public PersonDetails(User user) {
         this.user = user;
+    }
+
+    public String getDefaultLocation(){
+        return this.user.getDefaultLocation();
     }
 
     @Override
@@ -30,7 +33,7 @@ public class PersonDetails implements UserDetails {
 
     @Override
     public String getUsername() {
-        return user.getName();
+        return user.getEmail();
     }
 
     @Override

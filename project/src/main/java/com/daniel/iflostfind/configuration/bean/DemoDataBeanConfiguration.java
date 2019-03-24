@@ -142,16 +142,16 @@ public class DemoDataBeanConfiguration {
             dan.setLastName("v");
             dan.setEmail("d@d");
             dan.setPassword("d");
-            dan.setDefaultLocation("Irpin");
+            dan.setDefaultLocation("Kvitkova Street, Irpin', Киевская область, Украина");
 
-            User kir = new User();
-            kir.setName("k");
-            kir.setLastName("a");
-            kir.setEmail("d@m.com");
-            kir.setPassword("dddddd");
-            kir.setDefaultLocation("Irpin");
+            User bos = new User();
+            bos.setName("k");
+            bos.setLastName("a");
+            bos.setEmail("b@b");
+            bos.setPassword("b");
+            bos.setDefaultLocation("Bohdana Havrylyshyna Street, Киев, Украина");
 
-            userRepository.saveAll(Arrays.asList(dan, kir));
+            userRepository.saveAll(Arrays.asList(dan, bos));
         };
     }
 }

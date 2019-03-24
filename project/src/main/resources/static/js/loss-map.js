@@ -2,6 +2,7 @@ const nearbyLossesUrl = "/api/losses";
 const lossesRadiusKm = 0.8;
 
 let lossMarkers = [];
+let service;
 
 function initMap() {
 
@@ -19,11 +20,35 @@ function initMap() {
     setMapEvents();
     setSearchBoxEvents();
 
-    processCurrentLocation(function (position) {
-        let loc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
+    processCurrentLocation(function (currPosition) {
 
-        map.setCenter(loc);
-        loadNearbyLosses(loc, lossesRadiusKm);
+        let currLocation = new google.maps.LatLng(currPosition.coords.latitude, currPosition.coords.longitude);
+        map.setCenter(currLocation);
+        loadNearbyLosses(currLocation, lossesRadiusKm);
+
+    }, processDefaultLocation);
+}
+
+function processDefaultLocation() {
+
+    let defaultLocation = $('#user-default-location').val();
+    let request = {
+        query: defaultLocation,
+        fields: ['name', 'geometry'],
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.findPlaceFromQuery(request, function (results, status) {
+        if (status === google.maps.places.PlacesServiceStatus.OK) {
+
+            let place = results[0];
+            let location = place.geometry.location;
+            map.setCenter(location);
+            loadNearbyLosses(location, lossesRadiusKm);
+
+        } else {
+            alert("Failed to obtain your location info.")
+        }
     });
 }
 
@@ -33,7 +58,7 @@ function setSearchBoxEvents() {
     searchBox.addListener('places_changed', function () {
         let places = searchBox.getPlaces();
 
-        if (places.length == 0) {
+        if (places.length === 0) {
             return;
         }
 
@@ -84,6 +109,7 @@ function removeOutOfBoundsLossMarkers(center) {
 function moveLocationSearchControl() {
     let wrapper = document.getElementById('autocomplete-wrapper');
     let input = document.getElementById('autocomplete');
+
     searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
 }
@@ -112,7 +138,7 @@ function loadNearbyLosses(location, radius) {
                 });
 
                 newLossMarker.addListener('click', function () {
-                    if(isInfoWindowOpen(lossInfoWindow)){
+                    if (isInfoWindowOpen(lossInfoWindow)) {
                         lossInfoWindow.close();
                     } else {
                         lossInfoWindow.open(map, newLossMarker);

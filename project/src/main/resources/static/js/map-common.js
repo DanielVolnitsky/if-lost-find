@@ -1,11 +1,9 @@
 const mapZoom = 17;
 const mapType = 'roadmap';
 
-function processCurrentLocation(successCallback) {
+function processCurrentLocation(geoSupportedCallback, geoNotSupportedCallback) {
     if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(successCallback, function () {
-            alert("Failed to obtain geolocation information.");
-        });
+        navigator.geolocation.getCurrentPosition(geoSupportedCallback, geoNotSupportedCallback);
     } else {
         alert("Browser doesn't support Geolocation.");
     }
