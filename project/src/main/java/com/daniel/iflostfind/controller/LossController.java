@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.controller.converter.impl.LossConverter;
-import com.daniel.iflostfind.controller.dto.LossDto;
+import com.daniel.iflostfind.service.converter.impl.LossConverter;
+import com.daniel.iflostfind.service.dto.LossDto;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
 import com.daniel.iflostfind.service.HiddenInfoService;

@@ -1,10 +1,10 @@
 package com.daniel.iflostfind.rest.controller;
 
-import com.daniel.iflostfind.controller.converter.impl.LossConverter;
-import com.daniel.iflostfind.controller.dto.LossDto;
 import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.service.LossService;
+import com.daniel.iflostfind.service.converter.impl.LossConverter;
+import com.daniel.iflostfind.service.dto.LossDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,14 +25,24 @@ public class LossRestController {
     }
 
     @GetMapping("/api/losses")
-    public List<LossDto> getNearbyLosses(
+    public List<LossDto> getTopNearestLosses(
             @RequestParam("pivotLat") double lat,
             @RequestParam("pivotLng") double lng,
             @RequestParam("radius") double r) {
 
-        Coordinate pivot = new Coordinate(lat, lng);
-        List<Loss> losses = lossService.getAllWithinRadiusOfCoordinate(pivot, r);
+        Coordinate pivotLocation = new Coordinate(lat, lng);
+        List<Loss> losses = lossService.getAllWithinRadiusOfCoordinate(pivotLocation, r);
 
-        return (List<LossDto>) lossConverter.convertEntitiesToDtos(losses);
+        return lossConverter.convertEntitiesToDtos(losses);
+    }
+
+    @GetMapping("/api/losses/nearest")
+    public List<LossDto> getTopNearestLosses(
+            @RequestParam("pivotLat") double lat,
+            @RequestParam("pivotLng") double lng,
+            @RequestParam("limit") int limit) {
+
+        Coordinate pivotLocation = new Coordinate(lat, lng);
+        return lossService.getTopNearestLosses(pivotLocation, limit);
     }
 }

@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.controller.dto;
+package com.daniel.iflostfind.service.dto;
 
 import lombok.Getter;
 import lombok.NonNull;

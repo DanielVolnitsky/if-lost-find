@@ -1,15 +1,16 @@
-package com.daniel.iflostfind.controller.converter.impl;
+package com.daniel.iflostfind.service.converter.impl;
 
-import com.daniel.iflostfind.controller.converter.DtoToEntityConverter;
-import com.daniel.iflostfind.controller.converter.EntityToDtoCollectionConverter;
-import com.daniel.iflostfind.controller.converter.EntityToDtoConverter;
-import com.daniel.iflostfind.controller.dto.LossDto;
+import com.daniel.iflostfind.service.converter.DtoToEntityConverter;
+import com.daniel.iflostfind.service.converter.EntityToDtoCollectionConverter;
+import com.daniel.iflostfind.service.converter.EntityToDtoConverter;
+import com.daniel.iflostfind.service.dto.LossDto;
 import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
 import org.springframework.stereotype.Component;
 
 import java.util.Collection;
+import java.util.List;
 
 import static java.util.stream.Collectors.toList;
 
@@ -60,7 +61,7 @@ public class LossConverter implements
     }
 
     @Override
-    public Collection<LossDto> convertEntitiesToDtos(Collection<Loss> e) {
+    public List<LossDto> convertEntitiesToDtos(Collection<Loss> e) {
         return e.stream().map(this::convertEntityToDto).collect(toList());
     }
 }

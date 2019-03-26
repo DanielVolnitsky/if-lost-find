@@ -1,5 +1,6 @@
 package com.daniel.iflostfind.service;
 
+import com.daniel.iflostfind.service.dto.LossDto;
 import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 
@@ -11,4 +12,6 @@ public interface LossService {
     List<Loss> getAll();
 
     List<Loss> getAllWithinRadiusOfCoordinate(Coordinate coordinate, double radiusKm);
+
+    List<LossDto> getTopNearestLosses(Coordinate pivot, int limit);
 }

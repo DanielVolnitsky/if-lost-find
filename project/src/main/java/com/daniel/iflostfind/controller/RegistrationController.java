@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.controller.dto.UserDto;
+import com.daniel.iflostfind.service.dto.UserDto;
 import com.daniel.iflostfind.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

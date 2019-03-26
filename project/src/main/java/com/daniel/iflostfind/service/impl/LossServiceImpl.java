@@ -4,9 +4,13 @@ import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.repository.LossRepository;
 import com.daniel.iflostfind.service.LossService;
+import com.daniel.iflostfind.service.converter.impl.LossConverter;
+import com.daniel.iflostfind.service.dto.LossDto;
+import com.daniel.iflostfind.service.util.CoordinateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Comparator;
 import java.util.List;
 
 import static java.util.stream.Collectors.toList;
@@ -14,11 +18,15 @@ import static java.util.stream.Collectors.toList;
 @Service
 public class LossServiceImpl implements LossService {
 
+    private final CoordinateService coordinateService;
     private final LossRepository lossRepository;
+    private final LossConverter converter;
 
     @Autowired
-    public LossServiceImpl(LossRepository lossRepository) {
+    public LossServiceImpl(CoordinateService coordinateService, LossRepository lossRepository, LossConverter converter) {
+        this.coordinateService = coordinateService;
         this.lossRepository = lossRepository;
+        this.converter = converter;
     }
 
     @Override
@@ -35,22 +43,28 @@ public class LossServiceImpl implements LossService {
     @Override
     public List<Loss> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
         List<Loss> all = getAll();
-        return getFilteredNearbyLosses(pivot, radius, all);
+        return getLossesInRadius(pivot, radius, all);
     }
 
-    private List<Loss> getFilteredNearbyLosses(Coordinate pivot, double radius, List<Loss> all) {
-        return all.stream()
-                .filter(l -> isCoordinateWithinRadiusOfAnother(pivot, l.getCoordinate(), radius))
+    //TODO optimize
+    @Override
+    public List<LossDto> getTopNearestLosses(Coordinate pivot, int limit) {
+        List<Loss> all = getAll();
+        List<Loss> nearest = all.stream()
+                .sorted(Comparator.comparingDouble(l -> coordinateService.getDistanceBetweenCoordinates(pivot, l.getCoordinate())))
+                .limit(limit)
+                .collect(toList());
+
+        return converter.convertEntitiesToDtos(nearest);
+    }
+
+    private List<Loss> getLossesInRadius(Coordinate pivot, double radius, List<Loss> losses) {
+        return losses.stream()
+                .filter(l -> isLossWithinRadius(pivot, l, radius))
                 .collect(toList());
     }
 
-    private boolean isCoordinateWithinRadiusOfAnother(Coordinate pivot, Coordinate other, double radiusKm) {
-
-        double ky = (double) 40000 / 360;
-        double kx = Math.cos(Math.PI * pivot.getLatitude() / 180.0) * ky;
-        double dx = Math.abs(pivot.getLongitude() - other.getLongitude()) * kx;
-        double dy = Math.abs(pivot.getLatitude() - other.getLatitude()) * ky;
-
-        return Math.sqrt(dx * dx + dy * dy) <= radiusKm;
+    private boolean isLossWithinRadius(Coordinate pivot, Loss loss, double radius) {
+        return coordinateService.getDistanceBetweenCoordinates(pivot, loss.getCoordinate()) <= radius;
     }
 }
