@@ -1,5 +1,5 @@
 package com.daniel.iflostfind.service;
 
-public interface HiddenInfoService {
+public interface GoogleMapApiService {
     String getMapKey();
 }

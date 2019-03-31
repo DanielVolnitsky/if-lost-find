@@ -4,7 +4,7 @@ import com.daniel.iflostfind.service.converter.impl.LossConverter;
 import com.daniel.iflostfind.service.dto.LossDto;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
-import com.daniel.iflostfind.service.HiddenInfoService;
+import com.daniel.iflostfind.service.GoogleMapApiService;
 import com.daniel.iflostfind.service.LossService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -23,19 +23,19 @@ public class LossController {
 
     private final LossConverter lossConverter;
     private final LossService lossService;
-    private final HiddenInfoService hiddenInfoService;
+    private final GoogleMapApiService googleMapApiService;
 
     @Autowired
-    public LossController(LossConverter lossConverter, LossService lossService, HiddenInfoService hiddenInfoService) {
+    public LossController(LossConverter lossConverter, LossService lossService, GoogleMapApiService googleMapApiService) {
         this.lossConverter = lossConverter;
         this.lossService = lossService;
-        this.hiddenInfoService = hiddenInfoService;
+        this.googleMapApiService = googleMapApiService;
     }
 
     @GetMapping(LOSS_REPORT_PAGE_PATH)
     public String toLossReportPage(Model m) {
 
-        m.addAttribute("google_map_key", hiddenInfoService.getMapKey());
+        m.addAttribute("google_map_key", googleMapApiService.getMapKey());
         m.addAttribute("loss", new LossDto());
         m.addAttribute("lossTypes", LossType.values());
 

@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
 import java.util.List;
+import java.util.Optional;
 
 import static java.util.stream.Collectors.toList;
 
@@ -60,6 +61,12 @@ public class LossServiceImpl implements LossService {
                 .collect(toList());
 
         return converter.convertEntitiesToDtos(nearest);
+    }
+
+    @Override
+    public Optional<LossDto> getById(long lossId) {
+        Optional<Loss> loss = lossRepository.findById(lossId);
+        return loss.map(converter::convertEntityToDto);
     }
 
     private boolean isLossWithinRadius(Coordinate pivot, Loss loss, double radius) {
