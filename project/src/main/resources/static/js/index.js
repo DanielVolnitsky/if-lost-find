@@ -1,5 +1,8 @@
-const nearbyLossesUrl = "/api/losses";
+const lossesInRadiusUrl = "/api/losses";
 const lossesRadiusKm = 0.8;
+
+const nearbyLossesUrl = "/api/losses/nearest";
+const nearbyLossesLimit = 5;
 
 let lossMarkers = [];
 let service;
@@ -23,8 +26,11 @@ function initMap() {
     processCurrentLocation(function (currPosition) {
 
         let currLocation = new google.maps.LatLng(currPosition.coords.latitude, currPosition.coords.longitude);
+
         map.setCenter(currLocation);
-        loadNearbyLosses(currLocation, lossesRadiusKm);
+
+        loadLossesInRadius(currLocation, lossesRadiusKm);
+        loadNearbyLosses(currLocation, nearbyLossesLimit);
 
     }, processDefaultLocation);
 }
@@ -43,8 +49,11 @@ function processDefaultLocation() {
 
             let place = results[0];
             let location = place.geometry.location;
+
             map.setCenter(location);
-            loadNearbyLosses(location, lossesRadiusKm);
+
+            loadLossesInRadius(location, lossesRadiusKm);
+            loadNearbyLosses(location, nearbyLossesLimit);
 
         } else {
             alert("Failed to obtain your location info.")
@@ -92,7 +101,7 @@ function setMapEvents() {
         let center = this.getCenter();
 
         removeOutOfBoundsLossMarkers(center);
-        loadNearbyLosses(this.getCenter(), lossesRadiusKm);
+        loadLossesInRadius(this.getCenter(), lossesRadiusKm);
     });
 }
 
@@ -114,9 +123,9 @@ function moveLocationSearchControl() {
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
 }
 
-function loadNearbyLosses(location, radius) {
+function loadLossesInRadius(location, radius) {
 
-    let query = nearbyLossesUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
+    let query = lossesInRadiusUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
 
     $.get(query, function (losses) {
 
@@ -149,7 +158,7 @@ function loadNearbyLosses(location, radius) {
         });
 
     }).fail(function () {
-        alert("Failed to upload nearby losses.");
+        alert("Failed to upload losses in radius.");
     })
 }
 
@@ -161,6 +170,34 @@ function buildLossInfoWindowContent(loss) {
         "        |" +
         "        <a href=\"/api/found/" + loss.id + "\" class=\"loss-info-found-link\">Report a find</a>" +
         "   </div>"
+}
+
+function loadNearbyLosses(location, limit) {
+    let query = nearbyLossesUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&limit=" + limit;
+
+    $.get(query, function (losses) {
+
+        let wrapper = document.getElementById('nearby-losses-wrapper');
+
+        $.each(losses, function (index, loss) {
+
+            let lossHtml = "<div class=\"card mb-" + limit + " shadow-sm\">\n" +
+                "                <div class=\"card-header\">\n" +
+                "                    <h4 class=\"my-0 font-weight-normal\">" + loss.name + "</h4>\n" +
+                "                </div>\n" +
+                "                <div class=\"card-body\">\n" +
+                "                    <h1 class=\"card-title pricing-card-title\">$50</h1>\n" +
+                "                    <div class=\"mt-3 mb-4\">\n" + loss.description + "</div>\n" +
+                "                    <button class=\"btn btn-lg btn-block btn-outline-success\" type=\"button\">Found It</button>\n" +
+                "                </div>\n" +
+                "              </div>"
+
+            wrapper.innerHTML += lossHtml;
+
+        });
+    }).fail(function () {
+        alert("Failed to upload nearby losses.");
+    })
 }
 
 function isMarkerInBounds(marker, center) {

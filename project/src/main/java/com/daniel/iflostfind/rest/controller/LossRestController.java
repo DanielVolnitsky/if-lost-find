@@ -25,7 +25,7 @@ public class LossRestController {
     }
 
     @GetMapping("/api/losses")
-    public List<LossDto> getTopNearestLosses(
+    public List<LossDto> getLossesInRadius(
             @RequestParam("pivotLat") double lat,
             @RequestParam("pivotLng") double lng,
             @RequestParam("radius") double r) {

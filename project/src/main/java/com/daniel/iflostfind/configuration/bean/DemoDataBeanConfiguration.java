@@ -90,39 +90,39 @@ public class DemoDataBeanConfiguration {
 
             Loss l8 = Loss.builder()
                     .name("IRPIN Iphone 7")
-                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .description("Silver Iphone 7, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
                     .coordinate(Coordinate.builder().latitude(50.51767457997845 ).longitude(30.251613693917875).build())
                     .build();
 
             Loss l9 = Loss.builder()
-                    .name("Park druzhbi")
-                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .name("ParkDruzhbi Iphone X")
+                    .description("Silver Iphone X, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
                     .coordinate(Coordinate.builder().latitude(50.52432833288968).longitude(30.238248476525428).build())
                     .build();
 
             Loss l10 = Loss.builder()
-                    .name("Park Pravika")
-                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .name("ParkPravika Iphone X")
+                    .description("Silver Iphone X, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
                     .coordinate(Coordinate.builder().latitude(50.526327206757394).longitude(30.238197159577226).build())
                     .build();
 
             Loss l11 = Loss.builder()
-                    .name("EKO")
-                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .name("EKO Iphone XS")
+                    .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
                     .coordinate(Coordinate.builder().latitude(50.518481247806264).longitude(30.238570579531824).build())
                     .build();
 
             Loss l12 = Loss.builder()
-                    .name("Tonus")
-                    .description("Iphone 7, Red case and spider-man as a wallpaper")
+                    .name("Tonus XS")
+                    .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
                     .coordinate(Coordinate.builder().latitude(50.52173174720019).longitude(30.23883194276118).build())
