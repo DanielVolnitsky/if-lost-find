@@ -45,6 +45,10 @@ h2:after {
     transform: translateX(5%);
 }
 
+#loss-location {
+    margin-top: 50px;
+}
+
 #loss-location,
 #loss-info {
     text-align: center;
