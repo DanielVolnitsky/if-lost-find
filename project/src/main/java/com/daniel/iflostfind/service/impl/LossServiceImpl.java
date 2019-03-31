@@ -41,9 +41,13 @@ public class LossServiceImpl implements LossService {
 
     //TODO optimize
     @Override
-    public List<Loss> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
+    public List<LossDto> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
         List<Loss> all = getAll();
-        return getLossesInRadius(pivot, radius, all);
+        List<Loss> inRadius = all.stream()
+                .filter(l -> isLossWithinRadius(pivot, l, radius))
+                .collect(toList());
+
+        return converter.convertEntitiesToDtos(inRadius);
     }
 
     //TODO optimize
@@ -56,12 +60,6 @@ public class LossServiceImpl implements LossService {
                 .collect(toList());
 
         return converter.convertEntitiesToDtos(nearest);
-    }
-
-    private List<Loss> getLossesInRadius(Coordinate pivot, double radius, List<Loss> losses) {
-        return losses.stream()
-                .filter(l -> isLossWithinRadius(pivot, l, radius))
-                .collect(toList());
     }
 
     private boolean isLossWithinRadius(Coordinate pivot, Loss loss, double radius) {

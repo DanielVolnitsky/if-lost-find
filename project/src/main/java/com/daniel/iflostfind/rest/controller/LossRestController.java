@@ -1,9 +1,7 @@
 package com.daniel.iflostfind.rest.controller;
 
 import com.daniel.iflostfind.domain.Coordinate;
-import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.converter.impl.LossConverter;
 import com.daniel.iflostfind.service.dto.LossDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,12 +14,10 @@ import java.util.List;
 public class LossRestController {
 
     private final LossService lossService;
-    private final LossConverter lossConverter;
 
     @Autowired
-    public LossRestController(LossService lossService, LossConverter lossConverter) {
+    public LossRestController(LossService lossService) {
         this.lossService = lossService;
-        this.lossConverter = lossConverter;
     }
 
     @GetMapping("/api/losses")
@@ -31,9 +27,7 @@ public class LossRestController {
             @RequestParam("radius") double r) {
 
         Coordinate pivotLocation = new Coordinate(lat, lng);
-        List<Loss> losses = lossService.getAllWithinRadiusOfCoordinate(pivotLocation, r);
-
-        return lossConverter.convertEntitiesToDtos(losses);
+        return lossService.getAllWithinRadiusOfCoordinate(pivotLocation, r);
     }
 
     @GetMapping("/api/losses/nearest")
