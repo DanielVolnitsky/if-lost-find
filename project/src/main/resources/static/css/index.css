@@ -26,6 +26,10 @@ h2:after {
     transform: translateX(5%);
 }
 
+#loss-map {
+    margin-top: 80px;
+}
+
 #loss-map h2:before {
     background: red;
 }
