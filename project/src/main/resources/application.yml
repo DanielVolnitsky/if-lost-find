@@ -12,4 +12,4 @@ spring:
 #
 hidden:
   file:
-    path: "D:/Projects/IfLostFind/project/src/main/resources/hidden/hidden.json"
+    path: "C:/Users/Daniel_Volnitsky/Desktop/IfLostFind/project/src/main/resources/hidden/hidden.json"
