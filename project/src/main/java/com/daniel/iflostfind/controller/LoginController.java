@@ -10,19 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-    static final String LOGIN_PATH = "/login";
-
-    private final GoogleMapApiService googleMapApiService;
+    private final GoogleMapApiService googleMapService;
 
     @Autowired
-    public LoginController(GoogleMapApiService googleMapApiService) {
-        this.googleMapApiService = googleMapApiService;
+    public LoginController(GoogleMapApiService googleMapService) {
+        this.googleMapService = googleMapService;
     }
 
-    @GetMapping(LOGIN_PATH)
+    @GetMapping("/login")
     public String toLoginPage(Model m) {
 
-        m.addAttribute("google_map_key", googleMapApiService.getMapKey());
+        m.addAttribute("google_map_key", googleMapService.getMapKey());
         m.addAttribute(RegistrationController.USER_MODEL_NAME, new UserDto());
         return "login";
     }

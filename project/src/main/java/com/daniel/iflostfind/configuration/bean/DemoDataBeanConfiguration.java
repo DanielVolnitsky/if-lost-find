@@ -36,7 +36,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone 3, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.45561968381101).longitude(30.480964645291124).build())
+                    .coordinate(new Coordinate(50.45561968381101, 30.480964645291124))
                     .build();
 
             Loss l2 = Loss.builder()
@@ -44,7 +44,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone 6, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.45622762015983).longitude(30.475020870114122).build())
+                    .coordinate(new Coordinate(50.45622762015983, 30.475020870114122))
                     .build();
 
             Loss l3 = Loss.builder()
@@ -52,7 +52,7 @@ public class DemoDataBeanConfiguration {
                     .description("Iphone 7, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.45522349636771).longitude(30.46928094282225).build())
+                    .coordinate(new Coordinate(50.45522349636771, 30.46928094282225))
                     .build();
 
             Loss l4 = Loss.builder()
@@ -60,7 +60,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone 8, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.45471118009918).longitude(30.46505378141478).build())
+                    .coordinate(new Coordinate(50.45471118009918, 30.46505378141478))
                     .build();
 
             Loss l5 = Loss.builder()
@@ -68,7 +68,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone X, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.45424667522006).longitude(30.471405252362047).build())
+                    .coordinate(new Coordinate(50.45424667522006, 30.471405252362047))
                     .build();
 
             //IRPIN
@@ -77,7 +77,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone 3, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.5183158271568).longitude(30.246850090707426).build())
+                    .coordinate(new Coordinate(50.5183158271568, 30.246850090707426))
                     .build();
 
             Loss l7 = Loss.builder()
@@ -85,7 +85,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone 6, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.51590087219747).longitude(30.252858238900785).build())
+                    .coordinate(new Coordinate(50.51590087219747, 30.252858238900785))
                     .build();
 
             Loss l8 = Loss.builder()
@@ -93,7 +93,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone 7, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.51767457997845 ).longitude(30.251613693917875).build())
+                    .coordinate(new Coordinate(50.51767457997845, 30.251613693917875))
                     .build();
 
             Loss l9 = Loss.builder()
@@ -101,7 +101,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone X, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.52432833288968).longitude(30.238248476525428).build())
+                    .coordinate(new Coordinate(50.52432833288968, 30.238248476525428))
                     .build();
 
             Loss l10 = Loss.builder()
@@ -109,7 +109,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone X, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.526327206757394).longitude(30.238197159577226).build())
+                    .coordinate(new Coordinate(50.526327206757394, 30.238197159577226))
                     .build();
 
             Loss l11 = Loss.builder()
@@ -117,7 +117,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.518481247806264).longitude(30.238570579531824).build())
+                    .coordinate(new Coordinate(50.518481247806264, 30.238570579531824))
                     .build();
 
             Loss l12 = Loss.builder()
@@ -125,7 +125,7 @@ public class DemoDataBeanConfiguration {
                     .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(Coordinate.builder().latitude(50.52173174720019).longitude(30.23883194276118).build())
+                    .coordinate(new Coordinate(50.52173174720019, 30.23883194276118))
                     .build();
 
             lossRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));

@@ -24,26 +24,30 @@ public class LossServiceImpl implements LossService {
     private final LossConverter converter;
 
     @Autowired
-    public LossServiceImpl(CoordinateService coordinateService, LossRepository lossRepository, LossConverter converter) {
+    public LossServiceImpl(CoordinateService coordinateService,
+                           LossRepository lossRepository,
+                           LossConverter converter) {
         this.coordinateService = coordinateService;
         this.lossRepository = lossRepository;
         this.converter = converter;
     }
 
     @Override
-    public void add(Loss loss) {
+    public void add(LossDto dto) {
+        Loss loss = converter.convertDtoToEntity(dto);
         lossRepository.save(loss);
     }
 
     @Override
-    public List<Loss> getAll() {
-        return (List<Loss>) lossRepository.findAll();
+    public List<LossDto> getAll() {
+        List<Loss> losses = (List<Loss>) lossRepository.findAll();
+        return converter.convertEntitiesToDtos(losses);
     }
 
     //TODO optimize
     @Override
     public List<LossDto> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
-        List<Loss> all = getAll();
+        List<Loss> all = (List<Loss>) lossRepository.findAll();
         List<Loss> inRadius = all.stream()
                 .filter(l -> isLossWithinRadius(pivot, l, radius))
                 .collect(toList());
@@ -54,7 +58,7 @@ public class LossServiceImpl implements LossService {
     //TODO optimize
     @Override
     public List<LossDto> getTopNearestLosses(Coordinate pivot, int limit) {
-        List<Loss> all = getAll();
+        List<Loss> all = (List<Loss>) lossRepository.findAll();
         List<Loss> nearest = all.stream()
                 .sorted(Comparator.comparingDouble(l -> coordinateService.getDistanceBetweenCoordinates(pivot, l.getCoordinate())))
                 .limit(limit)

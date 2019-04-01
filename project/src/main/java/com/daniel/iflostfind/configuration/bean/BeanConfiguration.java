@@ -14,7 +14,7 @@ import java.io.IOException;
 public class BeanConfiguration {
 
     @Value("${hidden.file.path}")
-    private String hiddenInfoPath;
+    private String googleMapsApiKeyHolder;
 
     @Bean
     public String googleMapKey() {
@@ -24,7 +24,7 @@ public class BeanConfiguration {
     @Bean
     public JSONObject hiddenInfoJSONObject() {
         try {
-            return (JSONObject) jsonParser().parse(new FileReader(hiddenInfoPath));
+            return (JSONObject) jsonParser().parse(new FileReader(googleMapsApiKeyHolder));
         } catch (IOException | ParseException e) {
             //TODO log
             throw new RuntimeException("failed to parse hidden values json", e);

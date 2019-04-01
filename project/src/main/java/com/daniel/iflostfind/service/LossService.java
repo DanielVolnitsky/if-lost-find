@@ -8,9 +8,9 @@ import java.util.List;
 import java.util.Optional;
 
 public interface LossService {
-    void add(Loss loss);
+    void add(LossDto loss);
 
-    List<Loss> getAll();
+    List<LossDto> getAll();
 
     List<LossDto> getAllWithinRadiusOfCoordinate(Coordinate coordinate, double radiusKm);
 

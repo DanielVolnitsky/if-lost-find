@@ -3,39 +3,24 @@ package com.daniel.iflostfind.service.dto;
 import lombok.Getter;
 import lombok.Setter;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotBlank;
 
+@Getter
+@Setter
 public class UserDto {
 
-    @NotNull
-    @NotEmpty
-    @Getter
-    @Setter
+    @NotBlank
     private String firstName;
 
-    @NotNull
-    @NotEmpty
-    @Getter
-    @Setter
+    @NotBlank
     private String lastName;
 
-    @NotNull
-    @NotEmpty
-    @Getter
-    @Setter
+    @NotBlank
     private String password;
 
-    @NotNull
-    @NotEmpty
-//TODO restore    @ValidEmail
-    @Getter
-    @Setter
+    @NotBlank
     private String email;
 
-    @NotNull
-    @NotEmpty
-    @Getter
-    @Setter
+    @NotBlank
     private String defaultLocation;
 }

@@ -15,12 +15,12 @@ import java.util.Optional;
 public class LossDetailsController {
 
     private final LossService lossService;
-    private final GoogleMapApiService googleMapApiService;
+    private final GoogleMapApiService googleMapService;
 
     @Autowired
-    public LossDetailsController(LossService lossService, GoogleMapApiService googleMapApiService) {
+    public LossDetailsController(LossService lossService, GoogleMapApiService googleMapService) {
         this.lossService = lossService;
-        this.googleMapApiService = googleMapApiService;
+        this.googleMapService = googleMapService;
     }
 
     @GetMapping("/loss/{id}")
@@ -31,7 +31,7 @@ public class LossDetailsController {
         Optional<LossDto> loss = lossService.getById(lossId);
         loss.ifPresent(l -> {
             mv.addObject("loss", l);
-            mv.addObject("google_map_key", googleMapApiService.getMapKey());
+            mv.addObject("google_map_key", googleMapService.getMapKey());
         });
 
         return mv;
