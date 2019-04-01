@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.controller.dto.UserDto;
 import com.daniel.iflostfind.service.UserService;
+import com.daniel.iflostfind.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -15,7 +15,6 @@ import javax.validation.Valid;
 @Controller
 public class RegistrationController {
 
-    static final String CONTROLLER_PATH = "/register";
     static final String USER_MODEL_NAME = "user";
 
     private UserService userService;
@@ -25,14 +24,14 @@ public class RegistrationController {
         this.userService = userService;
     }
 
-    @GetMapping(path = CONTROLLER_PATH)
+    @GetMapping("/register")
     public String getPage(Model model) {
 
         model.addAttribute(USER_MODEL_NAME, new UserDto());
         return "login";
     }
 
-    @PostMapping(path = CONTROLLER_PATH)
+    @PostMapping("/register")
     public ModelAndView register(@ModelAttribute(USER_MODEL_NAME) @Valid UserDto userDto) {
 
         //TODO add binding result

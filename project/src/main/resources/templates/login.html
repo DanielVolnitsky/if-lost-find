@@ -1,5 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 
 <head>
     <meta charset="utf-8"/>
@@ -12,6 +14,8 @@
 </head>
 
 <body>
+
+<nav th:replace="partials/nav.html :: nav"></nav>
 
 <div class="login-reg-panel">
     <div class="login-info-box">

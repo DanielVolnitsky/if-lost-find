@@ -1,11 +1,11 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.controller.converter.impl.LossConverter;
-import com.daniel.iflostfind.controller.dto.LossDto;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.domain.LossType;
-import com.daniel.iflostfind.service.HiddenInfoService;
+import com.daniel.iflostfind.service.GoogleMapApiService;
 import com.daniel.iflostfind.service.LossService;
+import com.daniel.iflostfind.service.converter.impl.LossConverter;
+import com.daniel.iflostfind.service.dto.LossDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,36 +18,31 @@ import javax.validation.Valid;
 @Controller
 public class LossController {
 
-    static final String LOSS_REPORT_PAGE_PATH = "/loss/report";
-    static final String LOSS_REPORT_PAGE = "loss_report";
-
     private final LossConverter lossConverter;
     private final LossService lossService;
-    private final HiddenInfoService hiddenInfoService;
+    private final GoogleMapApiService googleMapApiService;
 
     @Autowired
-    public LossController(LossConverter lossConverter, LossService lossService, HiddenInfoService hiddenInfoService) {
+    public LossController(LossConverter lossConverter, LossService lossService, GoogleMapApiService googleMapApiService) {
         this.lossConverter = lossConverter;
         this.lossService = lossService;
-        this.hiddenInfoService = hiddenInfoService;
+        this.googleMapApiService = googleMapApiService;
     }
 
-    @GetMapping(LOSS_REPORT_PAGE_PATH)
+    @GetMapping("/loss/report")
     public String toLossReportPage(Model m) {
 
-        m.addAttribute("google_map_key", hiddenInfoService.getMapKey());
+        m.addAttribute("google_map_key", googleMapApiService.getMapKey());
         m.addAttribute("loss", new LossDto());
         m.addAttribute("lossTypes", LossType.values());
 
-        return LOSS_REPORT_PAGE;
+        return "loss_report";
     }
 
-    @PostMapping(LOSS_REPORT_PAGE_PATH)
+    @PostMapping("/loss/report")
     public String createLoss(@ModelAttribute("loss") @Valid LossDto lossDto) {
 
-        Loss loss = lossConverter.convertDtoToEntity(lossDto);
-        lossService.add(loss);
-
-        return "redirect:" + LOSS_REPORT_PAGE_PATH;
+        lossService.add(lossDto);
+        return "redirect:/loss/report";
     }
 }

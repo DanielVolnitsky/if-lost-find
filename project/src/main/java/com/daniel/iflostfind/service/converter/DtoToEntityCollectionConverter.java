@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.controller.converter;
+package com.daniel.iflostfind.service.converter;
 
 import java.util.Collection;
 

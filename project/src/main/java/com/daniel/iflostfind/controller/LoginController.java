@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.controller.dto.UserDto;
-import com.daniel.iflostfind.service.HiddenInfoService;
+import com.daniel.iflostfind.service.dto.UserDto;
+import com.daniel.iflostfind.service.GoogleMapApiService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,19 +10,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class LoginController {
 
-    static final String LOGIN_PATH = "/login";
-
-    private final HiddenInfoService hiddenInfoService;
+    private final GoogleMapApiService googleMapService;
 
     @Autowired
-    public LoginController(HiddenInfoService hiddenInfoService) {
-        this.hiddenInfoService = hiddenInfoService;
+    public LoginController(GoogleMapApiService googleMapService) {
+        this.googleMapService = googleMapService;
     }
 
-    @GetMapping(LOGIN_PATH)
+    @GetMapping("/login")
     public String toLoginPage(Model m) {
 
-        m.addAttribute("google_map_key", hiddenInfoService.getMapKey());
+        m.addAttribute("google_map_key", googleMapService.getMapKey());
         m.addAttribute(RegistrationController.USER_MODEL_NAME, new UserDto());
         return "login";
     }
