@@ -1,17 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
     <title>Home</title>
 
-    <link rel="stylesheet" th:href="@{/libs/semantic/semantic.css}">
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 
@@ -19,37 +17,27 @@
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<section id="loss-map">
-    <h2>Loss Map</h2>
-    <div class="container-fluid index-container">
-        <div class="ui action input" id="autocomplete-wrapper">
-            <input id="autocomplete" placeholder="Address..." type="text">
+<section id="finding-map">
+    <div class="container-fluid">
+        <div class="input-group input-group-sm" id="map-controls-wrapper">
+            <input class="form-control" id="address-in" placeholder="Address..." type="text">
         </div>
         <div class="row" id="map"></div>
     </div>
-    <input id="user-default-location" type="hidden" th:value="${user_default_location}">
-</section>
-
-<section id="recent-losses">
-    <h2>Nearest Losses</h2>
-    <div class="container">
-        <div id="nearby-losses-wrapper" class="card-deck mb-4 text-center"></div>
-        <hr/>
-    </div>
+    <!--<input id="user-default-location" type="hidden" th:value="${user_default_location}">TODO-->
 </section>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
 
 <!-- Scripts -->
-<script th:src="@{/libs/jQuery/jquery.js}"></script>
-<script th:src="@{/js/index.js}"></script>
+<script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/lib/bootstrap.min.js}"></script>
+<script th:src="@{/js/index_demo.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
 
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}">
 </script>
-
-<script th:src="@{/libs/semantic/semantic.js}"></script>
 <!-- Scripts -->
 
 </body>

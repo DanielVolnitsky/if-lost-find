@@ -19,9 +19,9 @@ public class IndexController {
     }
 
     @GetMapping(path = {"/", "/index"})
-    public String toIndexPage(Model m, @AuthenticationPrincipal PersonDetails pd) {
+    public String toIndexPage(Model m/*, @AuthenticationPrincipal PersonDetails pd*/) {
 
-        m.addAttribute("user_default_location", pd.getDefaultLocation());
+//        m.addAttribute("user_default_location", pd.getDefaultLocation());
         m.addAttribute("google_map_key", googleMapsService.getMapKey());
         return "index";
     }

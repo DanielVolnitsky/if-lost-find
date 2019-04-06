@@ -1,8 +1,5 @@
 const lossesInRadiusUrl = "/api/losses";
-const lossesRadiusKm = 0.8;
-
-// const nearbyLossesUrl = "/api/losses/nearest";
-// const nearbyLossesLimit = 5;
+const lossesRadiusKm = 100;
 
 let lossMarkers = [];
 let service;
@@ -30,8 +27,6 @@ function initMap() {
         map.setCenter(currLocation);
 
         loadLossesInRadius(currLocation, lossesRadiusKm);
-        // loadNearbyLosses(currLocation, nearbyLossesLimit);
-
     }, processDefaultLocation);
 }
 
@@ -53,7 +48,6 @@ function processDefaultLocation() {
             map.setCenter(location);
 
             loadLossesInRadius(location, lossesRadiusKm);
-            // loadNearbyLosses(location, nearbyLossesLimit);
 
         } else {
             alert("Failed to obtain your location info.")
@@ -96,28 +90,11 @@ function setMapEvents() {
     map.addListener('bounds_changed', function () {
         searchBox.setBounds(map.getBounds());
     });
-
-    map.addListener('idle', function () {
-        let center = this.getCenter();
-
-        removeOutOfBoundsLossMarkers(center);
-        loadLossesInRadius(this.getCenter(), lossesRadiusKm);
-    });
-}
-
-//TODO optimize
-function removeOutOfBoundsLossMarkers(center) {
-
-    lossMarkers
-        .filter(marker => !isMarkerInBounds(marker, center))
-        .forEach(marker => marker.setMap(null));
-
-    lossMarkers = lossMarkers.filter(marker => isMarkerInBounds(marker, center));
 }
 
 function moveLocationSearchControl() {
-    let wrapper = document.getElementById('autocomplete-wrapper');
-    let input = document.getElementById('autocomplete');
+    let wrapper = document.getElementById('map-controls-wrapper');
+    let input = document.getElementById('address-in');
 
     searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.TOP_RIGHT].push(wrapper);
@@ -133,7 +110,8 @@ function loadLossesInRadius(location, radius) {
 
             let newLossMarker = new google.maps.Marker({
                 position: new google.maps.LatLng(loss.latitude, loss.longitude),
-                title: loss.name
+                title: loss.name,
+                animation: google.maps.Animation.DROP
             });
 
             let existingMarker = lossMarkers.find(m => areLossMarkersEqual(m, newLossMarker));
@@ -171,53 +149,3 @@ function buildLossInfoWindowContent(loss) {
         "        <a href=\"/api/found/" + loss.id + "\" class=\"loss-info-found-link\">Report a find</a>" +
         "   </div>"
 }
-
-function isMarkerInBounds(marker, center) {
-    let checkPoint = {
-        lat: marker.getPosition().lat(),
-        lng: marker.getPosition().lng()
-    };
-
-    let centerPoint = {lat: center.lat(), lng: center.lng()};
-
-    return arePointsInBounds(checkPoint, centerPoint, lossesRadiusKm);
-}
-
-function arePointsInBounds(checkPoint, centerPoint, km) {
-    let ky = 40000 / 360;
-    let kx = Math.cos(Math.PI * centerPoint.lat / 180.0) * ky;
-    let dx = Math.abs(centerPoint.lng - checkPoint.lng) * kx;
-    let dy = Math.abs(centerPoint.lat - checkPoint.lat) * ky;
-    return Math.sqrt(dx * dx + dy * dy) <= km;
-}
-
-
-// function loadNearbyLosses(location, limit) {
-//     let query = nearbyLossesUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&limit=" + limit;
-//
-//     $.get(query, function (losses) {
-//
-//         let wrapper = document.getElementById('nearby-losses-wrapper');
-//
-//         $.each(losses, function (index, loss) {
-//
-//             let lossHtml = "<div class=\"card mb-" + limit + " shadow-sm\">\n" +
-//                 "                <div class=\"card-header\">\n" +
-//                 "                    <h4 class=\"my-0 font-weight-normal\">" + loss.name + "</h4>\n" +
-//                 "                </div>\n" +
-//                 "                <div class=\"card-body\">\n" +
-//                 "                    <h1 class=\"card-title pricing-card-title\">$50</h1>\n" +
-//                 "                    <div class=\"mt-3 mb-4\">\n" + loss.description + "</div>\n" +
-//                 "                    <button class=\"btn btn-lg btn-block btn-outline-success\" type=\"button\">Found It</button>\n" +
-//                 "                </div>\n" +
-//                 "              </div>"
-//
-//             wrapper.innerHTML += lossHtml;
-//
-//         });
-//     }).fail(function () {
-//         alert("Failed to upload nearby losses.");
-//     })
-// }
-
-
