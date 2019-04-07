@@ -4,7 +4,6 @@ label {
 
 h2 {
     text-transform: capitalize;
-
 }
 
 h2 {
@@ -32,18 +31,18 @@ h2:after {
     transform: translateX(5%);
 }
 
-#loss-location {
-    margin-top: 50px;
+section {
+    margin-top: 20px;
+}
+
+#steps-overview {
+    margin-top: calc(50px + 20px);
 }
 
 #loss-location,
 #loss-info {
     text-align: center;
     display: flex !important;
-}
-
-#loss-location .container-fluid {
-    width: 92%;
 }
 
 #location-input-wrapper,
@@ -60,8 +59,8 @@ h2:after {
 }
 
 #map {
-    margin-top: 5px;
-    height: calc(100vh - 85px - 20px - 10px - 33px - 20px);
+    margin-top: 10px;
+    height: 600px;
 }
 
 #loss-info-wrapper {

@@ -16,10 +16,37 @@
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
+<section id="steps-overview">
+    <div class="ui three column centered grid">
+        <div id="report-steps" class="ui ordered steps">
+            <div class="completed step">
+                <div class="content">
+                    <div class="title">Specify location</div>
+                    <div class="description">Where have you found it?</div>
+                </div>
+            </div>
+            <div class="active step">
+                <div class="content">
+                    <div class="title">Add information</div>
+                    <div class="description">Enter finding information</div>
+                </div>
+            </div>
+            <div class="step">
+                <div class="content">
+                    <div class="title">Contacts</div>
+                    <div class="description">Leave your contacts here</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
 <section id="loss-location">
-    <h2>specify the location</h2>
-    <div class="container-fluid">
-        <div class="row" id="location-input-wrapper">
+    <div class="ui container">
+        <div class="ui column">
+            <h2>specify the location</h2>
+        </div>
+        <div class="ui column" id="location-input-wrapper">
             <div class="ui action input" id="autocomplete-wrapper">
                 <input id="autocomplete" placeholder="Address..." type="text">
             </div>
