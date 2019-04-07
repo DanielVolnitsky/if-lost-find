@@ -168,9 +168,13 @@ function loadLossesInRadius(location, radius) {
 }
 
 function buildLossInfoWindowContent(loss) {
-    return "<div>" +
-        "        <h5 class=\"loss-info-head\">" + loss.name + "</h5>" +
-        "        <div class=\"loss-info-desc\">" + loss.description + "</div>" +
-        "        <a href=\"/loss/" + loss.id + "\" class=\"loss-info-fullinfo-link\">Details</a>" +
-        "   </div>"
+    return " <div class=\"lossInfo card-body d-flex flex-column align-items-start\">" +
+    "            <h3 class=\"mb-3\">\n" +
+    "                <a class=\"text-dark\" href=\"#\">" + loss.name + "</a>" +
+    "            </h3>" +
+    "            <strong class=\"d-inline-block text-success mb-1\">" + loss.type + "</strong>\n" +
+    "            <div class=\"mb-1 text-muted\">" + loss.lossDate + "</div>" +
+    "            <p class=\"card-text mb-3\">\n" + loss.description + "</p>" +
+    "            <a href=\"/loss/" + loss.id + "\" class=\"loss-info-fullinfo-link\">Details</a>" +
+    "        </div>";
 }
