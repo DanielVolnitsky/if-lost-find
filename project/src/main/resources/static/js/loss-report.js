@@ -108,11 +108,6 @@ function setLocationData(location) {
 }
 
 $(function () {
-    $('#fullpage').fullpage({
-        autoScrolling: true,
-        scrollHorizontally: false
-    });
-
     $('.ui.form .ui.selection.dropdown').dropdown({
         clearable: true
     });

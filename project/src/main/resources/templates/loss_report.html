@@ -1,107 +1,96 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org"
->
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <title>IfLostFound | Loss</title>
+
     <!-- Styles -->
-    <link rel="stylesheet" th:href="@{/libs/normalize/normalize.css}">
-    <link rel="stylesheet" th:href="@{/libs/semantic/semantic.css}">
-    <link rel="stylesheet" th:href="@{/libs/fullpage/fullpage.css}">
     <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
-    <link rel="stylesheet" th:href="@{/css/page.css}">
-    <link rel="stylesheet" th:href="@{/css/loss-report.css}">
+    <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
+    <link rel="stylesheet" th:href="@{/css/loss_report.css}">
 </head>
 
 <body>
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<div id="fullpage">
-
-    <div class="section" id="loss-location">
-        <h2>where have you lost it?</h2>
-        <div class="container-fluid">
-            <div class="row" id="location-input-wrapper">
-                <div class="ui action input" id="autocomplete-wrapper">
-                    <input id="autocomplete" placeholder="Address..." type="text">
-                </div>
+<section id="loss-location">
+    <h2>specify the location</h2>
+    <div class="container-fluid">
+        <div class="row" id="location-input-wrapper">
+            <div class="ui action input" id="autocomplete-wrapper">
+                <input id="autocomplete" placeholder="Address..." type="text">
             </div>
-            <div class="row" id="map"></div>
         </div>
+        <div class="row" id="map"></div>
     </div>
+</section>
 
-    <div class="section" id="loss-info">
-        <div id="loss-info-wrapper">
-            <h2>specify the loss details</h2>
-            <div class="container">
-                <div class="row loss-info-form-wrapper">
-                    <div class="col-6">
-                        <form class="ui large form" method="post" th:action="@{/loss/report}" th:object="${loss}">
-                            <input id="loss-lat" th:field="*{latitude}" type="hidden">
-                            <input id="loss-lng" th:field="*{longitude}" type="hidden">
-                            <div class="field">
-                                <label>Name</label>
-                                <input placeholder="Specify name.." required th:field="*{name}" type="text">
+<section id="loss-info">
+    <div id="loss-info-wrapper">
+        <h2>specify the loss details</h2>
+        <div class="container">
+            <div class="row loss-info-form-wrapper">
+                <div class="col-6">
+                    <form class="ui large form" method="post" th:action="@{/loss/report}" th:object="${loss}">
+                        <input id="loss-lat" th:field="*{latitude}" type="hidden">
+                        <input id="loss-lng" th:field="*{longitude}" type="hidden">
+                        <div class="field">
+                            <label>Name</label>
+                            <input placeholder="Specify name.." required th:field="*{name}" type="text">
+                        </div>
+                        <div class="field">
+                            <label>Type</label>
+                            <div class="ui selection dropdown">
+                                <input th:field="*{type}" type="hidden">
+                                <i class="dropdown icon"></i>
+                                <div class="default text">Choose type..</div>
+                                <div class="menu">
+                                    <div class="item" th:data-value="${type}" th:each="type: ${lossTypes}"
+                                         th:text="${type}"></div>
+                                </div>
                             </div>
-                            <div class="field">
-                                <label>Type</label>
-                                <div class="ui selection dropdown">
-                                    <input th:field="*{type}" type="hidden">
-                                    <i class="dropdown icon"></i>
-                                    <div class="default text">Choose type..</div>
-                                    <div class="menu">
-                                        <div class="item" th:data-value="${type}" th:each="type: ${lossTypes}"
-                                             th:text="${type}"></div>
+                        </div>
+                        <div class="fields">
+                            <div class="fourteen wide field">
+                                <label>Date</label>
+                                <input id="loss-date" name="loss-date" placeholder="Date..." th:field="*{lossDate}"
+                                       type="date">
+                            </div>
+                            <div class="two wide field">
+                                <label>Today?</label>
+                                <div class="inline field">
+                                    <div class="ui toggle checkbox">
+                                        <input class="hidden" id="today-loss-cbx" tabindex="0" type="checkbox">
+                                        <label></label>
                                     </div>
                                 </div>
                             </div>
-                            <div class="fields">
-                                <div class="fourteen wide field">
-                                    <label>Date</label>
-                                    <input id="loss-date" name="loss-date" placeholder="Date..." th:field="*{lossDate}"
-                                           type="date">
-                                </div>
-                                <div class="two wide field">
-                                    <label>Today?</label>
-                                    <div class="inline field">
-                                        <div class="ui toggle checkbox">
-                                            <input class="hidden" id="today-loss-cbx" tabindex="0" type="checkbox">
-                                            <label></label>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <label>Description</label>
-                                <textarea rows="3" th:field="*{description}"></textarea>
-                            </div>
-                            <div id="submit-btn-wrapper">
-                                <button class="ui green button" type="submit">Done</button>
-                            </div>
-                        </form>
-                    </div>
+                        </div>
+                        <div class="field">
+                            <label>Description</label>
+                            <textarea rows="3" th:field="*{description}"></textarea>
+                        </div>
+                        <div id="submit-btn-wrapper">
+                            <button class="ui green button" type="submit">Done</button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-
-    <footer th:replace="partials/footer.html :: footer"></footer>
-
-</div>
+</section>
 
 <!-- Scripts -->
 <script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/lib/semantic.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
 <script th:src="@{/js/loss-report.js}"></script>
-<script th:src="@{/libs/semantic/semantic.js}"></script>
-<script th:src="@{/libs/fullpage/fullpage.js}"></script>
 
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
-
 </body>
 
 </html>
