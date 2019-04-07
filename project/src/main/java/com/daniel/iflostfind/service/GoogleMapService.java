@@ -1,5 +1,5 @@
 package com.daniel.iflostfind.service;
 
-public interface GoogleMapApiService {
+public interface GoogleMapService {
     String getMapKey();
 }

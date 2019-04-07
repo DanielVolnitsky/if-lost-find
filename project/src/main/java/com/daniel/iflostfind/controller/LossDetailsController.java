@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.service.GoogleMapApiService;
+import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.dto.LossDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,10 +15,10 @@ import java.util.Optional;
 public class LossDetailsController {
 
     private final LossService lossService;
-    private final GoogleMapApiService googleMapService;
+    private final GoogleMapService googleMapService;
 
     @Autowired
-    public LossDetailsController(LossService lossService, GoogleMapApiService googleMapService) {
+    public LossDetailsController(LossService lossService, GoogleMapService googleMapService) {
         this.lossService = lossService;
         this.googleMapService = googleMapService;
     }

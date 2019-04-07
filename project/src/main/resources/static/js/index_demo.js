@@ -50,10 +50,9 @@ function initMap() {
     processCurrentLocation(function (currPosition) {
 
         let currLocation = new google.maps.LatLng(currPosition.coords.latitude, currPosition.coords.longitude);
-
         map.setCenter(currLocation);
-
         loadLossesInRadius(currLocation, lossesRadiusKm);
+
     }, processDefaultLocation);
 }
 

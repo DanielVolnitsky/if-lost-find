@@ -8,8 +8,3 @@ spring:
     hibernate:
       ddl-auto: create
     show-sql: true
-
-#
-hidden:
-  file:
-    path: "D:/Projects/IfLostFind/project/src/main/resources/hidden/hidden.json"
