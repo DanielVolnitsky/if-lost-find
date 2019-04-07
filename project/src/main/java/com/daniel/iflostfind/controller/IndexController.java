@@ -1,9 +1,8 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.configuration.security.PersonDetails;
+import com.daniel.iflostfind.domain.LossType;
 import com.daniel.iflostfind.service.GoogleMapApiService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -23,6 +22,7 @@ public class IndexController {
 
 //        m.addAttribute("user_default_location", pd.getDefaultLocation());
         m.addAttribute("google_map_key", googleMapsService.getMapKey());
+        m.addAttribute("loss_types", LossType.values());
         return "index";
     }
 }

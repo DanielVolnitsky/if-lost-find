@@ -1,8 +1,35 @@
 const lossesInRadiusUrl = "/api/losses";
 const lossesRadiusKm = 100;
 
-let lossMarkers = [];
+let losses = [];
+
 let service;
+
+$(function () {
+
+    $('.ui.dropdown')
+        .dropdown();
+
+    $('.filter-loss-type').on('click', function (e) {
+        let type = $(this).attr('value');
+        filterMarkersOfType(type);
+    });
+
+});
+
+function filterMarkersOfType(type) {
+    if (type === 'ALL') {
+        losses.forEach(l => l.marker.setMap(map));
+    } else {
+        losses.forEach(l => {
+            if (l.type === type) {
+                l.marker.setMap(map);
+            } else {
+                l.marker.setMap(null);
+            }
+        });
+    }
+}
 
 function initMap() {
 
@@ -104,37 +131,37 @@ function loadLossesInRadius(location, radius) {
 
     let query = lossesInRadiusUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
 
-    $.get(query, function (losses) {
+    $.get(query, function (inLosses) {
+        $.each(inLosses, function (index, inLoss) {
 
-        $.each(losses, function (index, loss) {
+            let loss = {
+                type: inLoss.type,
+                marker: new google.maps.Marker({
+                    position: new google.maps.LatLng(inLoss.latitude, inLoss.longitude),
+                    title: inLoss.name,
+                    animation: google.maps.Animation.DROP
+                })
+            };
 
-            let newLossMarker = new google.maps.Marker({
-                position: new google.maps.LatLng(loss.latitude, loss.longitude),
-                title: loss.name,
-                animation: google.maps.Animation.DROP
-            });
-
-            let existingMarker = lossMarkers.find(m => areLossMarkersEqual(m, newLossMarker));
+            let existingMarker = losses.find(l => areLossMarkersEqual(l.marker, loss.marker));
             if (existingMarker === undefined) {
 
-                newLossMarker.setMap(map);
-                lossMarkers.push(newLossMarker);
+                loss.marker.setMap(map);
+                losses.push(loss);
 
                 let lossInfoWindow = new google.maps.InfoWindow({
-                    content: buildLossInfoWindowContent(loss)
+                    content: buildLossInfoWindowContent(inLoss)
                 });
 
-                newLossMarker.addListener('click', function () {
+                loss.marker.addListener('click', function () {
                     if (isInfoWindowOpen(lossInfoWindow)) {
                         lossInfoWindow.close();
                     } else {
-                        lossInfoWindow.open(map, newLossMarker);
+                        lossInfoWindow.open(map, loss.marker);
                     }
                 });
-
             }
         });
-
     }).fail(function () {
         alert("Failed to upload losses in radius.");
     })
@@ -144,8 +171,6 @@ function buildLossInfoWindowContent(loss) {
     return "<div>" +
         "        <h5 class=\"loss-info-head\">" + loss.name + "</h5>" +
         "        <div class=\"loss-info-desc\">" + loss.description + "</div>" +
-        "        <a href=\"/loss/" + loss.id + "\" class=\"loss-info-fullinfo-link\">View a full info</a>" +
-        "        |" +
-        "        <a href=\"/api/found/" + loss.id + "\" class=\"loss-info-found-link\">Report a find</a>" +
+        "        <a href=\"/loss/" + loss.id + "\" class=\"loss-info-fullinfo-link\">Details</a>" +
         "   </div>"
 }

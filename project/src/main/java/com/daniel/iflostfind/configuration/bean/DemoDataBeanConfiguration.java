@@ -72,64 +72,108 @@ public class DemoDataBeanConfiguration {
                     .build();
 
             //IRPIN
-            Loss l6 = Loss.builder()
-                    .name("IRPIN Iphone 3")
-                    .description("Silver Iphone 3, Red case and spider-man as a wallpaper")
+            Loss i_gadget_1 = Loss.builder()
+                    .name("Gadget 1")
+                    .description("Lorem ipsum dolor sit amet.")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.5183158271568, 30.246850090707426))
+                    .coordinate(new Coordinate(50.5186818939805, 30.251842895770324))
                     .build();
 
-            Loss l7 = Loss.builder()
-                    .name("IRPIN  Iphone 6")
-                    .description("Silver Iphone 6, Red case and spider-man as a wallpaper")
+            Loss i_gadget_2 = Loss.builder()
+                    .name("Gadget 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.51590087219747, 30.252858238900785))
+                    .coordinate(new Coordinate(50.51860685544913, 30.252862135195983))
                     .build();
 
-            Loss l8 = Loss.builder()
-                    .name("IRPIN Iphone 7")
-                    .description("Silver Iphone 7, Red case and spider-man as a wallpaper")
+            Loss i_gadget_3 = Loss.builder()
+                    .name("Gadget 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
                     .type(LossType.GADGET)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.51767457997845, 30.251613693917875))
+                    .coordinate(new Coordinate(50.51796561222457, 30.253366390490783))
                     .build();
 
-            Loss l9 = Loss.builder()
-                    .name("ParkDruzhbi Iphone X")
-                    .description("Silver Iphone X, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
+            Loss i_animal_1 = Loss.builder()
+                    .name("Animal 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .type(LossType.ANIMAL)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.52432833288968, 30.238248476525428))
+                    .coordinate(new Coordinate(50.518279413188885, 30.25017992618109))
                     .build();
 
-            Loss l10 = Loss.builder()
-                    .name("ParkPravika Iphone X")
-                    .description("Silver Iphone X, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
+            Loss i_animal_2 = Loss.builder()
+                    .name("Animal 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .type(LossType.ANIMAL)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.526327206757394, 30.238197159577226))
+                    .coordinate(new Coordinate(50.51881832736828, 30.25145665767218))
                     .build();
 
-            Loss l11 = Loss.builder()
-                    .name("EKO Iphone XS")
-                    .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
+            Loss i_animal_3 = Loss.builder()
+                    .name("Animal 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .type(LossType.ANIMAL)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.518481247806264, 30.238570579531824))
+                    .coordinate(new Coordinate(50.51929584111981, 30.250362316394103))
                     .build();
 
-            Loss l12 = Loss.builder()
-                    .name("Tonus XS")
-                    .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
+            Loss i_doc_1 = Loss.builder()
+                    .name("Doc 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .type(LossType.DOCUMENT)
                     .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.52173174720019, 30.23883194276118))
+                    .coordinate(new Coordinate(50.51716745689227, 30.250137010836852))
                     .build();
+
+            Loss i_doc_2 = Loss.builder()
+                    .name("Doc 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .type(LossType.DOCUMENT)
+                    .lossDate(LocalDate.now())
+                    .coordinate(new Coordinate(50.51627377977825, 30.249858061099303))
+                    .build();
+
+            Loss i_doc_3 = Loss.builder()
+                    .name("Doc 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .type(LossType.DOCUMENT)
+                    .lossDate(LocalDate.now())
+                    .coordinate(new Coordinate(50.51681953880584, 30.251081148410094))
+                    .build();
+
+            Loss i_bag_1 = Loss.builder()
+                    .name("Bag 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .type(LossType.BAG)
+                    .lossDate(LocalDate.now())
+                    .coordinate(new Coordinate(50.519186695545685, 30.248989025378478))
+                    .build();
+
+            Loss i_bag_2 = Loss.builder()
+                    .name("Bag 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .type(LossType.BAG)
+                    .lossDate(LocalDate.now())
+                    .coordinate(new Coordinate(50.51850452998712, 30.24919287326361))
+                    .build();
+
+            Loss i_bag_3 = Loss.builder()
+                    .name("Bag 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .type(LossType.BAG)
+                    .lossDate(LocalDate.now())
+                    .coordinate(new Coordinate(50.519691491711754, 30.2499117052796))
+                    .build();
+
 
             lossRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
-            lossRepository.saveAll(Arrays.asList(l6, l7, l8, l9, l10, l11, l12));
+            lossRepository.saveAll(Arrays.asList(i_animal_1, i_animal_2, i_animal_3));
+            lossRepository.saveAll(Arrays.asList(i_doc_1, i_doc_2, i_doc_3));
+            lossRepository.saveAll(Arrays.asList(i_bag_1, i_bag_2, i_bag_3));
+            lossRepository.saveAll(Arrays.asList(i_gadget_1, i_gadget_2, i_gadget_3));
         };
     }
 

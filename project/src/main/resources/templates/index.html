@@ -10,6 +10,7 @@
     <title>Home</title>
 
     <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/libs/semantic/semantic.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
 </head>
 
@@ -19,8 +20,36 @@
 
 <section id="finding-map">
     <div class="container-fluid">
-        <div class="input-group input-group-sm" id="map-controls-wrapper">
-            <input class="form-control" id="address-in" placeholder="Address..." type="text">
+        <div id="map-controls-wrapper">
+            <div class="ui floating dropdown labeled icon button">
+                <i class="filter icon"></i>
+                <span class="text">Filter</span>
+                <div class="menu">
+                    <div class="ui icon search input">
+                        <i class="search icon"></i>
+                        <input placeholder="Search type..." type="text">
+                    </div>
+                    <div class="divider"></div>
+                    <div class="header">
+                        <i class="tags icon"></i>
+                        Finding types
+                    </div>
+                    <div class="scrolling menu">
+                        <div value="ALL" class="item filter-loss-type">
+                            <div class="ui green empty circular label" ></div>
+                            All
+                        </div>
+                        <div th:each="type : ${loss_types}" th:value="${type.name()}" class="item filter-loss-type">
+                            <div class="ui red empty circular label" ></div>
+                            <span th:text="${type.displayName}"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ui icon search input" id="address-input-wrap">
+                <i class="search icon"></i>
+                <input class="form-control" id="address-in" placeholder="Address..." type="text">
+            </div>
         </div>
         <div class="row" id="map"></div>
     </div>
@@ -32,6 +61,7 @@
 <!-- Scripts -->
 <script th:src="@{/js/lib/jquery.js}"></script>
 <script th:src="@{/js/lib/bootstrap.min.js}"></script>
+<script th:src="@{/libs/semantic/semantic.js}"></script>
 <script th:src="@{/js/index_demo.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
 
