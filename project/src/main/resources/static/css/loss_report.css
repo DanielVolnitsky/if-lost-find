@@ -1,5 +1,5 @@
 label {
-    color: #34302d !important;
+    color: #34302d;
 }
 
 h2 {
@@ -9,26 +9,8 @@ h2 {
 h2 {
     text-transform: capitalize;
     position: relative;
-    margin-top: 20px !important;
-    margin-bottom: 10px;
-}
-
-h2:before,
-h2:after {
-    content: "";
-    position: absolute;
-    width: 116px;
-    height: 2px;
-    background: rgb(33, 186, 69);
-    top: 50%;
-}
-
-h2:before {
-    transform: translateX(-105%);
-}
-
-h2:after {
-    transform: translateX(5%);
+    margin-top: 30px !important;
+    margin-bottom: 20px;
 }
 
 section {
@@ -36,11 +18,10 @@ section {
 }
 
 #steps-overview {
-    margin-top: calc(50px + 20px);
+    margin-top: 75px;
 }
 
-#loss-location,
-#loss-info {
+#loss-location {
     text-align: center;
     display: flex !important;
 }
@@ -49,6 +30,16 @@ section {
 .loss-info-form-wrapper {
     display: flex;
     justify-content: flex-end;
+}
+
+#loss-info {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#loss-info form {
+    width: 350px;
+    margin-top: 20px
 }
 
 #autocomplete-wrapper {
@@ -63,17 +54,21 @@ section {
     height: 600px;
 }
 
-#loss-info-wrapper {
-    height: 400px;
-    margin-top: 80px;
+#submit-btn-wrapper {
+    text-align: center;
 }
 
-.loss-info-form-wrapper {
+#contacts .container {
     display: flex;
     justify-content: center;
+}
+
+#loss-info form {
+    width: 70%;
     text-align: left;
 }
 
-#submit-btn-wrapper {
-    text-align: center;
+#loss-info .form-wrapper {
+    display: flex;
+    justify-content: center;
 }

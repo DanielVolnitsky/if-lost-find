@@ -19,22 +19,22 @@
 <section id="steps-overview">
     <div class="ui three column centered grid">
         <div id="report-steps" class="ui ordered steps">
-            <div class="completed step">
+            <div class="step">
                 <div class="content">
                     <div class="title">Specify location</div>
                     <div class="description">Where have you found it?</div>
                 </div>
             </div>
-            <div class="active step">
+            <div class="step">
                 <div class="content">
                     <div class="title">Add information</div>
                     <div class="description">Enter finding information</div>
                 </div>
             </div>
-            <div class="step">
+            <div class="active step">
                 <div class="content">
-                    <div class="title">Contacts</div>
-                    <div class="description">Leave your contacts here</div>
+                    <div class="title">Wait for the owner to contact you</div>
+                    <div class="description">It is your chance to become someone's hero!</div>
                 </div>
             </div>
         </div>
@@ -43,9 +43,6 @@
 
 <section id="loss-location">
     <div class="ui container">
-        <div class="ui column">
-            <h2>specify the location</h2>
-        </div>
         <div class="ui column" id="location-input-wrapper">
             <div class="ui action input" id="autocomplete-wrapper">
                 <input id="autocomplete" placeholder="Address..." type="text">
@@ -56,59 +53,47 @@
 </section>
 
 <section id="loss-info">
-    <div id="loss-info-wrapper">
-        <h2>specify the loss details</h2>
-        <div class="container">
-            <div class="row loss-info-form-wrapper">
-                <div class="col-6">
-                    <form class="ui large form" method="post" th:action="@{/loss/report}" th:object="${loss}">
-                        <input id="loss-lat" th:field="*{latitude}" type="hidden">
-                        <input id="loss-lng" th:field="*{longitude}" type="hidden">
-                        <div class="field">
-                            <label>Name</label>
-                            <input placeholder="Specify name.." required th:field="*{name}" type="text">
-                        </div>
-                        <div class="field">
-                            <label>Type</label>
-                            <div class="ui selection dropdown">
-                                <input th:field="*{type}" type="hidden">
-                                <i class="dropdown icon"></i>
-                                <div class="default text">Choose type..</div>
-                                <div class="menu">
-                                    <div class="item" th:data-value="${type}" th:each="type: ${lossTypes}"
-                                         th:text="${type}"></div>
-                                </div>
+    <div class="ui container">
+        <div class="ui column form-wrapper">
+            <form class="ui medium form" method="post" th:action="@{/loss/report}" th:object="${loss}">
+                <!--hidden-->
+                <input id="loss-lat" th:field="*{latitude}" type="hidden">
+                <input id="loss-lng" th:field="*{longitude}" type="hidden">
+                <!--hidden-->
+                <div class="fields">
+                    <div class="six wide required field">
+                        <label>Finding Name</label>
+                        <input required th:field="*{name}" type="text">
+                    </div>
+                    <div class="five wide required field">
+                        <label>Finding Type</label>
+                        <div class="ui selection dropdown">
+                            <input th:field="*{type}" type="hidden">
+                            <i class="dropdown icon"></i>
+                            <div class="default text">Choose type..</div>
+                            <div class="menu">
+                                <div class="item" th:data-value="${type}" th:each="type: ${lossTypes}" th:text="${type}"></div>
                             </div>
                         </div>
-                        <div class="fields">
-                            <div class="fourteen wide field">
-                                <label>Date</label>
-                                <input id="loss-date" name="loss-date" placeholder="Date..." th:field="*{lossDate}"
-                                       type="date">
-                            </div>
-                            <div class="two wide field">
-                                <label>Today?</label>
-                                <div class="inline field">
-                                    <div class="ui toggle checkbox">
-                                        <input class="hidden" id="today-loss-cbx" tabindex="0" type="checkbox">
-                                        <label></label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="field">
-                            <label>Description</label>
-                            <textarea rows="3" th:field="*{description}"></textarea>
-                        </div>
-                        <div id="submit-btn-wrapper">
-                            <button class="ui green button" type="submit">Done</button>
-                        </div>
-                    </form>
+                    </div>
+                    <div class="required five wide field">
+                        <label>Date</label>
+                        <input id="loss-date" name="loss-date" placeholder="Date..." th:field="*{lossDate}" type="date">
+                    </div>
                 </div>
-            </div>
+                <div class="field">
+                    <label>Finding Description</label>
+                    <textarea rows="3" th:field="*{description}"></textarea>
+                </div>
+                <div id="submit-btn-wrapper">
+                    <button class="ui green button" type="submit">Done</button>
+                </div>
+            </form>
         </div>
     </div>
 </section>
+
+<footer th:replace="partials/footer.html :: footer"></footer>
 
 <!-- Scripts -->
 <script th:src="@{/js/lib/jquery.js}"></script>

@@ -120,11 +120,6 @@ $(function () {
     $('select.dropdown').dropdown();
 
     $('.ui.checkbox').checkbox();
-
-    $("#today-loss-cbx").change(function () {
-        let lossDateInput = document.getElementById("loss-date");
-        lossDateInput.valueAsDate = this.checked ? new Date() : null;
-    });
 });
 
 
