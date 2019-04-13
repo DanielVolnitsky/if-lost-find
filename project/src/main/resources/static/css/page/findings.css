@@ -5,3 +5,7 @@ body {
 footer {
     margin-top: 20px !important;
 }
+
+main{
+    min-height: calc(100vh - 68px - 75.2px - 20px)
+}

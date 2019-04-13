@@ -17,70 +17,78 @@
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<div class="ui grid" style="margin-top: 20px">
-    <div class="row centered">
-        <div class="thirteen wide stretched column">
-            <div class="ui segment">
-                <table class="ui basic celled striped table">
-                    <thead>
-                    <tr>
-                        <th>Photo</th>
-                        <th>Name</th>
-                        <th>Description</th>
-                        <th>Time</th>
-                        <th>Loss Group</th>
-                        <th>Address Found</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr th:each="f : ${findings}">
-                        <td>
-                            <a href="#">
-                                <img alt="finding image" class="ui tiny rounded image" src="img/matthew.png">
-                            </a>
-                        </td>
-                        <td th:text="${f.name}"></td>
-                        <td style="max-width: 500px" th:text="${f.description}"></td>
-                        <td th:text="${f.lossDate}"></td>
-                        <td th:text="${f.type}"></td>
-                        <td>
-                            TODO ADDRESS, TODO
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+<main>
+    <div class="ui grid" style="margin-top: 20px">
+        <div class="row centered">
+            <div class="thirteen wide stretched column">
+                <div class="ui segment">
+                    <table class="ui basic celled striped table">
+                        <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Time</th>
+                            <th>Loss Group</th>
+                            <th>Address Found</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="f : ${findings}">
+                            <td>
+                                <a href="#">
+                                    <img alt="finding image" class="ui tiny rounded image" src="img/matthew.png">
+                                </a>
+                            </td>
+                            <td th:text="${f.name}"></td>
+                            <td style="max-width: 500px" th:text="${f.description}"></td>
+                            <td th:text="${f.lossDate}"></td>
+                            <td th:text="${f.type}"></td>
+                            <td>
+                                TODO ADDRESS, TODO
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="two wide column">
+                <div class="ui vertical fluid right tabular menu">
+                    <a class="item"
+                       th:classappend="${g.equalsIgnoreCase(filterGroup)} ? active"
+                       th:each="g : ${lossGroups}"
+                       th:href="@{/findings(page=1, type=${g})}"
+                       th:text="${g}">
+                    </a>
+                </div>
             </div>
         </div>
-        <div class="two wide column">
-            <div class="ui vertical fluid right tabular menu">
-                <a class="item"
-                   th:classappend="${g.equalsIgnoreCase(filterGroup)} ? active"
-                   th:each="g : ${lossGroups}"
-                   th:text="${g}"
-                   th:href="@{/findings(page=1, type=${g})}">
-                </a>
+        <div class="row centered">
+            <div class="five wide column">
+                <div class="ui pagination menu">
+                    <a class="icon item" th:href="@{/findings(page=${pagination.currentPage - 1}, type=${filterGroup})}"
+                       th:unless="${pagination.first}">
+                        <i class="left chevron icon"></i>
+                    </a>
+
+                    <a class="item" th:href="@{/findings(page=${pagination.currentPage - 1}, type=${filterGroup})}"
+                       th:text="${pagination.currentPage - 1}"
+                       th:unless="${pagination.first}"></a>
+                    <a class="item active" th:text="${pagination.currentPage}"></a>
+                    <a class="item" th:href="@{/findings(page=${pagination.currentPage + 1}, type=${filterGroup})}"
+                       th:text="${pagination.currentPage +1}"
+                       th:unless="${pagination.last}"></a>
+
+                    <a class="icon item" th:href="@{/findings(page=${pagination.currentPage + 1}, type=${filterGroup})}"
+                       th:unless="${pagination.last}">
+                        <i class="right chevron icon"></i>
+                    </a>
+                </div>
             </div>
+            <div class="ten wide stretched column"></div>
         </div>
     </div>
-    <div class="row centered">
-        <div class="five wide column">
-            <div class="ui pagination menu">
-                <a class="icon item" th:unless="${pagination.first}" th:href="@{/findings(page=${pagination.currentPage - 1}, type=${filterGroup})}">
-                    <i class="left chevron icon"></i>
-                </a>
-
-                <a class="item" th:text="${pagination.currentPage - 1}" th:href="@{/findings(page=${pagination.currentPage - 1}, type=${filterGroup})}" th:unless="${pagination.first}"></a>
-                <a class="item active" th:text="${pagination.currentPage}"></a>
-                <a class="item" th:text="${pagination.currentPage +1}" th:href="@{/findings(page=${pagination.currentPage + 1}, type=${filterGroup})}" th:unless="${pagination.last}"></a>
-
-                <a class="icon item" th:unless="${pagination.last}" th:href="@{/findings(page=${pagination.currentPage + 1}, type=${filterGroup})}">
-                    <i class="right chevron icon"></i>
-                </a>
-            </div>
-        </div>
-        <div class="ten wide stretched column"></div>
-    </div>
-</div>
+</main>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
 
