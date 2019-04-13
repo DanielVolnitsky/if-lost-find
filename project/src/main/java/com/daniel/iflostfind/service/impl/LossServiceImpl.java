@@ -3,11 +3,16 @@ package com.daniel.iflostfind.service.impl;
 import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
 import com.daniel.iflostfind.repository.LossRepository;
+import com.daniel.iflostfind.service.CoordinateService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.converter.impl.LossConverter;
 import com.daniel.iflostfind.service.dto.LossDto;
-import com.daniel.iflostfind.service.CoordinateService;
+import com.daniel.iflostfind.service.dto.PageableDto;
+import com.daniel.iflostfind.service.dto.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -71,6 +76,26 @@ public class LossServiceImpl implements LossService {
     public Optional<LossDto> getById(long lossId) {
         Optional<Loss> loss = lossRepository.findById(lossId);
         return loss.map(converter::convertEntityToDto);
+    }
+
+    @Override
+    public PageableDto<List<LossDto>> getPaged(Integer page, Integer limit) {
+        Pageable pageable = PageRequest.of(page - 1, limit);
+        Page<Loss> lossPage = lossRepository.findAll(pageable);
+
+        PaginationInfo pi = PaginationInfo.builder()
+                .currentPage(page)
+                .totalPages(lossPage.getTotalPages())
+                .first(lossPage.isFirst())
+                .last(lossPage.isLast()).build();
+
+        pi.setOutOfBounds(lossPage.getTotalPages() < page);
+
+        List<Loss> losses = lossPage.stream().collect(toList());
+        List<LossDto> lossDtos = converter.convertEntitiesToDtos(losses);
+
+        return new PageableDto<>(pi, lossDtos);
+
     }
 
     private boolean isLossWithinRadius(Coordinate pivot, Loss loss, double radius) {
