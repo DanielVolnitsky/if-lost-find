@@ -10,7 +10,8 @@
     <title>Home</title>
 
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
-    <link rel="stylesheet" th:href="@{/css/page/findings.css}">
+    <link rel="stylesheet" th:href="@{/css/page/range.css}">
+    <link rel="stylesheet" th:href="@{/css/custom/findings.css}">
 </head>
 
 <body>
@@ -20,7 +21,7 @@
 <main>
     <div class="ui grid" style="margin-top: 20px">
         <div class="row centered">
-            <div class="thirteen wide stretched column">
+            <div class="twelve wide stretched column">
                 <div class="ui segment">
                     <table class="ui basic celled striped table">
                         <thead>
@@ -52,7 +53,36 @@
                     </table>
                 </div>
             </div>
-            <div class="two wide column">
+            <div class="three wide column">
+                <!--radius filter BEGIN-->
+                <div class="ui vertical fluid">
+                    <div class="container">
+                        <div class="ui segment">
+                            <div class="ui checkbox" id="radius-cbx">
+                                <input name="example" type="checkbox">
+                                <label>Search in radius</label>
+                            </div>
+                            <div class="ui divider"></div>
+                            <div class="ui green range" id="range"></div>
+                            <div class="ui divider"></div>
+                            <div class="ui grid">
+                                <div class="two column row">
+                                    <div class="ui left floated column" id="radius-val-wrapper">
+                                        Radius (km):
+                                        <span id="display"></span>
+                                    </div>
+                                    <div class="right floated column">
+                                        <button class="ui right floated tiny button green" id="radius-btn">Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--radius filter END-->
+
+                <!--group filter BEGIN-->
                 <div class="ui vertical fluid right tabular menu">
                     <a class="item"
                        th:classappend="${g.equalsIgnoreCase(filterGroup)} ? active"
@@ -61,6 +91,7 @@
                        th:text="${g}">
                     </a>
                 </div>
+                <!--group filter END-->
             </div>
         </div>
         <div class="row centered">
@@ -95,6 +126,7 @@
 <!-- Scripts -->
 <script th:src="@{/js/lib/jquery.js}"></script>
 <script th:src="@{/js/lib/semantic.js}"></script>
+<script th:src="@{/js/custom/range.js}"></script>
 <script th:src="@{/js/page/findings.js}"></script>
 <!-- Scripts -->
 </body>
