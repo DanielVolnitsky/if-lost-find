@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.domain.LossType;
+import com.daniel.iflostfind.domain.LossGroup;
 import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.dto.LossDto;
@@ -30,7 +30,7 @@ public class LossController {
 
         m.addAttribute("google_map_key", googleMapService.getMapKey());
         m.addAttribute("loss", new LossDto());
-        m.addAttribute("lossTypes", LossType.values());
+        m.addAttribute("lossTypes", LossGroup.values());
 
         return "loss_report";
     }

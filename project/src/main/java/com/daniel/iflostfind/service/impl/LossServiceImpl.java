@@ -2,6 +2,7 @@ package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
+import com.daniel.iflostfind.domain.LossGroup;
 import com.daniel.iflostfind.repository.LossRepository;
 import com.daniel.iflostfind.service.CoordinateService;
 import com.daniel.iflostfind.service.LossService;
@@ -79,23 +80,45 @@ public class LossServiceImpl implements LossService {
     }
 
     @Override
-    public PageableDto<List<LossDto>> getPaged(Integer page, Integer limit) {
-        Pageable pageable = PageRequest.of(page - 1, limit);
-        Page<Loss> lossPage = lossRepository.findAll(pageable);
+    public PageableDto<List<LossDto>> getPaged(Integer pageNumber, Integer limit) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, limit);
+
+        Page<Loss> page = lossRepository.findAll(pageable);
 
         PaginationInfo pi = PaginationInfo.builder()
-                .currentPage(page)
-                .totalPages(lossPage.getTotalPages())
-                .first(lossPage.isFirst())
-                .last(lossPage.isLast()).build();
+                .currentPage(pageNumber)
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast()).build();
 
-        pi.setOutOfBounds(lossPage.getTotalPages() < page);
+        boolean outOfBounds = page.getTotalPages() < pageNumber & page.getTotalPages() != 0;
+        pi.setOutOfBounds(outOfBounds);
 
-        List<Loss> losses = lossPage.stream().collect(toList());
+        List<Loss> losses = page.stream().collect(toList());
         List<LossDto> lossDtos = converter.convertEntitiesToDtos(losses);
 
         return new PageableDto<>(pi, lossDtos);
+    }
 
+    @Override
+    public PageableDto<List<LossDto>> getFilteredByGroup(Integer pageNumber, Integer limit, LossGroup group) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, limit);
+
+        Page<Loss> page = lossRepository.findAllByLossGroup(group, pageable);
+
+        PaginationInfo pi = PaginationInfo.builder()
+                .currentPage(pageNumber)
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast()).build();
+
+        boolean outOfBounds = page.getTotalPages() < pageNumber & page.getTotalPages() != 0;
+        pi.setOutOfBounds(outOfBounds);
+
+        List<Loss> losses = page.stream().collect(toList());
+        List<LossDto> lossDtos = converter.convertEntitiesToDtos(losses);
+
+        return new PageableDto<>(pi, lossDtos);
     }
 
     private boolean isLossWithinRadius(Coordinate pivot, Loss loss, double radius) {

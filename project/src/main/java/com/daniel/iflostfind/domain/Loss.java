@@ -4,7 +4,6 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Objects;
 
 @Entity
 @Table(name = "loss")
@@ -25,7 +24,7 @@ public class Loss {
     private LocalDate lossDate;
 
     @Enumerated(EnumType.STRING)
-    private LossType type;
+    private LossGroup lossGroup;
 
     @Embedded
     private Coordinate coordinate;

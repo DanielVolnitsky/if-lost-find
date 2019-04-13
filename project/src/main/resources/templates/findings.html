@@ -53,23 +53,27 @@
         </div>
         <div class="two wide column">
             <div class="ui vertical fluid right tabular menu">
-                <a class="item active">All</a>
-                <a class="item" th:each="lg : ${lossGroups}" th:text="${lg}"></a>
+                <a class="item"
+                   th:classappend="${g.equalsIgnoreCase(filterGroup)} ? active"
+                   th:each="g : ${lossGroups}"
+                   th:text="${g}"
+                   th:href="@{/findings(page=1, type=${g})}">
+                </a>
             </div>
         </div>
     </div>
     <div class="row centered">
         <div class="five wide column">
             <div class="ui pagination menu">
-                <a class="icon item" th:unless="${pagination.first}" th:href="@{/findings(page=${pagination.currentPage - 1})}">
+                <a class="icon item" th:unless="${pagination.first}" th:href="@{/findings(page=${pagination.currentPage - 1}, type=${filterGroup})}">
                     <i class="left chevron icon"></i>
                 </a>
 
-                <a class="item" th:text="${pagination.currentPage - 1}" th:href="@{/findings(page=${pagination.currentPage - 1})}" th:unless="${pagination.first}"></a>
+                <a class="item" th:text="${pagination.currentPage - 1}" th:href="@{/findings(page=${pagination.currentPage - 1}, type=${filterGroup})}" th:unless="${pagination.first}"></a>
                 <a class="item active" th:text="${pagination.currentPage}"></a>
-                <a class="item" th:text="${pagination.currentPage +1}" th:href="@{/findings(page=${pagination.currentPage + 1})}" th:unless="${pagination.last}"></a>
+                <a class="item" th:text="${pagination.currentPage +1}" th:href="@{/findings(page=${pagination.currentPage + 1}, type=${filterGroup})}" th:unless="${pagination.last}"></a>
 
-                <a class="icon item" th:unless="${pagination.last}" th:href="@{/findings(page=${pagination.currentPage + 1})}">
+                <a class="icon item" th:unless="${pagination.last}" th:href="@{/findings(page=${pagination.currentPage + 1}, type=${filterGroup})}">
                     <i class="right chevron icon"></i>
                 </a>
             </div>

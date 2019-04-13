@@ -1,5 +1,6 @@
 package com.daniel.iflostfind.controller;
 
+import com.daniel.iflostfind.domain.LossGroup;
 import com.daniel.iflostfind.service.LossGroupService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.dto.LossDto;
@@ -33,15 +34,23 @@ public class FindingController {
     //TODO filter or AOP
     @GetMapping("/findings")
     public ModelAndView showFindings(
-            @RequestParam(name = "page", defaultValue = "1") int page) {
+            @RequestParam(name = "page", defaultValue = "1") int page,
+            @RequestParam(name = "type", defaultValue = "All") String type) {
 
         if (page < 1) {
-            return new ModelAndView("redirect:/findings?page=" + 1);
+            return new ModelAndView("redirect:/findings?page=" + 1 + "&type=" + type);
         }
 
         ModelAndView mav = new ModelAndView("findings");
 
-        PageableDto<List<LossDto>> dto = lossService.getPaged(page, limit);
+        LossGroup g = lossGroupService.getLossGroup(type).orElse(LossGroup.ALL);
+
+        PageableDto<List<LossDto>> dto;
+        if(g.equals(LossGroup.ALL)){
+            dto = lossService.getPaged(page, limit);
+        } else {
+            dto = lossService.getFilteredByGroup(page, limit, g);
+        }
 
         PaginationInfo pagInfo = dto.getPaginationInfo();
         if (pagInfo.isOutOfBounds()) {
@@ -50,6 +59,7 @@ public class FindingController {
 
         mav.addObject("findings", dto.getElement());
         mav.addObject("pagination", pagInfo);
+        mav.addObject("filterGroup", type);
 
         Set<String> lg = lossGroupService.getLossGroupNames();
         mav.addObject("lossGroups", lg);

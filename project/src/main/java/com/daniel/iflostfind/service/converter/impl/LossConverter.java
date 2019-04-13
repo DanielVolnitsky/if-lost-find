@@ -2,7 +2,7 @@ package com.daniel.iflostfind.service.converter.impl;
 
 import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.Loss;
-import com.daniel.iflostfind.domain.LossType;
+import com.daniel.iflostfind.domain.LossGroup;
 import com.daniel.iflostfind.service.converter.DtoToEntityConverter;
 import com.daniel.iflostfind.service.converter.EntityToDtoCollectionConverter;
 import com.daniel.iflostfind.service.converter.EntityToDtoConverter;
@@ -23,7 +23,7 @@ public class LossConverter implements
     @Override
     public Loss convertDtoToEntity(LossDto dto) {
 
-        LossType lossType = LossType.valueOf(dto.getType());
+        LossGroup lossGroup = LossGroup.valueOf(dto.getType());
 
         double lat = dto.getLatitude();
         double lng = dto.getLongitude();
@@ -33,7 +33,7 @@ public class LossConverter implements
                 .id(dto.getId())
                 .name(dto.getName())
                 .description(dto.getDescription())
-                .type(lossType)
+                .lossGroup(lossGroup)
                 .lossDate(dto.getLossDate())
                 .coordinate(coordinate)
                 .build();
@@ -47,7 +47,7 @@ public class LossConverter implements
         dto.setName(loss.getName());
         dto.setDescription(loss.getDescription());
 
-        String lossType = loss.getType().toString();
+        String lossType = loss.getLossGroup().toString();
         dto.setType(lossType);
 
         dto.setLossDate(loss.getLossDate());
