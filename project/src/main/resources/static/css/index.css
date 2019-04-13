@@ -1,7 +1,7 @@
 #finding-map {
-    margin-top: calc(56px + 10px);
-    margin-bottom: 10px;
-    height: calc(100vh - 56px - 10px);
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: calc(100vh - 68px - 5px);
 }
 
 #finding-map > .container-fluid{

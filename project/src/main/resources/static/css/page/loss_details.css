@@ -5,6 +5,9 @@ body {
 #loss-info-container {
     background-color: white;
     border-radius: 20px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    height: calc(100vh - 68px - 20px);
 }
 
 #map {
@@ -18,7 +21,6 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    margin-top: 60px;
     margin-bottom: 250px;
 }
 

@@ -36,4 +36,10 @@ public class FindingListController {
 
         return mav;
     }
+
+    @GetMapping("/acc")
+    public String toPageA() {
+
+        return "account";
+    }
 }

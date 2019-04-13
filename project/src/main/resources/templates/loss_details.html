@@ -7,9 +7,9 @@
     <title>IfLostFound | Loss</title>
 
     <!-- Styles -->
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
-    <link th:href="@{/css/loss-details.css}" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
+    <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
+    <link rel="stylesheet" th:href="@{/css/page/loss_details.css}">
     <!-- Styles -->
 </head>
 
@@ -44,8 +44,9 @@
 <footer th:replace="partials/footer.html :: footer"></footer>
 
 <!-- Scripts -->
-<script th:src="@{/libs/jQuery/jquery.js}"></script>
-<script th:src="@{/js/loss-details.js}"></script>
+<script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/page/loss_details.js}"></script>
+
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
 <!-- Scripts -->

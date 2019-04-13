@@ -17,10 +17,6 @@ section {
     margin-top: 20px;
 }
 
-#steps-overview {
-    margin-top: 75px;
-}
-
 #loss-location {
     text-align: center;
     display: flex !important;
