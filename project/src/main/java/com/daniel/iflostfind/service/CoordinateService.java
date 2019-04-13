@@ -1,4 +1,4 @@
-package com.daniel.iflostfind.service.util;
+package com.daniel.iflostfind.service;
 
 import com.daniel.iflostfind.domain.Coordinate;
 

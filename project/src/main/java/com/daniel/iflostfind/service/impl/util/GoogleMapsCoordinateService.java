@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.service.impl.util;
 
 import com.daniel.iflostfind.domain.Coordinate;
-import com.daniel.iflostfind.service.util.CoordinateService;
+import com.daniel.iflostfind.service.CoordinateService;
 import org.springframework.stereotype.Service;
 
 @Service

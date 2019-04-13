@@ -6,7 +6,7 @@ import com.daniel.iflostfind.repository.LossRepository;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.converter.impl.LossConverter;
 import com.daniel.iflostfind.service.dto.LossDto;
-import com.daniel.iflostfind.service.util.CoordinateService;
+import com.daniel.iflostfind.service.CoordinateService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
