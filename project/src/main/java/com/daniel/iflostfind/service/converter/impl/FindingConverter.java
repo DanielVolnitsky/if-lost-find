@@ -1,7 +1,12 @@
-package com.daniel.iflostfind.service.converter.domain.impl;
+package com.daniel.iflostfind.service.converter.impl;
 
-import com.daniel.iflostfind.domain.*;
-import com.daniel.iflostfind.service.converter.domain.FindingConverter;
+import com.daniel.iflostfind.domain.Coordinate;
+import com.daniel.iflostfind.domain.DiscoveryPlace;
+import com.daniel.iflostfind.domain.Finding;
+import com.daniel.iflostfind.domain.FindingGroup;
+import com.daniel.iflostfind.service.converter.DtoToEntityConverter;
+import com.daniel.iflostfind.service.converter.EntityToDtoCollectionConverter;
+import com.daniel.iflostfind.service.converter.EntityToDtoConverter;
 import com.daniel.iflostfind.service.dto.FindingDto;
 import org.springframework.stereotype.Component;
 
@@ -11,7 +16,10 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 
 @Component
-public class GoogleMapsBasedFindingConverter implements FindingConverter {
+public class FindingConverter implements
+        EntityToDtoConverter<Finding, FindingDto>,
+        DtoToEntityConverter<Finding, FindingDto>,
+        EntityToDtoCollectionConverter<Finding, FindingDto> {
 
     @Override
     public Finding convertDtoToEntity(FindingDto dto) {
@@ -50,9 +58,8 @@ public class GoogleMapsBasedFindingConverter implements FindingConverter {
 
         DiscoveryPlace dp = finding.getDiscoveryPlace();
 
-        //TODO
-        Object placeId = dp.getPlaceId();
-        dto.setDiscoveryPlaceId((String) placeId);
+        String placeId = dp.getPlaceId();
+        dto.setDiscoveryPlaceId(placeId);
 
         Coordinate co = dp.getCoordinate();
         dto.setLatitude(co.getLatitude());

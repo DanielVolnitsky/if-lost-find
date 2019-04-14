@@ -1,6 +1,7 @@
 package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.domain.FindingGroup;
+import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossGroupService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.dto.FindingDto;
@@ -21,14 +22,17 @@ public class FindingController {
 
     private final LossService lossService;
     private final LossGroupService lossGroupService;
+    private final GoogleMapService googleMapsService;
+
 
     @Value("${pagination.limit.default}")
     private int limit;
 
     @Autowired
-    public FindingController(LossService lossService, LossGroupService lossGroupService) {
+    public FindingController(LossService lossService, LossGroupService lossGroupService, GoogleMapService googleMapsService) {
         this.lossService = lossService;
         this.lossGroupService = lossGroupService;
+        this.googleMapsService = googleMapsService;
     }
 
     //TODO filter or AOP
@@ -38,7 +42,7 @@ public class FindingController {
             @RequestParam(name = "group", defaultValue = "All") String type) {
 
         if (page < 1) {
-            return new ModelAndView("redirect:/findings?page=" + 1 + "&findingGroupName=" + type);
+            return new ModelAndView("redirect:/findings?page=" + 1 + "&group=" + type);
         }
 
         ModelAndView mav = new ModelAndView("findings");
@@ -63,6 +67,8 @@ public class FindingController {
 
         Set<String> lg = lossGroupService.getLossGroupNames();
         mav.addObject("findingGroups", lg);
+
+        mav.addObject("google_map_key", googleMapsService.getMapKey());
 
         return mav;
     }

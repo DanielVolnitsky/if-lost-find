@@ -29,9 +29,8 @@
                             <th>Photo</th>
                             <th>Name</th>
                             <th>Description</th>
-                            <th>Time</th>
-                            <th>Loss Group</th>
-                            <th>Address Found</th>
+                            <th>Address</th>
+                            <th>Date</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -43,9 +42,8 @@
                             </td>
                             <td th:text="${f.name}"></td>
                             <td style="max-width: 500px" th:text="${f.description}"></td>
+                            <td class="finding-address-td" th:value="${f.discoveryPlaceId}"></td>
                             <td th:text="${f.dateFound}"></td>
-                            <td th:text="${f.findingGroupName}"></td>
-                            <td>N, Street, Town</td>
                         </tr>
                         </tbody>
                     </table>
@@ -126,6 +124,9 @@
 <script th:src="@{/js/lib/semantic.js}"></script>
 <script th:src="@{/js/custom/range.js}"></script>
 <script th:src="@{/js/page/findings.js}"></script>
+
+<script async defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, callback='initGoogleMapsApiLogic')}"></script>
 <!-- Scripts -->
 </body>
 

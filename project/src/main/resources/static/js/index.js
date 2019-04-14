@@ -143,6 +143,7 @@ function loadLossesInRadius(location, radius) {
                 marker: new google.maps.Marker({
                     position: new google.maps.LatLng(inFinding.latitude, inFinding.longitude),
                     title: inFinding.name,
+                    url: '/loss/' + inFinding.id,
                     animation: google.maps.Animation.DROP
                 })
             };
@@ -157,12 +158,16 @@ function loadLossesInRadius(location, radius) {
                     content: buildFindingInfoWindowContent(inFinding)
                 });
 
-                finding.marker.addListener('click', function () {
-                    if (isInfoWindowOpen(findingInfoWindow)) {
-                        findingInfoWindow.close();
-                    } else {
-                        findingInfoWindow.open(map, finding.marker);
-                    }
+                finding.marker.addListener('click', function() {
+                    window.location.href = this.url;
+                });
+
+                finding.marker.addListener('mouseover', function() {
+                    findingInfoWindow.open(map, this);
+                });
+
+                finding.marker.addListener('mouseout', function() {
+                    findingInfoWindow.close();
                 });
             }
         });
@@ -175,17 +180,14 @@ function buildFindingInfoWindowContent(finding) {
     return " <div class=\"ui card\">\n" +
         "        <div class=\"content\">\n" +
         "            <div class=\"header\">\n" +
-        finding.name +
+                finding.name +
         "            </div>\n" +
         "            <div class=\"meta\">\n" +
-        finding.dateFound +
+                finding.dateFound +
         "            </div>\n" +
         "            <div class=\"description\">\n" +
-        finding.description +
+                finding.description +
         "            </div>\n" +
-        "        </div>\n" +
-        "        <div class=\"ui extra content two buttons\" >\n" +
-        "            <a href=\"/loss/" + finding.id + "\" class=\"ui positive button\">View Details</a>\n" +
         "        </div>\n" +
         "    </div>"
 }

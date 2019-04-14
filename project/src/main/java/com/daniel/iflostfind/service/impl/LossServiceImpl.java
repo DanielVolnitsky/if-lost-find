@@ -7,7 +7,7 @@ import com.daniel.iflostfind.domain.FindingGroup;
 import com.daniel.iflostfind.repository.LossRepository;
 import com.daniel.iflostfind.service.CoordinateService;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.converter.domain.FindingConverter;
+import com.daniel.iflostfind.service.converter.impl.FindingConverter;
 import com.daniel.iflostfind.service.dto.FindingDto;
 import com.daniel.iflostfind.service.dto.PageableDto;
 import com.daniel.iflostfind.service.dto.PaginationInfo;
