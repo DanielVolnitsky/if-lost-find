@@ -5,12 +5,12 @@ let map;
 
 function initMap() {
 
-    let lossLat = parseFloat($('#loss-lat').val());
-    let lossLng = parseFloat($('#loss-lng').val());
+    let findLat = parseFloat($('#finding-lat').val());
+    let findLng = parseFloat($('#finding-lng').val());
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: mapZoom,
-        center: {lat: lossLat, lng: lossLng},
+        center: {lat: findLat, lng: findLng},
         mapTypeId: mapType,
         mapTypeControl: false,
         zoomControl: true,
@@ -19,9 +19,9 @@ function initMap() {
         fullscreenControl: false
     });
 
-    let lossMarker = new google.maps.Marker({
+    new google.maps.Marker({
         map: map,
-        position: {lat: lossLat, lng: lossLng},
+        position: {lat: findLat, lng: findLng},
         draggable: false
     });
 }

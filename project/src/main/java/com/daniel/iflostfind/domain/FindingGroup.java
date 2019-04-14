@@ -2,7 +2,7 @@ package com.daniel.iflostfind.domain;
 
 import lombok.Getter;
 
-public enum LossGroup {
+public enum FindingGroup {
 
     ALL("All"),
     GADGET("Gadget"),
@@ -13,7 +13,7 @@ public enum LossGroup {
     @Getter
     private final String displayName;
 
-    LossGroup(String displayName) {
+    FindingGroup(String displayName) {
         this.displayName = displayName;
     }
 }

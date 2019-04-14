@@ -1,9 +1,9 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.domain.LossGroup;
+import com.daniel.iflostfind.domain.FindingGroup;
 import com.daniel.iflostfind.service.LossGroupService;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.dto.LossDto;
+import com.daniel.iflostfind.service.dto.FindingDto;
 import com.daniel.iflostfind.service.dto.PageableDto;
 import com.daniel.iflostfind.service.dto.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,18 +35,18 @@ public class FindingController {
     @GetMapping("/findings")
     public ModelAndView showFindings(
             @RequestParam(name = "page", defaultValue = "1") int page,
-            @RequestParam(name = "type", defaultValue = "All") String type) {
+            @RequestParam(name = "group", defaultValue = "All") String type) {
 
         if (page < 1) {
-            return new ModelAndView("redirect:/findings?page=" + 1 + "&type=" + type);
+            return new ModelAndView("redirect:/findings?page=" + 1 + "&findingGroupName=" + type);
         }
 
         ModelAndView mav = new ModelAndView("findings");
 
-        LossGroup g = lossGroupService.getLossGroup(type).orElse(LossGroup.ALL);
+        FindingGroup g = lossGroupService.getLossGroup(type).orElse(FindingGroup.ALL);
 
-        PageableDto<List<LossDto>> dto;
-        if(g.equals(LossGroup.ALL)){
+        PageableDto<List<FindingDto>> dto;
+        if(g.equals(FindingGroup.ALL)){
             dto = lossService.getPaged(page, limit);
         } else {
             dto = lossService.getFilteredByGroup(page, limit, g);
@@ -62,7 +62,7 @@ public class FindingController {
         mav.addObject("filterGroup", type);
 
         Set<String> lg = lossGroupService.getLossGroupNames();
-        mav.addObject("lossGroups", lg);
+        mav.addObject("findingGroups", lg);
 
         return mav;
     }

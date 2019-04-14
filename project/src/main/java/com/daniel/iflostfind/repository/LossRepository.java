@@ -1,15 +1,13 @@
 package com.daniel.iflostfind.repository;
 
-import com.daniel.iflostfind.domain.Loss;
-import com.daniel.iflostfind.domain.LossGroup;
+import com.daniel.iflostfind.domain.Finding;
+import com.daniel.iflostfind.domain.FindingGroup;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.PagingAndSortingRepository;
 import org.springframework.stereotype.Repository;
 
-import java.util.List;
-
 @Repository
-public interface LossRepository extends PagingAndSortingRepository<Loss, Long> {
-    Page<Loss> findAllByLossGroup(LossGroup type, Pageable pageable);
+public interface LossRepository extends PagingAndSortingRepository<Finding, Long> {
+    Page<Finding> findAllByFindingGroup(FindingGroup type, Pageable pageable);
 }

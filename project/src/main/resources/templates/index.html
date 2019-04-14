@@ -34,7 +34,7 @@
                         Finding groups
                     </div>
                     <div class="scrolling menu">
-                        <div th:each="type : ${loss_types}" th:value="${type.name()}" class="item filter-loss-type">
+                        <div th:each="type : ${loss_types}" th:value="${type.name()}" class="item filter-finding-group">
                             <div class="ui red empty circular label" ></div>
                             <span th:text="${type.displayName}"></span>
                         </div>
@@ -48,7 +48,7 @@
         </div>
         <div class="row" id="map"></div>
     </div>
-    <!--<input id="user-default-location" lossGroup="hidden" th:value="${user_default_location}">TODO-->
+    <!--<input id="user-default-location" findingGroupName="hidden" th:value="${user_default_location}">TODO-->
 </section>
 
 <footer th:replace="partials/footer.html :: footer"></footer>

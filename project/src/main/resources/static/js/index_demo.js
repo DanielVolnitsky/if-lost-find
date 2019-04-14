@@ -1,7 +1,7 @@
-const lossesInRadiusUrl = "/api/losses";
+const lossesInRadiusUrl = "/api/findings";
 const lossesRadiusKm = 100;
 
-let losses = [];
+let findings = [];
 
 let service;
 
@@ -10,19 +10,19 @@ $(function () {
     $('.ui.dropdown')
         .dropdown();
 
-    $('.filter-loss-type').on('click', function (e) {
-        let type = $(this).attr('value');
-        filterMarkersOfType(type);
+    $('.filter-finding-group').on('click', function (e) {
+        let g = $(this).attr('value');
+        filterMarkersOfFindingGroup(g);
     });
 
 });
 
-function filterMarkersOfType(type) {
-    if (type === 'ALL') {
-        losses.forEach(l => l.marker.setMap(map));
+function filterMarkersOfFindingGroup(group) {
+    if (group === 'ALL') {
+        findings.forEach(l => l.marker.setMap(map));
     } else {
-        losses.forEach(l => {
-            if (l.type === type) {
+        findings.forEach(l => {
+            if (l.group === group) {
                 l.marker.setMap(map);
             } else {
                 l.marker.setMap(null);
@@ -130,57 +130,57 @@ function loadLossesInRadius(location, radius) {
 
     let query = lossesInRadiusUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
 
-    $.get(query, function (inLosses) {
-        $.each(inLosses, function (index, inLoss) {
+    $.get(query, function (inFindings) {
+        $.each(inFindings, function (index, inFinding) {
 
-            let loss = {
-                type: inLoss.type,
+            let finding = {
+                group: inFinding.findingGroupName,
                 marker: new google.maps.Marker({
-                    position: new google.maps.LatLng(inLoss.latitude, inLoss.longitude),
-                    title: inLoss.name,
+                    position: new google.maps.LatLng(inFinding.latitude, inFinding.longitude),
+                    title: inFinding.name,
                     animation: google.maps.Animation.DROP
                 })
             };
 
-            let existingMarker = losses.find(l => areLossMarkersEqual(l.marker, loss.marker));
+            let existingMarker = findings.find(l => areLossMarkersEqual(l.marker, finding.marker));
             if (existingMarker === undefined) {
 
-                loss.marker.setMap(map);
-                losses.push(loss);
+                finding.marker.setMap(map);
+                findings.push(finding);
 
-                let lossInfoWindow = new google.maps.InfoWindow({
-                    content: buildLossInfoWindowContent(inLoss)
+                let findingInfoWindow = new google.maps.InfoWindow({
+                    content: buildFindingInfoWindowContent(inFinding)
                 });
 
-                loss.marker.addListener('click', function () {
-                    if (isInfoWindowOpen(lossInfoWindow)) {
-                        lossInfoWindow.close();
+                finding.marker.addListener('click', function () {
+                    if (isInfoWindowOpen(findingInfoWindow)) {
+                        findingInfoWindow.close();
                     } else {
-                        lossInfoWindow.open(map, loss.marker);
+                        findingInfoWindow.open(map, finding.marker);
                     }
                 });
             }
         });
     }).fail(function () {
-        alert("Failed to upload losses in radius.");
+        alert("Failed to upload findings in radius.");
     })
 }
 
-function buildLossInfoWindowContent(loss) {
+function buildFindingInfoWindowContent(finding) {
     return " <div class=\"ui card\">\n" +
         "        <div class=\"content\">\n" +
         "            <div class=\"header\">\n" +
-                        loss.name +
+                        finding.name +
         "            </div>\n" +
         "            <div class=\"meta\">\n" +
-                        loss.lossDate +
+                        finding.dateFound +
         "            </div>\n" +
         "            <div class=\"description\">\n" +
-                        loss.description +
+                        finding.description +
         "            </div>\n" +
         "        </div>\n" +
         "        <div class=\"ui extra content two buttons\" >\n" +
-        "            <a href=\"/loss/" + loss.id + "\" class=\"ui positive button\">View Details</a>\n" +
+        "            <a href=\"/loss/" + finding.id + "\" class=\"ui positive button\">View Details</a>\n" +
         "        </div>\n" +
         "    </div>"
 }

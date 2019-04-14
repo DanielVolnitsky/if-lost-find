@@ -1,7 +1,7 @@
-const lossesInRadiusUrl = "/api/losses";
+const lossesInRadiusUrl = "/api/findings";
 const lossesRadiusKm = 0.8;
 
-// const nearbyLossesUrl = "/api/losses/nearest";
+// const nearbyLossesUrl = "/api/findings/nearest";
 // const nearbyLossesLimit = 5;
 
 let lossMarkers = [];
@@ -158,7 +158,7 @@ function loadLossesInRadius(location, radius) {
         });
 
     }).fail(function () {
-        alert("Failed to upload losses in radius.");
+        alert("Failed to upload findings in radius.");
     })
 }
 
@@ -195,11 +195,11 @@ function arePointsInBounds(checkPoint, centerPoint, km) {
 // function loadNearbyLosses(location, limit) {
 //     let query = nearbyLossesUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&limit=" + limit;
 //
-//     $.get(query, function (losses) {
+//     $.get(query, function (findings) {
 //
-//         let wrapper = document.getElementById('nearby-losses-wrapper');
+//         let wrapper = document.getElementById('nearby-findings-wrapper');
 //
-//         $.each(losses, function (index, loss) {
+//         $.each(findings, function (index, loss) {
 //
 //             let lossHtml = "<div class=\"card mb-" + limit + " shadow-sm\">\n" +
 //                 "                <div class=\"card-header\">\n" +
@@ -208,7 +208,7 @@ function arePointsInBounds(checkPoint, centerPoint, km) {
 //                 "                <div class=\"card-body\">\n" +
 //                 "                    <h1 class=\"card-title pricing-card-title\">$50</h1>\n" +
 //                 "                    <div class=\"mt-3 mb-4\">\n" + loss.description + "</div>\n" +
-//                 "                    <button class=\"btn btn-lg btn-block btn-outline-success\" type=\"button\">Found It</button>\n" +
+//                 "                    <button class=\"btn btn-lg btn-block btn-outline-success\" findingGroupName=\"button\">Found It</button>\n" +
 //                 "                </div>\n" +
 //                 "              </div>"
 //
@@ -216,7 +216,7 @@ function arePointsInBounds(checkPoint, centerPoint, km) {
 //
 //         });
 //     }).fail(function () {
-//         alert("Failed to upload nearby losses.");
+//         alert("Failed to upload nearby findings.");
 //     })
 // }
 

@@ -2,7 +2,7 @@ package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.dto.LossDto;
+import com.daniel.iflostfind.service.dto.FindingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,11 +26,11 @@ public class LossDetailsController {
     @GetMapping("/loss/{id}")
     public ModelAndView toLossDetailsPage(@PathVariable("id") long lossId) {
 
-        ModelAndView mv = new ModelAndView("loss_details");
+        ModelAndView mv = new ModelAndView("finding_details");
 
-        Optional<LossDto> loss = lossService.getById(lossId);
+        Optional<FindingDto> loss = lossService.getById(lossId);
         loss.ifPresent(l -> {
-            mv.addObject("loss", l);
+            mv.addObject("finding", l);
             mv.addObject("google_map_key", googleMapService.getMapKey());
         });
 

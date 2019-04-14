@@ -9,7 +9,7 @@
     <!-- Styles -->
     <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
-    <link rel="stylesheet" th:href="@{/css/page/loss_details.css}">
+    <link rel="stylesheet" th:href="@{/css/page/finding_details.css}">
     <!-- Styles -->
 </head>
 
@@ -17,14 +17,14 @@
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<div id="loss-info-container" class="container">
-    <div class="row" id="loss-info-wrapper">
+<div id="finding-info-container" class="container">
+    <div class="row" id="finding-info-wrapper">
         <div class="card" style="width: 20rem;">
-            <div class="card-body" id="loss-info">
-                <h5 class="card-title" th:text="${loss.name}"></h5>
+            <div class="card-body" id="finding-info">
+                <h5 class="card-title" th:text="${finding.name}"></h5>
 
                 <h6 class="card-subtitle mb-2 text-muted">Description</h6>
-                <p class="card-text" th:text="${loss.description}"></p>
+                <p class="card-text" th:text="${finding.description}"></p>
 
                 <h6 class="card-subtitle mb-2 text-muted">When</h6>
                 <p class="card-text">25/15/2019</p>
@@ -33,11 +33,11 @@
             </div>
         </div>
         <!--TODO replace with local img-->
-        <img alt="loss" id="loss-img" src="https://png.pngtree.com/element_origin_min_pic/16/11/23/9986069163008f783bfe2d6deccea7bf.jpg">
+        <img alt="finding" id="finding-img" src="https://png.pngtree.com/element_origin_min_pic/16/11/23/9986069163008f783bfe2d6deccea7bf.jpg">
         <div id="map"></div>
 
-        <input id="loss-lat" type="hidden" th:value="${loss.latitude}">
-        <input id="loss-lng" type="hidden" th:value="${loss.longitude}">
+        <input id="finding-lat" type="hidden" th:value="${finding.latitude}">
+        <input id="finding-lng" type="hidden" th:value="${finding.longitude}">
     </div>
 </div>
 
@@ -45,7 +45,7 @@
 
 <!-- Scripts -->
 <script th:src="@{/js/lib/jquery.js}"></script>
-<script th:src="@{/js/page/loss_details.js}"></script>
+<script th:src="@{/js/page/finding_details.js}"></script>
 
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>

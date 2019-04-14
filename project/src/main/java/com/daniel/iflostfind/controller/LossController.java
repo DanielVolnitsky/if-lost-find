@@ -1,9 +1,9 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.domain.LossGroup;
+import com.daniel.iflostfind.domain.FindingGroup;
 import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.dto.LossDto;
+import com.daniel.iflostfind.service.dto.FindingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,20 +25,20 @@ public class LossController {
         this.googleMapService = googleMapsService;
     }
 
-    @GetMapping("/loss/report")
+    @GetMapping("/finding/report")
     public String toLossReportPage(Model m) {
 
         m.addAttribute("google_map_key", googleMapService.getMapKey());
-        m.addAttribute("loss", new LossDto());
-        m.addAttribute("lossTypes", LossGroup.values());
+        m.addAttribute("finding", new FindingDto());
+        m.addAttribute("findingGroups", FindingGroup.values());
 
-        return "loss_report";
+        return "finding_report";
     }
 
-    @PostMapping("/loss/report")
-    public String createLoss(@ModelAttribute("loss") @Valid LossDto lossDto) {
+    @PostMapping("/finding/report")
+    public String createLoss(@ModelAttribute("finding") @Valid FindingDto dto) {
 
-        lossService.add(lossDto);
-        return "redirect:/loss/report";
+        lossService.add(dto);
+        return "redirect:/finding/report";
     }
 }

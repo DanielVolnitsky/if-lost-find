@@ -9,7 +9,7 @@
     <!-- Styles -->
     <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
-    <link rel="stylesheet" th:href="@{/css/loss_report.css}">
+    <link rel="stylesheet" th:href="@{/css/finding_report.css}">
 </head>
 
 <body>
@@ -18,7 +18,7 @@
 
 <section id="steps-overview">
     <div class="ui three column centered grid">
-        <div id="report-steps" class="ui ordered steps">
+        <div class="ui ordered steps" id="report-steps">
             <div class="step">
                 <div class="content">
                     <div class="title">Specify location</div>
@@ -41,7 +41,7 @@
     </div>
 </section>
 
-<section id="loss-location">
+<section id="finding-location">
     <div class="ui container">
         <div class="ui column" id="location-input-wrapper">
             <div class="ui action input" id="autocomplete-wrapper">
@@ -52,13 +52,13 @@
     </div>
 </section>
 
-<section id="loss-info">
+<section id="finding-info">
     <div class="ui container">
         <div class="ui column form-wrapper">
-            <form class="ui medium form" method="post" th:action="@{/loss/report}" th:object="${loss}">
+            <form class="ui medium form" method="post" th:action="@{/finding/report}" th:object="${finding}">
                 <!--hidden-->
-                <input id="loss-lat" th:field="*{latitude}" type="hidden">
-                <input id="loss-lng" th:field="*{longitude}" type="hidden">
+                <input id="finding-lat" th:field="*{latitude}" type="hidden">
+                <input id="finding-lng" th:field="*{longitude}" type="hidden">
                 <!--hidden-->
                 <div class="fields">
                     <div class="six wide required field">
@@ -68,17 +68,19 @@
                     <div class="five wide required field">
                         <label>Finding Type</label>
                         <div class="ui selection dropdown">
-                            <input th:field="*{type}" type="hidden">
+                            <input th:field="*{findingGroupName}" type="hidden">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Choose type..</div>
+                            <div class="default text">Choose finding group..</div>
                             <div class="menu">
-                                <div class="item" th:data-value="${type}" th:each="type: ${lossTypes}" th:text="${type}"></div>
+                                <div class="item" th:data-value="${g}" th:each="g: ${findingGroups}"
+                                     th:text="${g}"></div>
                             </div>
                         </div>
                     </div>
                     <div class="required five wide field">
                         <label>Date</label>
-                        <input id="loss-date" name="loss-date" placeholder="Date..." th:field="*{lossDate}" type="date">
+                        <input id="finding-date" name="finding-date" placeholder="Date..." th:field="*{dateFound}"
+                               type="date">
                     </div>
                 </div>
                 <div class="field">
@@ -99,7 +101,7 @@
 <script th:src="@{/js/lib/jquery.js}"></script>
 <script th:src="@{/js/lib/semantic.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
-<script th:src="@{/js/loss-report.js}"></script>
+<script th:src="@{/js/finding-report.js}"></script>
 
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}"></script>
