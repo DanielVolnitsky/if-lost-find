@@ -1,0 +1,70 @@
+label {
+    color: #34302d;
+}
+
+h2 {
+    text-transform: capitalize;
+}
+
+h2 {
+    text-transform: capitalize;
+    position: relative;
+    margin-top: 30px !important;
+    margin-bottom: 20px;
+}
+
+section {
+    margin-top: 20px;
+}
+
+#loss-location {
+    text-align: center;
+    display: flex !important;
+}
+
+#location-input-wrapper,
+.loss-info-form-wrapper {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#loss-info {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+#loss-info form {
+    width: 350px;
+    margin-top: 20px
+}
+
+#autocomplete-wrapper {
+    margin-right: 10px;
+    margin-top: 10px;
+    height: 35px;
+    width: 300px;
+}
+
+#map {
+    margin-top: 10px;
+    height: 600px;
+}
+
+#submit-btn-wrapper {
+    text-align: center;
+}
+
+#contacts .container {
+    display: flex;
+    justify-content: center;
+}
+
+#loss-info form {
+    width: 70%;
+    text-align: left;
+}
+
+#loss-info .form-wrapper {
+    display: flex;
+    justify-content: center;
+}

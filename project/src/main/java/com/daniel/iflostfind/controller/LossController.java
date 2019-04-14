@@ -1,11 +1,9 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.domain.Loss;
-import com.daniel.iflostfind.domain.LossType;
-import com.daniel.iflostfind.service.GoogleMapApiService;
+import com.daniel.iflostfind.domain.FindingGroup;
+import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.converter.impl.LossConverter;
-import com.daniel.iflostfind.service.dto.LossDto;
+import com.daniel.iflostfind.service.dto.FindingDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,31 +16,29 @@ import javax.validation.Valid;
 @Controller
 public class LossController {
 
-    private final LossConverter lossConverter;
     private final LossService lossService;
-    private final GoogleMapApiService googleMapApiService;
+    private final GoogleMapService googleMapService;
 
     @Autowired
-    public LossController(LossConverter lossConverter, LossService lossService, GoogleMapApiService googleMapApiService) {
-        this.lossConverter = lossConverter;
+    public LossController(LossService lossService, GoogleMapService googleMapsService) {
         this.lossService = lossService;
-        this.googleMapApiService = googleMapApiService;
+        this.googleMapService = googleMapsService;
     }
 
-    @GetMapping("/loss/report")
+    @GetMapping("/finding/report")
     public String toLossReportPage(Model m) {
 
-        m.addAttribute("google_map_key", googleMapApiService.getMapKey());
-        m.addAttribute("loss", new LossDto());
-        m.addAttribute("lossTypes", LossType.values());
+        m.addAttribute("google_map_key", googleMapService.getMapKey());
+        m.addAttribute("finding", new FindingDto());
+        m.addAttribute("findingGroups", FindingGroup.values());
 
-        return "loss_report";
+        return "finding_report";
     }
 
-    @PostMapping("/loss/report")
-    public String createLoss(@ModelAttribute("loss") @Valid LossDto lossDto) {
+    @PostMapping("/finding/report")
+    public String createLoss(@ModelAttribute("finding") @Valid FindingDto dto) {
 
-        lossService.add(lossDto);
-        return "redirect:/loss/report";
+        lossService.add(dto);
+        return "redirect:/finding/report";
     }
 }

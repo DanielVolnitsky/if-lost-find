@@ -1,9 +1,6 @@
 package com.daniel.iflostfind.configuration.bean;
 
-import com.daniel.iflostfind.domain.Coordinate;
-import com.daniel.iflostfind.domain.Loss;
-import com.daniel.iflostfind.domain.LossType;
-import com.daniel.iflostfind.domain.User;
+import com.daniel.iflostfind.domain.*;
 import com.daniel.iflostfind.repository.LossRepository;
 import com.daniel.iflostfind.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,105 +28,149 @@ public class DemoDataBeanConfiguration {
         return args -> {
 
             //FIT
-            Loss l1 = Loss.builder()
+            Finding l1 = Finding.builder()
                     .name("FIT Iphone 3")
                     .description("Silver Iphone 3, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.45561968381101, 30.480964645291124))
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("Ei1Cb2hkYW5hIEhhdnJ5bHlzaHluYSBTdCwgS3lpdiwgVWtyYWluZSwgMDIwMDAiLiosChQKEgnLHdQWgc7UQBFHDeCl5ffmQBIUChIJBUVa4U7P1EAR_kYBF9IxSXY", new Coordinate(50.45561968381101, 30.480964645291124)))
                     .build();
 
-            Loss l2 = Loss.builder()
+            Finding l2 = Finding.builder()
                     .name("FIT Iphone 6")
                     .description("Silver Iphone 6, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.45622762015983, 30.475020870114122))
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("Ei1Cb2hkYW5hIEhhdnJ5bHlzaHluYSBTdCwgS3lpdiwgVWtyYWluZSwgMDIwMDAiLiosChQKEgnLHdQWgc7UQBFHDeCl5ffmQBIUChIJBUVa4U7P1EAR_kYBF9IxSXY", new Coordinate(50.45622762015983, 30.475020870114122)))
                     .build();
 
-            Loss l3 = Loss.builder()
+            Finding l3 = Finding.builder()
                     .name("FIT Iphone 7")
                     .description("Iphone 7, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.45522349636771, 30.46928094282225))
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("Ei1Cb2hkYW5hIEhhdnJ5bHlzaHluYSBTdCwgS3lpdiwgVWtyYWluZSwgMDIwMDAiLiosChQKEgnLHdQWgc7UQBFHDeCl5ffmQBIUChIJBUVa4U7P1EAR_kYBF9IxSXY", new Coordinate(50.45522349636771, 30.46928094282225)))
                     .build();
 
-            Loss l4 = Loss.builder()
+            Finding l4 = Finding.builder()
                     .name("FIT Iphone 8")
                     .description("Silver Iphone 8, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.45471118009918, 30.46505378141478))
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("Ei1Cb2hkYW5hIEhhdnJ5bHlzaHluYSBTdCwgS3lpdiwgVWtyYWluZSwgMDIwMDAiLiosChQKEgnLHdQWgc7UQBFHDeCl5ffmQBIUChIJBUVa4U7P1EAR_kYBF9IxSXY", new Coordinate(50.45471118009918, 30.46505378141478)))
                     .build();
 
-            Loss l5 = Loss.builder()
+            Finding l5 = Finding.builder()
                     .name("FIT Iphone X")
                     .description("Silver Iphone X, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.45424667522006, 30.471405252362047))
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("Ei1Cb2hkYW5hIEhhdnJ5bHlzaHluYSBTdCwgS3lpdiwgVWtyYWluZSwgMDIwMDAiLiosChQKEgnLHdQWgc7UQBFHDeCl5ffmQBIUChIJBUVa4U7P1EAR_kYBF9IxSXY", new Coordinate(50.45424667522006, 30.471405252362047)))
                     .build();
 
             //IRPIN
-            Loss l6 = Loss.builder()
-                    .name("IRPIN Iphone 3")
-                    .description("Silver Iphone 3, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.5183158271568, 30.246850090707426))
+            Finding i_gadget_1 = Finding.builder()
+                    .name("Gadget 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.5186818939805, 30.251842895770324)))
                     .build();
 
-            Loss l7 = Loss.builder()
-                    .name("IRPIN  Iphone 6")
-                    .description("Silver Iphone 6, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.51590087219747, 30.252858238900785))
+            Finding i_gadget_2 = Finding.builder()
+                    .name("Gadget 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51860685544913, 30.252862135195983)))
                     .build();
 
-            Loss l8 = Loss.builder()
-                    .name("IRPIN Iphone 7")
-                    .description("Silver Iphone 7, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.51767457997845, 30.251613693917875))
+            Finding i_gadget_3 = Finding.builder()
+                    .name("Gadget 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .findingGroup(FindingGroup.GADGET)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51796561222457, 30.253366390490783)))
                     .build();
 
-            Loss l9 = Loss.builder()
-                    .name("ParkDruzhbi Iphone X")
-                    .description("Silver Iphone X, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.52432833288968, 30.238248476525428))
+            Finding i_animal_1 = Finding.builder()
+                    .name("Animal 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .findingGroup(FindingGroup.ANIMAL)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.518279413188885, 30.25017992618109)))
                     .build();
 
-            Loss l10 = Loss.builder()
-                    .name("ParkPravika Iphone X")
-                    .description("Silver Iphone X, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.526327206757394, 30.238197159577226))
+            Finding i_animal_2 = Finding.builder()
+                    .name("Animal 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .findingGroup(FindingGroup.ANIMAL)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51881832736828, 30.25145665767218)))
                     .build();
 
-            Loss l11 = Loss.builder()
-                    .name("EKO Iphone XS")
-                    .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.518481247806264, 30.238570579531824))
+            Finding i_animal_3 = Finding.builder()
+                    .name("Animal 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .findingGroup(FindingGroup.ANIMAL)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51929584111981, 30.250362316394103)))
                     .build();
 
-            Loss l12 = Loss.builder()
-                    .name("Tonus XS")
-                    .description("Silver Iphone XS, Red case and spider-man as a wallpaper")
-                    .type(LossType.GADGET)
-                    .lossDate(LocalDate.now())
-                    .coordinate(new Coordinate(50.52173174720019, 30.23883194276118))
+            Finding i_doc_1 = Finding.builder()
+                    .name("Doc 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .findingGroup(FindingGroup.DOCUMENT)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51716745689227, 30.250137010836852)))
                     .build();
+
+            Finding i_doc_2 = Finding.builder()
+                    .name("Doc 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .findingGroup(FindingGroup.DOCUMENT)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51627377977825, 30.249858061099303)))
+                    .build();
+
+            Finding i_doc_3 = Finding.builder()
+                    .name("Doc 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .findingGroup(FindingGroup.DOCUMENT)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51681953880584, 30.251081148410094)))
+                    .build();
+
+            Finding i_bag_1 = Finding.builder()
+                    .name("Bag 1")
+                    .description("Lorem ipsum dolor sit amet.")
+                    .findingGroup(FindingGroup.BAG)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.519186695545685, 30.248989025378478)))
+                    .build();
+
+            Finding i_bag_2 = Finding.builder()
+                    .name("Bag 2")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
+                    .findingGroup(FindingGroup.BAG)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51850452998712, 30.24919287326361)))
+                    .build();
+
+            Finding i_bag_3 = Finding.builder()
+                    .name("Bag 3")
+                    .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
+                    .findingGroup(FindingGroup.BAG)
+                    .dateFound(LocalDate.now())
+                    .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.519691491711754, 30.2499117052796)))
+                    .build();
+
 
             lossRepository.saveAll(Arrays.asList(l1, l2, l3, l4, l5));
-            lossRepository.saveAll(Arrays.asList(l6, l7, l8, l9, l10, l11, l12));
+            lossRepository.saveAll(Arrays.asList(i_animal_1, i_animal_2, i_animal_3));
+            lossRepository.saveAll(Arrays.asList(i_doc_1, i_doc_2, i_doc_3));
+            lossRepository.saveAll(Arrays.asList(i_bag_1, i_bag_2, i_bag_3));
+            lossRepository.saveAll(Arrays.asList(i_gadget_1, i_gadget_2, i_gadget_3));
         };
     }
 

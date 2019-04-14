@@ -17,8 +17,3 @@ function areLossMarkersEqual(m1, m2) {
         && m1Pos.lng() === m2Pos.lng()
         && m1.title === m2.title;
 }
-
-function isInfoWindowOpen(infoWindow){
-    let map = infoWindow.getMap();
-    return (map !== null && typeof map !== 'undefined');
-}

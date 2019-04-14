@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
+    <title>Home</title>
+
+    <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
+    <link rel="stylesheet" th:href="@{/css/page/range.css}">
+    <link rel="stylesheet" th:href="@{/css/page/findings.css}">
+</head>
+
+<body>
+
+<nav th:replace="partials/nav.html :: nav"></nav>
+
+<main>
+    <div class="ui grid" style="margin-top: 20px">
+        <div class="row centered">
+            <div class="twelve wide stretched column">
+                <div class="ui segment">
+                    <table class="ui basic celled striped table">
+                        <thead>
+                        <tr>
+                            <th>Photo</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                            <th>Address</th>
+                            <th>Date</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="f : ${findings}">
+                            <td>
+                                <a th:href="@{/finding/{id}(id = ${f.id})}">
+                                    <img alt="finding image" class="ui tiny rounded image" src="img/matthew.png">
+                                </a>
+                            </td>
+                            <td th:text="${f.name}"></td>
+                            <td style="max-width: 500px" th:text="${f.description}"></td>
+                            <td class="finding-address-td" th:value="${f.discoveryPlaceId}"></td>
+                            <td th:text="${f.dateFound}"></td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="three wide column">
+                <!--radius filter BEGIN-->
+                <div class="ui vertical fluid">
+                    <div class="container">
+                        <div class="ui segment">
+                            <div class="ui checkbox" id="radius-cbx">
+                                <input name="example" type="checkbox">
+                                <label>Search in radius</label>
+                            </div>
+                            <div class="ui divider"></div>
+                            <div class="ui green range" id="range"></div>
+                            <div class="ui divider"></div>
+                            <div class="ui grid">
+                                <div class="two column row">
+                                    <div class="ui left floated column" id="radius-val-wrapper">
+                                        Radius (km):
+                                        <span id="display"></span>
+                                    </div>
+                                    <div class="right floated column">
+                                        <button class="ui right floated tiny button green" id="radius-btn">Apply
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--radius filter END-->
+
+                <!--group filter BEGIN-->
+                <div class="ui vertical fluid right tabular menu">
+                    <a class="item"
+                       th:each="g : ${findingGroups}"
+                       th:classappend="${g.equalsIgnoreCase(filterGroup)} ? active"
+                       th:href="@{/findings(page=1, group=${g})}"
+                       th:text="${g}">
+                    </a>
+                </div>
+                <!--group filter END-->
+            </div>
+        </div>
+        <div class="row centered">
+            <div class="five wide column">
+                <div class="ui pagination menu">
+                    <a class="icon item" th:href="@{/findings(page=${pagination.currentPage - 1}, group=${filterGroup})}"
+                       th:unless="${pagination.first}">
+                        <i class="left chevron icon"></i>
+                    </a>
+
+                    <a class="item" th:href="@{/findings(page=${pagination.currentPage - 1}, group=${filterGroup})}"
+                       th:text="${pagination.currentPage - 1}"
+                       th:unless="${pagination.first}"></a>
+                    <a class="item active" th:text="${pagination.currentPage}"></a>
+                    <a class="item" th:href="@{/findings(page=${pagination.currentPage + 1}, group=${filterGroup})}"
+                       th:text="${pagination.currentPage +1}"
+                       th:unless="${pagination.last}"></a>
+
+                    <a class="icon item" th:href="@{/findings(page=${pagination.currentPage + 1}, group=${filterGroup})}"
+                       th:unless="${pagination.last}">
+                        <i class="right chevron icon"></i>
+                    </a>
+                </div>
+            </div>
+            <div class="ten wide stretched column"></div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="partials/footer.html :: footer"></footer>
+
+<!-- Scripts -->
+<script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/lib/semantic.js}"></script>
+<script th:src="@{/js/custom/range.js}"></script>
+<script th:src="@{/js/page/findings.js}"></script>
+
+<script async defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, callback='initGoogleMapsApiLogic')}"></script>
+<!-- Scripts -->
+</body>
+
+</html>

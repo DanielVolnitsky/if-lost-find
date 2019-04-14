@@ -1,65 +1,43 @@
-section{
-    text-align: center;
+#finding-map {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: calc(100vh - 68px - 5px);
 }
 
-h2 {
-    text-transform: capitalize;
-    position: relative;
-    margin-top: 35px !important;
-    margin-bottom: 17.5px;
-}
-
-h2:before,
-h2:after {
-    content: "";
-    position: absolute;
-    width: 116px;
-    height: 2px;
-    top: 50%;
-}
-
-h2:before {
-    transform: translateX(-105%);
-}
-
-h2:after {
-    transform: translateX(5%);
-}
-
-#loss-map {
-    margin-top: 80px;
-}
-
-#loss-map h2:before {
-    background: red;
-}
-
-#loss-map h2:after {
-    background: #68bd45;
-}
-
-#recent-losses h2:before,
-#recent-losses h2:after {
-    background: red;
-}
-
-#recent-finds h2:before,
-#recent-finds h2:after {
-    background: #68bd45;
-}
-
-.index-container {
-    max-width: 1300px;
+#finding-map > .container-fluid{
+    height: 100%;
 }
 
 #map {
-    height: calc(100vh - 89px - 50px - 25px);
+    height: 100%;
     text-align: left;
 }
 
-#autocomplete-wrapper {
+#map-controls-wrapper {
+    display: flex;
+    justify-content: flex-end;
     margin-right: 10px;
     margin-top: 10px;
     height: 35px;
+    max-width: 550px;
+}
+
+#address-input-wrap {
     width: 300px;
 }
+
+.lossInfo {
+    max-width: 250px;
+}
+
+/*----- BEGIN google  superfluous info disabling -----*/
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+/*----- END google  superfluous info disabling -----*/

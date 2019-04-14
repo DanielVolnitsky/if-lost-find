@@ -1,13 +1,20 @@
 package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.domain.Coordinate;
-import com.daniel.iflostfind.domain.Loss;
+import com.daniel.iflostfind.domain.DiscoveryPlace;
+import com.daniel.iflostfind.domain.Finding;
+import com.daniel.iflostfind.domain.FindingGroup;
 import com.daniel.iflostfind.repository.LossRepository;
+import com.daniel.iflostfind.service.CoordinateService;
 import com.daniel.iflostfind.service.LossService;
-import com.daniel.iflostfind.service.converter.impl.LossConverter;
-import com.daniel.iflostfind.service.dto.LossDto;
-import com.daniel.iflostfind.service.util.CoordinateService;
+import com.daniel.iflostfind.service.converter.impl.FindingConverter;
+import com.daniel.iflostfind.service.dto.FindingDto;
+import com.daniel.iflostfind.service.dto.PageableDto;
+import com.daniel.iflostfind.service.dto.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.Comparator;
@@ -21,34 +28,34 @@ public class LossServiceImpl implements LossService {
 
     private final CoordinateService coordinateService;
     private final LossRepository lossRepository;
-    private final LossConverter converter;
+    private final FindingConverter converter;
 
     @Autowired
     public LossServiceImpl(CoordinateService coordinateService,
                            LossRepository lossRepository,
-                           LossConverter converter) {
+                           FindingConverter converter) {
         this.coordinateService = coordinateService;
         this.lossRepository = lossRepository;
         this.converter = converter;
     }
 
     @Override
-    public void add(LossDto dto) {
-        Loss loss = converter.convertDtoToEntity(dto);
-        lossRepository.save(loss);
+    public void add(FindingDto dto) {
+        Finding finding = converter.convertDtoToEntity(dto);
+        lossRepository.save(finding);
     }
 
     @Override
-    public List<LossDto> getAll() {
-        List<Loss> losses = (List<Loss>) lossRepository.findAll();
-        return converter.convertEntitiesToDtos(losses);
+    public List<FindingDto> getAll() {
+        List<Finding> findings = (List<Finding>) lossRepository.findAll();
+        return converter.convertEntitiesToDtos(findings);
     }
 
     //TODO optimize
     @Override
-    public List<LossDto> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
-        List<Loss> all = (List<Loss>) lossRepository.findAll();
-        List<Loss> inRadius = all.stream()
+    public List<FindingDto> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
+        List<Finding> all = (List<Finding>) lossRepository.findAll();
+        List<Finding> inRadius = all.stream()
                 .filter(l -> isLossWithinRadius(pivot, l, radius))
                 .collect(toList());
 
@@ -57,10 +64,13 @@ public class LossServiceImpl implements LossService {
 
     //TODO optimize
     @Override
-    public List<LossDto> getTopNearestLosses(Coordinate pivot, int limit) {
-        List<Loss> all = (List<Loss>) lossRepository.findAll();
-        List<Loss> nearest = all.stream()
-                .sorted(Comparator.comparingDouble(l -> coordinateService.getDistanceBetweenCoordinates(pivot, l.getCoordinate())))
+    public List<FindingDto> getTopNearestLosses(Coordinate pivot, int limit) {
+        List<Finding> all = (List<Finding>) lossRepository.findAll();
+        List<Finding> nearest = all.stream()
+                .sorted(Comparator.comparingDouble(l -> {
+                    DiscoveryPlace dp = l.getDiscoveryPlace();
+                    return coordinateService.getDistanceBetweenCoordinates(pivot, dp.getCoordinate());
+                }))
                 .limit(limit)
                 .collect(toList());
 
@@ -68,12 +78,55 @@ public class LossServiceImpl implements LossService {
     }
 
     @Override
-    public Optional<LossDto> getById(long lossId) {
-        Optional<Loss> loss = lossRepository.findById(lossId);
+    public Optional<FindingDto> getById(long lossId) {
+        Optional<Finding> loss = lossRepository.findById(lossId);
         return loss.map(converter::convertEntityToDto);
     }
 
-    private boolean isLossWithinRadius(Coordinate pivot, Loss loss, double radius) {
-        return coordinateService.getDistanceBetweenCoordinates(pivot, loss.getCoordinate()) <= radius;
+    @Override
+    public PageableDto<List<FindingDto>> getPaged(Integer pageNumber, Integer limit) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, limit);
+
+        Page<Finding> page = lossRepository.findAll(pageable);
+
+        PaginationInfo pi = PaginationInfo.builder()
+                .currentPage(pageNumber)
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast()).build();
+
+        boolean outOfBounds = page.getTotalPages() < pageNumber & page.getTotalPages() != 0;
+        pi.setOutOfBounds(outOfBounds);
+
+        List<Finding> findings = page.stream().collect(toList());
+        List<FindingDto> findingDtos = converter.convertEntitiesToDtos(findings);
+
+        return new PageableDto<>(pi, findingDtos);
+    }
+
+    @Override
+    public PageableDto<List<FindingDto>> getFilteredByGroup(Integer pageNumber, Integer limit, FindingGroup group) {
+        Pageable pageable = PageRequest.of(pageNumber - 1, limit);
+
+        Page<Finding> page = lossRepository.findAllByFindingGroup(group, pageable);
+
+        PaginationInfo pi = PaginationInfo.builder()
+                .currentPage(pageNumber)
+                .totalPages(page.getTotalPages())
+                .first(page.isFirst())
+                .last(page.isLast()).build();
+
+        boolean outOfBounds = page.getTotalPages() < pageNumber & page.getTotalPages() != 0;
+        pi.setOutOfBounds(outOfBounds);
+
+        List<Finding> findings = page.stream().collect(toList());
+        List<FindingDto> findingDtos = converter.convertEntitiesToDtos(findings);
+
+        return new PageableDto<>(pi, findingDtos);
+    }
+
+    private boolean isLossWithinRadius(Coordinate pivot, Finding finding, double radius) {
+        DiscoveryPlace dp = finding.getDiscoveryPlace();
+        return coordinateService.getDistanceBetweenCoordinates(pivot, dp.getCoordinate()) <= radius;
     }
 }

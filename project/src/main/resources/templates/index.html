@@ -1,55 +1,69 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
       xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
     <title>Home</title>
 
-    <link rel="stylesheet" th:href="@{/libs/semantic/semantic.css}">
-    <link crossorigin="anonymous" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
-          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
+
+    <script th:src="@{/js/util.js}"></script>
 </head>
 
 <body>
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<section id="loss-map">
-    <h2>Loss Map</h2>
-    <div class="container-fluid index-container">
-        <div class="ui action input" id="autocomplete-wrapper">
-            <input id="autocomplete" placeholder="Address..." type="text">
-        </div>
+<section id="finding-map">
+    <div class="container-fluid">
         <div class="row" id="map"></div>
     </div>
-    <input id="user-default-location" type="hidden" th:value="${user_default_location}">
-</section>
-
-<section id="recent-losses">
-    <h2>Nearest Losses</h2>
-    <div class="container">
-        <div id="nearby-losses-wrapper" class="card-deck mb-4 text-center"></div>
-        <hr/>
-    </div>
+    <!--<input id="user-default-location" findingGroupName="hidden" th:value="${user_default_location}">TODO-->
+    <div id="map-controls-wrapper">
+        <div class="ui floating dropdown labeled icon button" style="display: flex">
+            <i class="filter icon"></i>
+            <span class="text" style="display: flex; align-items: center;">Filter</span>
+            <div class="menu">
+                <div class="ui icon search input">
+                    <i class="search icon"></i>
+                    <input placeholder="Search type..." type="text">
+                </div>
+                <div class="divider"></div>
+                <div class="header">
+                    <i class="tags icon"></i>
+                    Finding groups
+                </div>
+                <div class="scrolling menu">
+                    <div th:each="type : ${loss_types}" th:value="${type.name()}" class="item filter-finding-group">
+                        <div class="ui empty circular label"></div>
+                        <span th:text="${type.displayName}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui icon search input" id="address-input-wrap">
+            <i class="search icon"></i>
+            <input class="form-control" id="address-in" placeholder="Address..." type="text">
+        </div>
+    </div>1
 </section>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
 
 <!-- Scripts -->
-<script th:src="@{/libs/jQuery/jquery.js}"></script>
+<script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/lib/semantic.js}"></script>
 <script th:src="@{/js/index.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
 
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}">
 </script>
-
-<script th:src="@{/libs/semantic/semantic.js}"></script>
 <!-- Scripts -->
 
 </body>
