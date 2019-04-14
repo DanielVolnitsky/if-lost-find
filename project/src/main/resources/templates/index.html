@@ -11,6 +11,8 @@
 
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
     <link rel="stylesheet" th:href="@{/css/index.css}">
+
+    <script th:src="@{/js/util.js}"></script>
 </head>
 
 <body>
@@ -19,36 +21,36 @@
 
 <section id="finding-map">
     <div class="container-fluid">
-        <div id="map-controls-wrapper">
-            <div class="ui floating dropdown labeled icon button">
-                <i class="filter icon"></i>
-                <span class="text">Filter</span>
-                <div class="menu">
-                    <div class="ui icon search input">
-                        <i class="search icon"></i>
-                        <input placeholder="Search type..." type="text">
-                    </div>
-                    <div class="divider"></div>
-                    <div class="header">
-                        <i class="tags icon"></i>
-                        Finding groups
-                    </div>
-                    <div class="scrolling menu">
-                        <div th:each="type : ${loss_types}" th:value="${type.name()}" class="item filter-finding-group">
-                            <div class="ui red empty circular label" ></div>
-                            <span th:text="${type.displayName}"></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="ui icon search input" id="address-input-wrap">
-                <i class="search icon"></i>
-                <input class="form-control" id="address-in" placeholder="Address..." type="text">
-            </div>
-        </div>
         <div class="row" id="map"></div>
     </div>
     <!--<input id="user-default-location" findingGroupName="hidden" th:value="${user_default_location}">TODO-->
+    <div id="map-controls-wrapper">
+        <div class="ui floating dropdown labeled icon button" style="display: flex">
+            <i class="filter icon"></i>
+            <span class="text" style="display: flex; align-items: center;">Filter</span>
+            <div class="menu">
+                <div class="ui icon search input">
+                    <i class="search icon"></i>
+                    <input placeholder="Search type..." type="text">
+                </div>
+                <div class="divider"></div>
+                <div class="header">
+                    <i class="tags icon"></i>
+                    Finding groups
+                </div>
+                <div class="scrolling menu">
+                    <div th:each="type : ${loss_types}" th:value="${type.name()}" class="item filter-finding-group">
+                        <div class="ui empty circular label"></div>
+                        <span th:text="${type.displayName}"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ui icon search input" id="address-input-wrap">
+            <i class="search icon"></i>
+            <input class="form-control" id="address-in" placeholder="Address..." type="text">
+        </div>
+    </div>
 </section>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
@@ -56,7 +58,7 @@
 <!-- Scripts -->
 <script th:src="@{/js/lib/jquery.js}"></script>
 <script th:src="@{/js/lib/semantic.js}"></script>
-<script th:src="@{/js/index_demo.js}"></script>
+<script th:src="@{/js/index.js}"></script>
 <script th:src="@{/js/map-common.js}"></script>
 
 <script async defer

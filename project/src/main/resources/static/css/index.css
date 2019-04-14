@@ -16,7 +16,6 @@
 #map-controls-wrapper {
     display: flex;
     justify-content: flex-end;
-    align-items: center;
     margin-right: 10px;
     margin-top: 10px;
     height: 35px;
