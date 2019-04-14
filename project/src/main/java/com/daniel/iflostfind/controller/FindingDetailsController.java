@@ -12,18 +12,18 @@ import org.springframework.web.servlet.ModelAndView;
 import java.util.Optional;
 
 @Controller
-public class LossDetailsController {
+public class FindingDetailsController {
 
     private final LossService lossService;
     private final GoogleMapService googleMapService;
 
     @Autowired
-    public LossDetailsController(LossService lossService, GoogleMapService googleMapService) {
+    public FindingDetailsController(LossService lossService, GoogleMapService googleMapService) {
         this.lossService = lossService;
         this.googleMapService = googleMapService;
     }
 
-    @GetMapping("/loss/{id}")
+    @GetMapping("/finding/{id}")
     public ModelAndView toLossDetailsPage(@PathVariable("id") long lossId) {
 
         ModelAndView mv = new ModelAndView("finding_details");

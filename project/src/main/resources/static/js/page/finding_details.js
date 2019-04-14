@@ -1,6 +1,3 @@
-const mapType = 'roadmap';
-const mapZoom = 18;
-
 let map;
 
 function initMap() {
@@ -9,9 +6,11 @@ function initMap() {
     let findLng = parseFloat($('#finding-lng').val());
 
     map = new google.maps.Map(document.getElementById('map'), {
-        zoom: mapZoom,
+        zoom: 17,
+        minZoom: 13,
+        maxZoom: 20,
         center: {lat: findLat, lng: findLng},
-        mapTypeId: mapType,
+        mapTypeId: 'roadmap',
         mapTypeControl: false,
         zoomControl: true,
         scaleControl: true,
@@ -19,9 +18,14 @@ function initMap() {
         fullscreenControl: false
     });
 
-    new google.maps.Marker({
+    let marker = new google.maps.Marker({
         map: map,
         position: {lat: findLat, lng: findLng},
         draggable: false
+    });
+
+    marker.addListener('click', function() {
+        map.setZoom(17);
+        map.setCenter(marker.position);
     });
 }

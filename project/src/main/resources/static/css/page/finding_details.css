@@ -1,45 +1,28 @@
-body {
-    background-color: ghostwhite;
-}
-
-#finding-info-container {
-    background-color: white;
-    border-radius: 20px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    height: calc(100vh - 68px - 20px);
-}
-
-#map {
-    height: 300px;
-    width: 800px;
-}
-
-#finding-info-wrapper {
-    height: 500px;
+main{
+    min-height: calc(100vh - 68px);
     display: flex;
     align-items: center;
     justify-content: center;
-    position: relative;
-    margin-bottom: 250px;
 }
 
-#finding-img {
-    position: absolute;
-    left: 50px;
-    top: 20px;
-    width: 250px;
-    height: 250px;
-    border-radius: 50%;
-    overflow: hidden;
-    z-index: 100;
-    background-color: #f8f8ff;
+div .grid {
+    height: 600px;
 }
 
-.card {
-    position: absolute;
-    top: 370px;
-    left: 50%;
-    transform: translateX(-50%);
-    z-index: 99;
+#map {
+    height: 100%;
+    border-radius: 0.28571429rem;
+    box-shadow: 0px 1px 3px 0px #D4D4D5, 0px 0px 0px 1px #D4D4D5;
 }
+
+/*----- BEGIN google  superfluous info disabling -----*/
+a[href^="http://maps.google.com/maps"]{display:none !important}
+a[href^="https://maps.google.com/maps"]{display:none !important}
+
+.gmnoprint a, .gmnoprint span, .gm-style-cc {
+    display:none;
+}
+.gmnoprint div {
+    background:none !important;
+}
+/*----- END google  superfluous info disabling -----*/

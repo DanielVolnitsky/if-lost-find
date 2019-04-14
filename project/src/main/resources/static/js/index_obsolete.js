@@ -166,7 +166,7 @@ function buildLossInfoWindowContent(loss) {
     return "<div>" +
         "        <h5 class=\"loss-info-head\">" + loss.name + "</h5>" +
         "        <div class=\"loss-info-desc\">" + loss.description + "</div>" +
-        "        <a href=\"/loss/" + loss.id + "\" class=\"loss-info-fullinfo-link\">View a full info</a>" +
+        "        <a href=\"/finding/" + loss.id + "\" class=\"loss-info-fullinfo-link\">View a full info</a>" +
         "        |" +
         "        <a href=\"/api/found/" + loss.id + "\" class=\"loss-info-found-link\">Report a find</a>" +
         "   </div>"

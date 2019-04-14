@@ -36,7 +36,7 @@
                         <tbody>
                         <tr th:each="f : ${findings}">
                             <td>
-                                <a href="#">
+                                <a th:href="@{/finding/{id}(id = ${f.id})}">
                                     <img alt="finding image" class="ui tiny rounded image" src="img/matthew.png">
                                 </a>
                             </td>
