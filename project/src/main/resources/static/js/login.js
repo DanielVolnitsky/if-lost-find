@@ -1,12 +1,25 @@
-var restrictionCountries = ['ua'];
+const restrictionCountries = ['ua'];
+
+let autocomplete;
 
 $(document).ready(function () {
     $('.login-info-box').fadeOut();
     $('.login-show').addClass('show-log-panel');
+
+    $(".register-show form").submit(function(){
+        let place = autocomplete.getPlace();
+        if (place === undefined) {
+            alert("Please choose your default location address");
+            return false;
+        } else if (!place.geometry){
+            alert("Please choose a valid predefined default location address from the suggestions list");
+            return false;
+        }
+    });
 });
 
 
-$('.login-reg-panel input[findingGroupName="radio"]').on('change', function () {
+$('.login-reg-panel input[type="radio"]').on('change', function () {
     if ($('#log-login-show').is(':checked')) {
         $('.register-info-box').fadeOut();
         $('.login-info-box').fadeIn();
@@ -28,8 +41,8 @@ $('.login-reg-panel input[findingGroupName="radio"]').on('change', function () {
 
 function initMap() {
 
-    var input = document.getElementById('pac-input');
-    var autocomplete = new google.maps.places.Autocomplete(input);
+    let input = document.getElementById('pac-input');
+    autocomplete = new google.maps.places.Autocomplete(input);
 
     // Set initial restrict to the greater list of countries.
     autocomplete.setComponentRestrictions({
@@ -37,24 +50,9 @@ function initMap() {
     });
 
     autocomplete.addListener('place_changed', function () {
-
-        var place = autocomplete.getPlace();
+        let place = autocomplete.getPlace();
         if (!place.geometry) {
-            // User entered the name of a Place that was not suggested and
-            // pressed the Enter key, or the Place Details request failed.
-            window.alert("No details available for input: '" + place.name + "'");
-            return;
+            alert("No details available for input: '" + place.name + "'");
         }
-
-        var address = '';
-        if (place.address_components) {
-            address = [
-                (place.address_components[0] && place.address_components[0].short_name || ''),
-                (place.address_components[1] && place.address_components[1].short_name || ''),
-                (place.address_components[2] && place.address_components[2].short_name || '')
-            ].join(' ');
-        }
-
-        alert(address);
     });
 }

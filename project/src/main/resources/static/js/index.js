@@ -143,7 +143,7 @@ function loadLossesInRadius(location, radius) {
                 marker: new google.maps.Marker({
                     position: new google.maps.LatLng(inFinding.latitude, inFinding.longitude),
                     title: inFinding.name,
-                    url: '/finding/' + inFinding.id,
+                    url: '/findings/' + inFinding.id,
                     animation: google.maps.Animation.DROP
                 })
             };

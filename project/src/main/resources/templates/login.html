@@ -1,6 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org"
-      xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
 
 <head>
     <meta charset="utf-8"/>
@@ -10,58 +10,61 @@
 
     <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
-    <link rel="stylesheet" th:href="@{/css/login.css}">
+    <link rel="stylesheet" th:href="@{/css/page/login.css}">
 </head>
 
 <body>
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<div class="login-reg-panel">
-    <div class="login-info-box">
-        <h2>Have an account?</h2>
-        <p>Name yourself and welcome!</p>
-        <label for="log-reg-show" id="label-register">Login</label>
-        <input checked="checked" id="log-reg-show" name="active-log-panel" type="radio">
-    </div>
-    <div class="register-info-box">
-        <h2>Don't have an account?</h2>
-        <p>Give it a birth right now!</p>
-        <label for="log-login-show" id="label-login">Register</label>
-        <input id="log-login-show" name="active-log-panel" type="radio">
-    </div>
-    <div class="white-panel">
-        <div class="login-show">
-            <h2>LOG IN</h2>
-            <form method="post" th:action="@{/login}">
-                <input name="username" placeholder="Email" required type="email">
-                <input name="password" placeholder="Password" required type="password">
-                <input type="submit" value="Log In">
-            </form>
+<main>
+    <div class="login-reg-panel">
+        <div class="login-info-box">
+            <h2>Have an account?</h2>
+            <p>Name yourself and welcome!</p>
+            <label for="log-reg-show" id="label-register">Login</label>
+            <input checked="checked" id="log-reg-show" name="active-log-panel" type="radio">
         </div>
-        <div class="register-show">
-            <h2>REGISTER</h2>
-            <form method="post" th:action="@{/register}" th:object="${user}">
-                <input placeholder="First Name" th:field="*{firstName}" type="text">
-                <input placeholder="Last Name" required th:field="*{lastName}" type="text">
-                <input id="pac-input" placeholder="Default Location" required th:field="*{defaultLocation}" type="text">
-                <input placeholder="Email" required th:field="*{email}" type="email">
-                <input placeholder="Password" required th:field="*{password}" type="password">
-                <input type="submit" value="Register">
-            </form>
+        <div class="register-info-box">
+            <h2>Don't have an account?</h2>
+            <p>Give it a birth right now!</p>
+            <label for="log-login-show" id="label-login">Register</label>
+            <input id="log-login-show" name="active-log-panel" type="radio">
+        </div>
+        <div class="white-panel">
+            <div class="login-show">
+                <h2>LOG IN</h2>
+                <form method="post" th:action="@{/login}">
+                    <input name="username" placeholder="Email" required type="email">
+                    <input name="password" placeholder="Password" required type="password">
+                    <input type="submit" value="Log In">
+                </form>
+            </div>
+            <div class="register-show">
+                <h2>REGISTER</h2>
+                <form method="post" th:action="@{/register}" th:object="${user}">
+                    <input placeholder="First Name" required th:field="*{firstName}" type="text">
+                    <input placeholder="Last Name" required th:field="*{lastName}" type="text">
+                    <input placeholder="Password" required th:field="*{password}" type="password">
+                    <input id="pac-input" placeholder="Default Location" required th:field="*{defaultLocation}"
+                           type="text">
+                    <input placeholder="Email" required th:field="*{email}" type="email">
+                    <input pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone" required th:field="*{phone}"
+                           type="tel">
+                    <input type="submit" value="Register">
+                </form>
+            </div>
         </div>
     </div>
-</div>
+</main>
 
 <script th:src="@{/js/lib/jquery.js}"></script>
 <script th:src="@{/js/lib/bootstrap.min.js}"></script>
-<script th:src="@{/js/lib/semantic.js}"></script>
+<script th:src="@{/js/login.js}"></script>
 
 <script async defer
         th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}">
 </script>
-
-<script th:src="@{/js/login.js}"></script>
 <!--scripts-->
 </body>
 

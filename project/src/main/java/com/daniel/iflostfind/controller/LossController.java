@@ -25,7 +25,7 @@ public class LossController {
         this.googleMapService = googleMapsService;
     }
 
-    @GetMapping("/finding/report")
+    @GetMapping("/findings/report")
     public String toLossReportPage(Model m) {
 
         m.addAttribute("google_map_key", googleMapService.getMapKey());
@@ -35,10 +35,10 @@ public class LossController {
         return "finding_report";
     }
 
-    @PostMapping("/finding/report")
+    @PostMapping("/findings/report")
     public String createLoss(@ModelAttribute("finding") @Valid FindingDto dto) {
 
         lossService.add(dto);
-        return "redirect:/finding/report";
+        return "redirect:/findings/report";
     }
 }

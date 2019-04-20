@@ -16,10 +16,14 @@ a {
     color: #444444;
 }
 
+main{
+    min-height: calc(100vh - 68px)
+}
+
 .login-reg-panel {
     position: relative;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(32%);
     text-align: center;
     width: 70%;
     right: 0;
@@ -104,7 +108,8 @@ a {
 .register-show input[type="text"],
 .register-show input[type="password"],
 .register-show input[type="email"],
-.register-show input[type="submit"] {
+.register-show input[type="submit"],
+.register-show input[type="tel"] {
     width: 100%;
     display: block;
     margin: 13px 0;

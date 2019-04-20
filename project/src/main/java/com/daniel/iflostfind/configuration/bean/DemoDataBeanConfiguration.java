@@ -182,6 +182,7 @@ public class DemoDataBeanConfiguration {
             dan.setName("d");
             dan.setLastName("v");
             dan.setEmail("d@d");
+            dan.setPhone("0990774990");
             dan.setPassword("d");
             dan.setDefaultLocation("Kvitkova Street, Irpin', Киевская область, Украина");
 
@@ -189,6 +190,7 @@ public class DemoDataBeanConfiguration {
             bos.setName("k");
             bos.setLastName("a");
             bos.setEmail("b@b");
+            bos.setPhone("0990774986");
             bos.setPassword("b");
             bos.setDefaultLocation("Bohdana Havrylyshyna Street, Киев, Украина");
 

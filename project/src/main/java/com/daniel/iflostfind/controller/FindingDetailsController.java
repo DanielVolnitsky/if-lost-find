@@ -23,7 +23,7 @@ public class FindingDetailsController {
         this.googleMapService = googleMapService;
     }
 
-    @GetMapping("/finding/{id}")
+    @GetMapping("/findings/{id}")
     public ModelAndView toLossDetailsPage(@PathVariable("id") long lossId) {
 
         ModelAndView mv = new ModelAndView("finding_details");
