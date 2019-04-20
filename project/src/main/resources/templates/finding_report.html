@@ -7,93 +7,99 @@
     <title>IfLostFound | Loss</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
-    <link rel="stylesheet" th:href="@{/css/finding_report.css}">
+    <link rel="stylesheet" th:href="@{/css/page/finding_report.css}">
 </head>
 
 <body>
 
 <nav th:replace="partials/nav.html :: nav"></nav>
 
-<section id="steps-overview">
-    <div class="ui three column centered grid">
-        <div class="ui ordered steps" id="report-steps">
-            <div class="step">
-                <div class="content">
-                    <div class="title">Specify location</div>
-                    <div class="description">Where have you found it?</div>
-                </div>
-            </div>
-            <div class="step">
-                <div class="content">
-                    <div class="title">Add information</div>
-                    <div class="description">Enter finding information</div>
-                </div>
-            </div>
-            <div class="active step">
-                <div class="content">
-                    <div class="title">Wait for the owner to contact you</div>
-                    <div class="description">It is your chance to become someone's hero!</div>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
+<main>
+    <div class="ui segment container" style="width: 700px">
+        <div class="row" id="map"></div>
 
-<section id="finding-location">
-    <div class="ui container">
         <div class="ui column" id="location-input-wrapper">
             <div class="ui action input" id="autocomplete-wrapper">
                 <input id="autocomplete" placeholder="Address..." type="text">
             </div>
         </div>
-        <div class="row" id="map"></div>
-    </div>
-</section>
 
-<section id="finding-info">
-    <div class="ui container">
-        <div class="ui column form-wrapper">
-            <form class="ui medium form" method="post" th:action="@{/finding/report}" th:object="${finding}">
-                <!--hidden-->
-                <input id="finding-lat" th:field="*{latitude}" type="hidden">
-                <input id="finding-lng" th:field="*{longitude}" type="hidden">
-                <!--hidden-->
-                <div class="fields">
-                    <div class="six wide required field">
-                        <label>Finding Name</label>
+        <!--BEGIN steps-->
+        <div class="ui left very close rail">
+            <div class="ui segment">
+                <div class="ui vertical steps">
+                    <div class="completed step">
+                        <i class="truck icon"></i>
+                        <div class="content">
+                            <div class="title">Find</div>
+                            <div class="description">You didn't pass by a loss!</div>
+                        </div>
+                    </div>
+                    <div class="active step">
+                        <div class="content">
+                            <div class="title">Provide information</div>
+                            <div class="description">Specify your finding details</div>
+                        </div>
+                    </div>
+                    <div class="step">
+                        <div class="content">
+                            <div class="title">Wait!</div>
+                            <div class="description">Let a happy owner find and contact you!</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--END steps-->
+
+        <!--BEGIN finding info-->
+        <div class="ui right very close rail">
+            <div class="ui segment">
+                <form class="ui medium form" method="post" th:action="@{/finding/report}" th:object="${finding}">
+                    <!--hidden-->
+                    <input id="finding-lat" th:field="*{latitude}" type="hidden">
+                    <input id="finding-lng" th:field="*{longitude}" type="hidden">
+                    <!--hidden-->
+
+                    <div class="required fourteen wide field">
+                        <label>What did you find? Name it!</label>
                         <input required th:field="*{name}" type="text">
                     </div>
-                    <div class="five wide required field">
-                        <label>Finding Type</label>
-                        <div class="ui selection dropdown">
+
+                    <div class="required thirteen wide field">
+                        <label>Which loss group this attributes to?</label>
+                        <div class="ui selection dropdown" style="min-height: 0px !important">
                             <input th:field="*{findingGroupName}" type="hidden">
                             <i class="dropdown icon"></i>
-                            <div class="default text">Choose finding group..</div>
+                            <div class="default text">Choose a group</div>
                             <div class="menu">
                                 <div class="item" th:data-value="${g}" th:each="g: ${findingGroups}"
                                      th:text="${g}"></div>
                             </div>
                         </div>
+
                     </div>
-                    <div class="required five wide field">
-                        <label>Date</label>
+
+                    <div class="required fourteen wide  field">
+                        <label>When did you find it?</label>
                         <input id="finding-date" name="finding-date" placeholder="Date..." th:field="*{dateFound}"
                                type="date">
                     </div>
-                </div>
-                <div class="field">
-                    <label>Finding Description</label>
-                    <textarea rows="3" th:field="*{description}"></textarea>
-                </div>
-                <div id="submit-btn-wrapper">
+
+                    <div class="fourteen wide field">
+                        <label>Describe your finding</label>
+                        <textarea rows="10" th:field="*{description}"></textarea>
+                    </div>
+
                     <button class="ui green button" type="submit">Submit</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
+        <!--END finding info-->
+
     </div>
-</section>
+</main>
 
 <footer th:replace="partials/footer.html :: footer"></footer>
 

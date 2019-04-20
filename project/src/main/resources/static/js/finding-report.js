@@ -103,8 +103,6 @@ function moveMarkerToLocation(location) {
 function setLocationData(location) {
     $('#loss-lat').val(location.lat());
     $('#loss-lng').val(location.lng());
-
-    alert(location.lat() + " " + location.lng())
 }
 
 $(function () {
