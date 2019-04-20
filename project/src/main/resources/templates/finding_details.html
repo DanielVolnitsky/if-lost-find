@@ -7,7 +7,6 @@
     <title>IfLostFound | Loss</title>
 
     <!-- Styles -->
-    <link rel="stylesheet" th:href="@{/css/lib/bootstrap.css}">
     <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
     <link rel="stylesheet" th:href="@{/css/page/finding_details.css}">
     <!-- Styles -->
@@ -18,28 +17,38 @@
 <nav th:replace="partials/nav.html :: nav"></nav>
 
 <main>
-    <div class="ui grid centered container">
-        <div class="four wide column">
-            <div class="ui card">
-                <div class="image">
-                    <img src="../img/dog.jpg">
-                </div>
-                <div class="content">
-                    <a class="header" th:text="${finding.name}"></a>
-                    <div class="meta">
-                        <span class="date" th:text="${finding.dateFound}"></span>
-                    </div>
-                    <div class="description" th:text="${finding.description}"></div>
-                </div>
-                <div class="extra content">
-                    <p>Phone: 0990990990</p>
-                    <p>Email: waytodann@gmail.com</p>
-                </div>
-            </div>
+    <div class="ui segment container" style="width: 60%">
+        <div class="row" id="map" style="height:550px"></div>
+
+        <!--BEGIN finding-->
+        <div class="ui left internal attached  rail">
+           <div class="ui segment">
+               <div class="ui card">
+                   <div class="image">
+                       <img src="../img/dog.jpg">
+                   </div>
+                   <div class="content">
+                       <a class="header" th:text="${finding.name}"></a>
+                       <div class="meta">
+                           <span class="date" th:text="${finding.dateFound}"></span>
+                       </div>
+                       <div class="description" th:text="${finding.description}">
+                       </div>
+                       <div class="ui divider"></div>
+                       <div class="header">
+                           <span th:text="${finding.reporter.firstName}"></span>
+                           <span> </span>
+                           <span th:text="${finding.reporter.lastName}"></span>
+                       </div>
+                       <div class="meta">
+                           <p th:text="${finding.reporter.email}"></p>
+                           <p th:text="${finding.reporter.phone}"></p>
+                       </div>
+                   </div>
+               </div>
+           </div>
         </div>
-        <div class="nine wide column">
-            <div id="map"></div>
-        </div>
+        <!--END finding-->
     </div>
 
     <input id="finding-lat" th:value="${finding.latitude}" type="hidden">

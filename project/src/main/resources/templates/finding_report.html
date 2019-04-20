@@ -16,7 +16,7 @@
 <nav th:replace="partials/nav.html :: nav"></nav>
 
 <main>
-    <div class="ui segment container" style="width: 700px">
+    <div class="ui segment container" style="width: 1100px">
         <div class="row" id="map"></div>
 
         <div class="ui column" id="location-input-wrapper">
@@ -25,37 +25,9 @@
             </div>
         </div>
 
-        <!--BEGIN steps-->
-        <div class="ui left very close rail">
-            <div class="ui segment">
-                <div class="ui vertical steps">
-                    <div class="completed step">
-                        <i class="truck icon"></i>
-                        <div class="content">
-                            <div class="title">Find</div>
-                            <div class="description">You didn't pass by a loss!</div>
-                        </div>
-                    </div>
-                    <div class="active step">
-                        <div class="content">
-                            <div class="title">Provide information</div>
-                            <div class="description">Specify your finding details</div>
-                        </div>
-                    </div>
-                    <div class="step">
-                        <div class="content">
-                            <div class="title">Wait!</div>
-                            <div class="description">Let a happy owner find and contact you!</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!--END steps-->
-
         <!--BEGIN finding info-->
-        <div class="ui right very close rail">
-            <div class="ui segment">
+        <div class="ui left internal attached rail">
+            <div class="ui segment" style="margin-top: 22px; margin-left: 14px;">
                 <form class="ui medium form" method="post" th:action="@{/finding/report}" th:object="${finding}">
                     <!--hidden-->
                     <input id="finding-lat" th:field="*{latitude}" type="hidden">
@@ -92,7 +64,7 @@
                         <textarea rows="10" th:field="*{description}"></textarea>
                     </div>
 
-                    <button class="ui green button" type="submit">Submit</button>
+                    <button class="ui primary button" type="submit">Submit</button>
                 </form>
             </div>
         </div>

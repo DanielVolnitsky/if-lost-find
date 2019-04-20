@@ -28,5 +28,8 @@ public class Finding {
 
     @Embedded
     private DiscoveryPlace discoveryPlace;
+
+    @OneToOne
+    private User reporter;
 }
 

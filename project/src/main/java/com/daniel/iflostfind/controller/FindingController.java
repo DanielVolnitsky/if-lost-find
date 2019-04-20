@@ -1,20 +1,26 @@
 package com.daniel.iflostfind.controller;
 
+import com.daniel.iflostfind.configuration.security.PersonDetails;
 import com.daniel.iflostfind.domain.FindingGroup;
+import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.LossGroupService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.dto.FindingDto;
+import com.daniel.iflostfind.service.dto.FindingWithReporterDto;
 import com.daniel.iflostfind.service.dto.PageableDto;
 import com.daniel.iflostfind.service.dto.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.validation.Valid;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Controller
@@ -50,7 +56,7 @@ public class FindingController {
         FindingGroup g = lossGroupService.getLossGroup(type).orElse(FindingGroup.ALL);
 
         PageableDto<List<FindingDto>> dto;
-        if(g.equals(FindingGroup.ALL)){
+        if (g.equals(FindingGroup.ALL)) {
             dto = lossService.getPaged(page, limit);
         } else {
             dto = lossService.getFilteredByGroup(page, limit, g);
@@ -71,5 +77,39 @@ public class FindingController {
         mav.addObject("google_map_key", googleMapsService.getMapKey());
 
         return mav;
+    }
+
+    @GetMapping("/findings/report")
+    public String toLossReportPage(Model m) {
+
+        m.addAttribute("google_map_key", googleMapsService.getMapKey());
+        m.addAttribute("finding", new FindingDto());
+        m.addAttribute("findingGroups", FindingGroup.values());
+
+        return "finding_report";
+    }
+
+    @PostMapping("/findings/report")
+    public String reportFind(
+            @ModelAttribute("finding") @Valid FindingDto dto,
+            @AuthenticationPrincipal PersonDetails p) {
+
+        User reporter = p.getUser();
+        lossService.add(dto, reporter);
+        return "redirect:/findings/report";
+    }
+
+    @GetMapping("/findings/{id}")
+    public ModelAndView getFindingDetails(@PathVariable("id") long findId) {
+
+        ModelAndView mv = new ModelAndView("finding_details");
+
+        Optional<FindingWithReporterDto> find = lossService.getAlongWithReporter(findId);
+        find.ifPresent(f -> {
+            mv.addObject("finding", f);
+            mv.addObject("google_map_key", googleMapsService.getMapKey());
+        });
+
+        return mv;
     }
 }

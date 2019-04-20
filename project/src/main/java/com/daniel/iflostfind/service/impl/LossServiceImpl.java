@@ -1,14 +1,13 @@
 package com.daniel.iflostfind.service.impl;
 
-import com.daniel.iflostfind.domain.Coordinate;
-import com.daniel.iflostfind.domain.DiscoveryPlace;
-import com.daniel.iflostfind.domain.Finding;
-import com.daniel.iflostfind.domain.FindingGroup;
+import com.daniel.iflostfind.domain.*;
 import com.daniel.iflostfind.repository.LossRepository;
 import com.daniel.iflostfind.service.CoordinateService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.converter.impl.FindingConverter;
+import com.daniel.iflostfind.service.converter.impl.FindingWithReporterConverter;
 import com.daniel.iflostfind.service.dto.FindingDto;
+import com.daniel.iflostfind.service.dto.FindingWithReporterDto;
 import com.daniel.iflostfind.service.dto.PageableDto;
 import com.daniel.iflostfind.service.dto.PaginationInfo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,27 +27,32 @@ public class LossServiceImpl implements LossService {
 
     private final CoordinateService coordinateService;
     private final LossRepository lossRepository;
-    private final FindingConverter converter;
+    private final FindingConverter findingConverter;
+    private final FindingWithReporterConverter findingWithReporterConverter;
 
     @Autowired
     public LossServiceImpl(CoordinateService coordinateService,
                            LossRepository lossRepository,
-                           FindingConverter converter) {
+                           FindingConverter findingConverter,
+                           FindingWithReporterConverter findingWithReporterConverter) {
+
         this.coordinateService = coordinateService;
         this.lossRepository = lossRepository;
-        this.converter = converter;
+        this.findingConverter = findingConverter;
+        this.findingWithReporterConverter = findingWithReporterConverter;
     }
 
     @Override
-    public void add(FindingDto dto) {
-        Finding finding = converter.convertDtoToEntity(dto);
+    public void add(FindingDto dto, User user) {
+        Finding finding = findingConverter.convertDtoToEntity(dto);
+        finding.setReporter(user);
         lossRepository.save(finding);
     }
 
     @Override
     public List<FindingDto> getAll() {
         List<Finding> findings = (List<Finding>) lossRepository.findAll();
-        return converter.convertEntitiesToDtos(findings);
+        return findingConverter.convertEntitiesToDtos(findings);
     }
 
     //TODO optimize
@@ -59,7 +63,7 @@ public class LossServiceImpl implements LossService {
                 .filter(l -> isLossWithinRadius(pivot, l, radius))
                 .collect(toList());
 
-        return converter.convertEntitiesToDtos(inRadius);
+        return findingConverter.convertEntitiesToDtos(inRadius);
     }
 
     //TODO optimize
@@ -74,13 +78,19 @@ public class LossServiceImpl implements LossService {
                 .limit(limit)
                 .collect(toList());
 
-        return converter.convertEntitiesToDtos(nearest);
+        return findingConverter.convertEntitiesToDtos(nearest);
     }
 
     @Override
     public Optional<FindingDto> getById(long lossId) {
         Optional<Finding> loss = lossRepository.findById(lossId);
-        return loss.map(converter::convertEntityToDto);
+        return loss.map(findingConverter::convertEntityToDto);
+    }
+
+    @Override
+    public Optional<FindingWithReporterDto> getAlongWithReporter(long lossId) {
+        Optional<Finding> loss = lossRepository.findById(lossId);
+        return loss.map(findingWithReporterConverter::convertEntityToDto);
     }
 
     @Override
@@ -99,7 +109,7 @@ public class LossServiceImpl implements LossService {
         pi.setOutOfBounds(outOfBounds);
 
         List<Finding> findings = page.stream().collect(toList());
-        List<FindingDto> findingDtos = converter.convertEntitiesToDtos(findings);
+        List<FindingDto> findingDtos = findingConverter.convertEntitiesToDtos(findings);
 
         return new PageableDto<>(pi, findingDtos);
     }
@@ -120,7 +130,7 @@ public class LossServiceImpl implements LossService {
         pi.setOutOfBounds(outOfBounds);
 
         List<Finding> findings = page.stream().collect(toList());
-        List<FindingDto> findingDtos = converter.convertEntitiesToDtos(findings);
+        List<FindingDto> findingDtos = findingConverter.convertEntitiesToDtos(findings);
 
         return new PageableDto<>(pi, findingDtos);
     }
