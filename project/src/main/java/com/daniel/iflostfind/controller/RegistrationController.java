@@ -1,5 +1,6 @@
 package com.daniel.iflostfind.controller;
 
+import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.service.dto.UserDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,18 +18,21 @@ public class RegistrationController {
 
     static final String USER_MODEL_NAME = "user";
 
-    private UserService userService;
+    private final GoogleMapService googleMapService;
+    private final UserService userService;
 
     @Autowired
-    public RegistrationController(UserService userService) {
+    public RegistrationController(GoogleMapService googleMapService, UserService userService) {
+        this.googleMapService = googleMapService;
         this.userService = userService;
     }
 
     @GetMapping("/register")
-    public String getPage(Model model) {
+    public String getPage(Model m) {
 
-        model.addAttribute(USER_MODEL_NAME, new UserDto());
-        return "login";
+        m.addAttribute("google_map_key", googleMapService.getMapKey());
+        m.addAttribute(USER_MODEL_NAME, new UserDto());
+        return "registration";
     }
 
     @PostMapping("/register")

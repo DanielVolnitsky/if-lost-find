@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="utf-8"/>
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <title>Log In | Register</title>
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+
+    <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
+    <link rel="stylesheet" th:href="@{/css/page/login.css}">
+</head>
+
+<body>
+
+<nav th:replace="partials/nav.html :: nav"></nav>
+
+<main>
+    <div style="display: flex; align-items: center; justify-content: center;">
+        <div class="ui middle aligned center aligned grid" style="width: 450px">
+            <div class="column">
+                <h2 class="ui image header">
+                    <div class="content">
+                        Make up your own account
+                    </div>
+                </h2>
+                <form class="ui large form" method="post" th:action="@{/register}" th:object="${user}">
+                    <div class="ui stacked secondary segment">
+                        <div class="field">
+                            <div class="ui input">
+                                <input placeholder="First Name" required th:field="*{firstName}" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input placeholder="Last Name" required th:field="*{lastName}" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input placeholder="Password" required th:field="*{password}" type="password">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input id="location-input" placeholder="Default Location" required
+                                       th:field="*{defaultLocation}" type="text">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input placeholder="E-mail address" required th:field="*{email}" type="email">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="ui input">
+                                <input pattern="^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$" placeholder="Phone"
+                                       required th:field="*{phone}" type="tel">
+                            </div>
+                        </div>
+                        <input class="ui positive submit button" type="submit" value="Register">
+                    </div>
+                    <div class="ui error message"></div>
+                </form>
+
+                <div class="ui message">
+                    Already have an account?
+                    <a th:href="@{/login}">Log in</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/lib/bootstrap.min.js}"></script>
+<script th:src="@{/js/registration.js}"></script>
+
+<script async defer
+        th:src="@{https://maps.googleapis.com/maps/api/js(key=${google_map_key}, libraries='places', callback='initMap')}">
+</script>
+<!--scripts-->
+</body>
+
+</html>
