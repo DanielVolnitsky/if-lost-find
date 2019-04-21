@@ -3,9 +3,12 @@ package com.daniel.iflostfind.controller;
 import com.daniel.iflostfind.service.GoogleMapService;
 import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.service.dto.UserDto;
+import com.daniel.iflostfind.service.exception.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,10 +39,23 @@ public class RegistrationController {
     }
 
     @PostMapping("/register")
-    public ModelAndView register(@ModelAttribute(USER_MODEL_NAME) @Valid UserDto userDto) {
+    public ModelAndView register(
+            @ModelAttribute(USER_MODEL_NAME) @Valid UserDto userDto,
+            BindingResult br) {
 
-        //TODO add binding result
-        userService.registerNewUserAccount(userDto);
-        return new ModelAndView("login", USER_MODEL_NAME, userDto);
+        if(br.hasErrors()){
+            return new ModelAndView("registration", USER_MODEL_NAME, userDto);
+        }
+
+        try {
+            userService.registerNewUserAccount(userDto);
+            return new ModelAndView("login", USER_MODEL_NAME, userDto);
+        } catch (UserAlreadyExistsException e) {
+            FieldError fe = new FieldError(
+                    "email", "email", "User with this email already exists");
+            br.addError(fe);
+        }
+
+        return new ModelAndView("registration", USER_MODEL_NAME, userDto);
     }
 }

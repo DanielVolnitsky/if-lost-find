@@ -3,3 +3,7 @@ main {
     justify-content: center;
     height: calc(100vh - 68px);
 }
+
+.displayed {
+    display: block !important;
+}
