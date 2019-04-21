@@ -43,8 +43,11 @@ public class RegistrationController {
             @ModelAttribute(USER_MODEL_NAME) @Valid UserDto userDto,
             BindingResult br) {
 
+        ModelAndView mv = new ModelAndView("registration", USER_MODEL_NAME, userDto);
+        mv.addObject("google_map_key", googleMapService.getMapKey());
+
         if(br.hasErrors()){
-            return new ModelAndView("registration", USER_MODEL_NAME, userDto);
+            return mv;
         }
 
         try {
@@ -56,6 +59,6 @@ public class RegistrationController {
             br.addError(fe);
         }
 
-        return new ModelAndView("registration", USER_MODEL_NAME, userDto);
+        return mv;
     }
 }

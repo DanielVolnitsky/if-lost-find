@@ -20,11 +20,6 @@
     <div style="display: flex; align-items: center; justify-content: center;">
         <div class="ui middle aligned center aligned grid" style="width: 450px">
             <div class="column">
-                <h2 class="ui image header">
-                    <div class="content">
-                        Log in to your account
-                    </div>
-                </h2>
                 <form class="ui large form" method="post" th:action="@{/login}">
                     <div class="ui stacked secondary segment">
                         <div class="field">
@@ -40,7 +35,9 @@
                         <input class="ui positive submit button" type="submit" value="Log In">
                     </div>
 
-                    <div class="ui error message"></div>
+                    <div class="ui error small message" th:classappend="${param.error != null} ? displayed">
+                        <p>Incorrect credentials provided</p>
+                    </div>
                 </form>
 
                 <div class="ui message">
