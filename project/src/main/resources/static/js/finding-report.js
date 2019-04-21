@@ -1,6 +1,33 @@
-let map, lossMarker, searchBox;
+let map, findMarker, searchBox, geocoder, findPlaceIdInput;
+
+$(function () {
+    $('.ui.form .ui.selection.dropdown').dropdown({
+        clearable: true
+    });
+
+    $('.clearable.example .ui.inline.dropdown').dropdown({
+        clearable: true,
+        placeholder: 'any'
+    });
+
+    $('select.dropdown').dropdown();
+
+    $('.ui.checkbox').checkbox();
+
+    $("form").submit(function () {
+        let group = $('#loss-group-in').val();
+        if (group === "") {
+            alert('Choose the loss group that is appropriate for your finding!');
+            return false;
+        }
+    });
+
+    findPlaceIdInput = $('#finding-place-id');
+});
+
 
 function initMap() {
+    geocoder = new google.maps.Geocoder;
 
     map = new google.maps.Map(document.getElementById('map'), {
         zoom: mapZoom,
@@ -12,7 +39,7 @@ function initMap() {
         fullscreenControl: false
     });
 
-    lossMarker = new google.maps.Marker({
+    findMarker = new google.maps.Marker({
         draggable: true,
         map: map
     });
@@ -26,7 +53,8 @@ function initMap() {
         let loc = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
         map.setCenter(loc);
-        lossMarker.setPosition(loc);
+        findMarker.setPosition(loc);
+        setLocationData(loc);
     });
 }
 
@@ -42,7 +70,7 @@ function setMapEvents() {
 }
 
 function setLossMarkerEvents() {
-    lossMarker.addListener('dragend', function (evt) {
+    findMarker.addListener('dragend', function (evt) {
         setLocationData(evt.latLng);
     });
 }
@@ -88,9 +116,9 @@ function moveLocationSearchControl() {
 }
 
 function moveMarkerToLocation(location) {
-    lossMarker.setMap(null);
+    findMarker.setMap(null);
 
-    lossMarker = new google.maps.Marker({
+    findMarker = new google.maps.Marker({
         position: location,
         map: map,
         draggable: true
@@ -101,24 +129,10 @@ function moveMarkerToLocation(location) {
 }
 
 function setLocationData(location) {
-    $('#loss-lat').val(location.lat());
-    $('#loss-lng').val(location.lng());
+    $('#finding-lat').val(location.lat());
+    $('#finding-lng').val(location.lng());
+    setPlaceId(location, findPlaceIdInput);
 }
-
-$(function () {
-    $('.ui.form .ui.selection.dropdown').dropdown({
-        clearable: true
-    });
-
-    $('.clearable.example .ui.inline.dropdown').dropdown({
-        clearable: true,
-        placeholder: 'any'
-    });
-
-    $('select.dropdown').dropdown();
-
-    $('.ui.checkbox').checkbox();
-});
 
 
 

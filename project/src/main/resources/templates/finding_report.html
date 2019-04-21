@@ -17,6 +17,7 @@
 
 <main>
     <div class="ui segment container" style="width: 1100px">
+        <div class="floating ui red label" style="left: 78%">Where did you find it? Show on the map!</div>
         <div class="row" id="map"></div>
 
         <div class="ui column" id="location-input-wrapper">
@@ -28,10 +29,11 @@
         <!--BEGIN finding info-->
         <div class="ui left internal attached rail">
             <div class="ui segment" style="margin-top: 22px; margin-left: 14px;">
-                <form class="ui medium form" method="post" th:action="@{/finding/report}" th:object="${finding}">
+                <form class="ui medium form" method="post" th:action="@{/findings/report}" th:object="${finding}">
                     <!--hidden-->
                     <input id="finding-lat" th:field="*{latitude}" type="hidden">
                     <input id="finding-lng" th:field="*{longitude}" type="hidden">
+                    <input id="finding-place-id" th:field="*{discoveryPlaceId}" type="hidden">
                     <!--hidden-->
 
                     <div class="required fourteen wide field">
@@ -42,34 +44,28 @@
                     <div class="required thirteen wide field">
                         <label>Which loss group this attributes to?</label>
                         <div class="ui selection dropdown" style="min-height: 0px !important">
-                            <input th:field="*{findingGroupName}" type="hidden">
+                            <input id="loss-group-in" required th:field="*{findingGroupName}" type="hidden">
                             <i class="dropdown icon"></i>
                             <div class="default text">Choose a group</div>
                             <div class="menu">
-                                <div class="item" th:data-value="${g}" th:each="g: ${findingGroups}"
-                                     th:text="${g}"></div>
+                                <div class="item" th:data-value="${g}" th:each="g: ${findingGroups}" th:text="${g}"></div>
                             </div>
                         </div>
-
                     </div>
-
                     <div class="required fourteen wide  field">
                         <label>When did you find it?</label>
-                        <input id="finding-date" name="finding-date" placeholder="Date..." th:field="*{dateFound}"
-                               type="date">
+                        <input id="finding-date" name="finding-date" placeholder="Date..." required
+                               th:field="*{dateFound}" type="date">
                     </div>
-
                     <div class="fourteen wide field">
                         <label>Describe your finding</label>
                         <textarea rows="10" th:field="*{description}"></textarea>
                     </div>
-
                     <button class="ui primary button" type="submit">Submit</button>
                 </form>
             </div>
         </div>
         <!--END finding info-->
-
     </div>
 </main>
 

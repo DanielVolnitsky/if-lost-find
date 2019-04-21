@@ -5,7 +5,7 @@ function initGoogleMapsApiLogic() {
 
     $('.finding-address-td').each(function () {
 
-        var addressContainer = $(this);
+        let addressContainer = $(this);
         let addressId = $(this).attr('value');
 
         geocoder.geocode({'placeId': addressId}, function (results, status) {
