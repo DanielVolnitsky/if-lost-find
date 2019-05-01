@@ -3,7 +3,7 @@ package com.daniel.iflostfind.controller;
 import com.daniel.iflostfind.configuration.security.PersonDetails;
 import com.daniel.iflostfind.domain.FindingGroup;
 import com.daniel.iflostfind.domain.User;
-import com.daniel.iflostfind.service.GoogleMapService;
+import com.daniel.iflostfind.service.GoogleMapKeyService;
 import com.daniel.iflostfind.service.LossGroupService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.dto.FindingDto;
@@ -28,14 +28,14 @@ public class FindingController {
 
     private final LossService lossService;
     private final LossGroupService lossGroupService;
-    private final GoogleMapService googleMapsService;
+    private final GoogleMapKeyService googleMapsService;
 
 
     @Value("${pagination.limit.default}")
     private int limit;
 
     @Autowired
-    public FindingController(LossService lossService, LossGroupService lossGroupService, GoogleMapService googleMapsService) {
+    public FindingController(LossService lossService, LossGroupService lossGroupService, GoogleMapKeyService googleMapsService) {
         this.lossService = lossService;
         this.lossGroupService = lossGroupService;
         this.googleMapsService = googleMapsService;
@@ -96,7 +96,7 @@ public class FindingController {
 
         User reporter = p.getUser();
         lossService.add(dto, reporter);
-        return "redirect:/findings/report";
+        return "redirect:/index2";
     }
 
     @GetMapping("/findings/{id}")

@@ -1,6 +1,6 @@
 package com.daniel.iflostfind.controller;
 
-import com.daniel.iflostfind.service.GoogleMapService;
+import com.daniel.iflostfind.service.GoogleMapKeyService;
 import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.service.dto.UserDto;
 import com.daniel.iflostfind.service.exception.UserAlreadyExistsException;
@@ -21,19 +21,19 @@ public class RegistrationController {
 
     static final String USER_MODEL_NAME = "user";
 
-    private final GoogleMapService googleMapService;
+    private final GoogleMapKeyService googleMapKeyService;
     private final UserService userService;
 
     @Autowired
-    public RegistrationController(GoogleMapService googleMapService, UserService userService) {
-        this.googleMapService = googleMapService;
+    public RegistrationController(GoogleMapKeyService googleMapKeyService, UserService userService) {
+        this.googleMapKeyService = googleMapKeyService;
         this.userService = userService;
     }
 
     @GetMapping("/register")
     public String getPage(Model m) {
 
-        m.addAttribute("google_map_key", googleMapService.getMapKey());
+        m.addAttribute("google_map_key", googleMapKeyService.getMapKey());
         m.addAttribute(USER_MODEL_NAME, new UserDto());
         return "registration";
     }
@@ -44,7 +44,7 @@ public class RegistrationController {
             BindingResult br) {
 
         ModelAndView mv = new ModelAndView("registration", USER_MODEL_NAME, userDto);
-        mv.addObject("google_map_key", googleMapService.getMapKey());
+        mv.addObject("google_map_key", googleMapKeyService.getMapKey());
 
         if(br.hasErrors()){
             return mv;

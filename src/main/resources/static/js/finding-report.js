@@ -1,6 +1,11 @@
-let map, findMarker, searchBox, geocoder, findPlaceIdInput;
+let map, findMarker, searchBox, geocoder,
+    initialLocation,
+    findPlaceIdInput;
 
 $(function () {
+
+    applyRestrictionRulesOnFindingDateInput();
+
     $('.ui.form .ui.selection.dropdown').dropdown({
         clearable: true
     });
@@ -19,6 +24,11 @@ $(function () {
         if (group === "") {
             alert('Choose the loss group that is appropriate for your finding!');
             return false;
+        }
+
+        let findingLocation = new google.maps.LatLng($('#finding-lat').val(), $('#finding-lng').val());
+        if(findingLocation.lat() === initialLocation.lat() && findingLocation.lng() === initialLocation.lng()){
+            return confirm('Are you ok with leaving the current location as the finding location?');
         }
     });
 
@@ -55,7 +65,24 @@ function initMap() {
         map.setCenter(loc);
         findMarker.setPosition(loc);
         setLocationData(loc);
+        initialLocation = loc;
     });
+}
+
+function applyRestrictionRulesOnFindingDateInput(){
+    let dtToday = new Date();
+
+    let month = dtToday.getMonth() + 1;
+    let day = dtToday.getDate();
+    let year = dtToday.getFullYear();
+
+    if(month < 10)
+        month = '0' + month.toString();
+    if(day < 10)
+        day = '0' + day.toString();
+
+    let maxDate = year + '-' + month + '-' + day;
+    $('#finding-date').attr('max', maxDate);
 }
 
 function setMapEvents() {

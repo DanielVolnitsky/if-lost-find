@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.domain.FindingGroup;
-import com.daniel.iflostfind.service.GoogleMapService;
+import com.daniel.iflostfind.service.GoogleMapKeyService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    private final GoogleMapService googleMapsService;
+    private final GoogleMapKeyService googleMapsService;
 
     @Autowired
-    public IndexController(GoogleMapService googleMapsService) {
+    public IndexController(GoogleMapKeyService googleMapsService) {
         this.googleMapsService = googleMapsService;
     }
 

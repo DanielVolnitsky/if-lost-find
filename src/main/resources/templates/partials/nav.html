@@ -7,11 +7,11 @@
             <h1 class="ui inverted header five wide left floated column">Lost and Found</h1>
             <div class="five wide right floated column">
                 <div class="ui borderless inverted compact menu right aligned">
-                    <a class="active item" th:href="@{/index}">Map</a>
-                    <a class="item" th:href="@{/findings}">Findings</a>
-                    <a class="item" th:href="@{/findings/report}">Report</a>
+                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/index' ? 'active':''}" class="item" th:href="@{/index}">Map</a>
+                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/findings' ? 'active':''}" class="item" th:href="@{/findings}">Findings</a>
+                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/findings/report' ? 'active':''}" class="item" th:href="@{/findings/report}">Report</a>
 
-                    <a class="item" sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a>
+                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active':''}" class="item" sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a>
                     <a class="item" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>
                 </div>
             </div>
