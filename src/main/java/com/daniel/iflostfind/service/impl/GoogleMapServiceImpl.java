@@ -12,13 +12,8 @@ import java.nio.file.Files;
 @Service
 public class GoogleMapServiceImpl implements GoogleMapService {
 
-    @Value("classpath:hidden/google_maps_api_key")
-    private Resource googleMapKeyResource;
-
-    @SneakyThrows
     @Override
     public String getMapKey() {
-        File file = googleMapKeyResource.getFile();
-        return new String(Files.readAllBytes(file.toPath()));
+        return System.getenv("google-maps-api");
     }
 }
