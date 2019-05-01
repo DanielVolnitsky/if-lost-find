@@ -5,6 +5,7 @@ import com.daniel.iflostfind.service.UserService;
 import com.daniel.iflostfind.service.dto.UserDto;
 import com.daniel.iflostfind.service.exception.UserAlreadyExistsException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -23,11 +24,13 @@ public class RegistrationController {
 
     private final GoogleMapKeyService googleMapKeyService;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public RegistrationController(GoogleMapKeyService googleMapKeyService, UserService userService) {
+    public RegistrationController(GoogleMapKeyService googleMapKeyService, UserService userService, PasswordEncoder passwordEncoder) {
         this.googleMapKeyService = googleMapKeyService;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @GetMapping("/register")
@@ -51,6 +54,7 @@ public class RegistrationController {
         }
 
         try {
+            userDto.setPassword(passwordEncoder.encode(userDto.getPassword())); //TODO move
             userService.registerNewUserAccount(userDto);
             return new ModelAndView("login", USER_MODEL_NAME, userDto);
         } catch (UserAlreadyExistsException e) {

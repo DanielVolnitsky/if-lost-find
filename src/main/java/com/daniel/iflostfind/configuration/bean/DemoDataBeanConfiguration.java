@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.time.LocalDate;
 import java.util.Arrays;
@@ -16,11 +17,13 @@ public class DemoDataBeanConfiguration {
 
     private final UserRepository userRepository;
     private final LossRepository lossRepository;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public DemoDataBeanConfiguration(UserRepository userRepository, LossRepository lossRepository) {
+    public DemoDataBeanConfiguration(UserRepository userRepository, LossRepository lossRepository, PasswordEncoder passwordEncoder) {
         this.userRepository = userRepository;
         this.lossRepository = lossRepository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Bean
@@ -32,7 +35,7 @@ public class DemoDataBeanConfiguration {
             dan.setLastName("Volnitsky");
             dan.setEmail("d@d");
             dan.setPhone("0990774990");
-            dan.setPassword("d");
+            dan.setPassword(passwordEncoder.encode("d"));
             dan.setDefaultLocation("Kvitkova Street, Irpin', Киевская область, Украина");
 
             User bos = new User();
@@ -40,7 +43,7 @@ public class DemoDataBeanConfiguration {
             bos.setLastName("a");
             bos.setEmail("b@b");
             bos.setPhone("0990774986");
-            bos.setPassword("b");
+            bos.setPassword(passwordEncoder.encode("b"));
             bos.setDefaultLocation("Bohdana Havrylyshyna Street, Киев, Украина");
 
             userRepository.saveAll(Arrays.asList(dan, bos));

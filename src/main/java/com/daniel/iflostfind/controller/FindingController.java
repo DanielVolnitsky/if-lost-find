@@ -96,7 +96,7 @@ public class FindingController {
 
         User reporter = p.getUser();
         lossService.add(dto, reporter);
-        return "redirect:/index2";
+        return "redirect:/index";
     }
 
     @GetMapping("/findings/{id}")
