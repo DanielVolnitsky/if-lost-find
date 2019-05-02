@@ -11,4 +11,4 @@ spring:
 
 pagination:
   limit:
-    default: 5
+    default: 6

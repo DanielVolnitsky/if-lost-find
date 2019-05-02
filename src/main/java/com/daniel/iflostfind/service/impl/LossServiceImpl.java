@@ -82,57 +82,29 @@ public class LossServiceImpl implements LossService {
     }
 
     @Override
-    public Optional<FindingDto> getById(long lossId) {
-        Optional<Finding> loss = lossRepository.findById(lossId);
-        return loss.map(findingConverter::convertEntityToDto);
-    }
-
-    @Override
     public Optional<FindingWithReporterDto> getAlongWithReporter(long lossId) {
         Optional<Finding> loss = lossRepository.findById(lossId);
         return loss.map(findingWithReporterConverter::convertEntityToDto);
     }
 
     @Override
-    public PageableDto<List<FindingDto>> getPaged(Integer pageNumber, Integer limit) {
-        Pageable pageable = PageRequest.of(pageNumber - 1, limit);
-
-        Page<Finding> page = lossRepository.findAll(pageable);
-
-        PaginationInfo pi = PaginationInfo.builder()
-                .currentPage(pageNumber)
-                .totalPages(page.getTotalPages())
-                .first(page.isFirst())
-                .last(page.isLast()).build();
-
-        boolean outOfBounds = page.getTotalPages() < pageNumber & page.getTotalPages() != 0;
-        pi.setOutOfBounds(outOfBounds);
-
-        List<Finding> findings = page.stream().collect(toList());
-        List<FindingDto> findingDtos = findingConverter.convertEntitiesToDtos(findings);
-
-        return new PageableDto<>(pi, findingDtos);
-    }
-
-    @Override
     public PageableDto<List<FindingDto>> getFilteredByGroup(Integer pageNumber, Integer limit, FindingGroup group) {
         Pageable pageable = PageRequest.of(pageNumber - 1, limit);
 
-        Page<Finding> page = lossRepository.findAllByFindingGroup(group, pageable);
+        Page<Finding> result;
+        if (group.equals(FindingGroup.ALL)) {
+            result = lossRepository.findAll(pageable);
+        } else {
+            result = lossRepository.findAllByFindingGroup(group, pageable);
+        }
 
-        PaginationInfo pi = PaginationInfo.builder()
-                .currentPage(pageNumber)
-                .totalPages(page.getTotalPages())
-                .first(page.isFirst())
-                .last(page.isLast()).build();
+        PaginationInfo pagingInfo = new PaginationInfo(
+                pageNumber, result.getTotalPages(), result.isFirst(), result.isLast());
 
-        boolean outOfBounds = page.getTotalPages() < pageNumber & page.getTotalPages() != 0;
-        pi.setOutOfBounds(outOfBounds);
+        List<Finding> findings = result.stream().collect(toList());
+        List<FindingDto> dtos = findingConverter.convertEntitiesToDtos(findings);
 
-        List<Finding> findings = page.stream().collect(toList());
-        List<FindingDto> findingDtos = findingConverter.convertEntitiesToDtos(findings);
-
-        return new PageableDto<>(pi, findingDtos);
+        return new PageableDto<>(pagingInfo, dtos);
     }
 
     private boolean isLossWithinRadius(Coordinate pivot, Finding finding, double radius) {

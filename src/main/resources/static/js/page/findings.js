@@ -3,7 +3,7 @@ let geocoder;
 function initGoogleMapsApiLogic() {
     geocoder = new google.maps.Geocoder;
 
-    $('.finding-address-td').each(function () {
+    $('.finding-address').each(function () {
 
         let addressContainer = $(this);
         let addressId = $(this).attr('value');
@@ -25,26 +25,9 @@ function initGoogleMapsApiLogic() {
 
 $(function () {
 
-    // $('.finding-address-td').each(function () {
-    //     let addressId = $(this).val();
-    //     let address = 'Failed to obtain address';
-    //
-    //     debugger;
-    //     geocoder.geocode({'placeId': addressId}, function(results, status) {
-    //         if (status === 'OK') {
-    //             if (results[0]) {
-    //                 address = results[0].formatted_address;
-    //             } else {
-    //                 console.log('No results found');
-    //             }
-    //         } else {
-    //             window.alert('Geocoder failed due to: ' + status);
-    //         }
-    //     });
-    //
-    //     $(this).text(address);
-    // });
-
+    $('.finding-group').each(function () {
+        $(this).addClass(getRandomBrightColor());
+    })
 
     $('#range').range({
         min: 0,
@@ -59,20 +42,7 @@ $(function () {
     $('#radius-val-wrapper').hide();
     $('#radius-btn').addClass('disabled');
 
-    //TODO
     $('#radius-cbx').addClass('disabled');
-    // $('#radius-cbx').checkbox({
-    //     onChecked: function() {
-    //         $('#range').removeClass('disabled');
-    //         $('#radius-val-wrapper').show();
-    //         $('#radius-btn').removeClass('disabled');
-    //     },
-    //     onUnchecked: function() {
-    //         $('#range').addClass('disabled');
-    //         $('#radius-val-wrapper').hide();
-    //         $('#radius-btn').addClass('disabled');
-    //     }
-    // });
 });
 
 $('.ui.menu .ui.dropdown').dropdown({

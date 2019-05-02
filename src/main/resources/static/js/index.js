@@ -16,7 +16,7 @@ $(function () {
     });
 
     $('.filter-finding-group').each(function () {
-        $(this).children(".ui.circular.label").addClass(getRandomSemanticUiColor());
+        $(this).children(".ui.circular.label").addClass(getRandomColor());
     })
 });
 

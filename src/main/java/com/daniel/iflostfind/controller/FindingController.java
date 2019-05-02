@@ -55,12 +55,7 @@ public class FindingController {
 
         FindingGroup g = lossGroupService.getLossGroup(type).orElse(FindingGroup.ALL);
 
-        PageableDto<List<FindingDto>> dto;
-        if (g.equals(FindingGroup.ALL)) {
-            dto = lossService.getPaged(page, limit);
-        } else {
-            dto = lossService.getFilteredByGroup(page, limit, g);
-        }
+        PageableDto<List<FindingDto>> dto = lossService.getFilteredByGroup(page, limit, g);
 
         PaginationInfo pagInfo = dto.getPaginationInfo();
         if (pagInfo.isOutOfBounds()) {
