@@ -197,7 +197,7 @@ public class DemoDataBeanConfiguration {
                     .name("Bag 2")
                     .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Eum, facilis?")
                     .findingGroup(FindingGroup.BAG)
-                    .dateFound(LocalDate.now())
+                    .dateFound(LocalDate.of(2019, 3, 5))
                     .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.51850452998712, 30.24919287326361)))
                     .reporter(u)
                     .build();
@@ -206,7 +206,7 @@ public class DemoDataBeanConfiguration {
                     .name("Bag 3")
                     .description("Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores atque consectetur eligendi eos harum laborum nemo nobis possimus reprehenderit rerum.")
                     .findingGroup(FindingGroup.BAG)
-                    .dateFound(LocalDate.now())
+                    .dateFound(LocalDate.of(2019, 4, 15))
                     .discoveryPlace(new DiscoveryPlace("ChIJZ7yP98wzK0cR-hkyY8iqd0g", new Coordinate(50.519691491711754, 30.2499117052796)))
                     .reporter(u)
                     .build();

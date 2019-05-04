@@ -1,6 +1,15 @@
 const lossesInRadiusUrl = "/api/findings";
 const lossesRadiusKm = 100;
 
+let markerItems = {
+    medium: {
+        url: "../img/blue-dot.png"
+    },
+    old: {
+        url: "../img/yellow-dot.png"
+    },
+}
+
 let findings = [];
 
 let service;
@@ -133,44 +142,56 @@ function moveLocationSearchControl() {
 
 function loadLossesInRadius(location, radius) {
 
+
     let query = lossesInRadiusUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
 
     $.get(query, function (inFindings) {
         $.each(inFindings, function (index, inFinding) {
 
-            let finding = {
-                group: inFinding.findingGroupName,
-                marker: new google.maps.Marker({
-                    position: new google.maps.LatLng(inFinding.latitude, inFinding.longitude),
-                    title: inFinding.name,
-                    url: '/findings/' + inFinding.id,
-                    animation: google.maps.Animation.DROP
-                })
-            };
+                let today = new Date();
+                let found = new Date(inFinding.dateFound);
+                let diff = getDayDifferenceBetweenDates(today, found);
 
-            let existingMarker = findings.find(l => areLossMarkersEqual(l.marker, finding.marker));
-            if (existingMarker === undefined) {
+                let finding = {
+                    group: inFinding.findingGroupName,
+                    marker: new google.maps.Marker({
+                        position: new google.maps.LatLng(inFinding.latitude, inFinding.longitude),
+                        title: inFinding.name,
+                        url: '/findings/' + inFinding.id,
+                        animation: google.maps.Animation.DROP
+                    })
+                };
 
-                finding.marker.setMap(map);
-                findings.push(finding);
+                if (diff > 7 && diff < 31) {
+                    finding.marker.setIcon("../img/yellow-dot.png");
+                } else if (diff > 30) {
+                    finding.marker.setIcon("../img/blue-dot.png");
+                }
 
-                let findingInfoWindow = new google.maps.InfoWindow({
-                    content: buildFindingInfoWindowContent(inFinding)
-                });
+                let existingMarker = findings.find(l => areLossMarkersEqual(l.marker, finding.marker));
+                if (existingMarker === undefined) {
 
-                finding.marker.addListener('click', function() {
-                    window.location.href = this.url;
-                });
+                    finding.marker.setMap(map);
+                    findings.push(finding);
 
-                finding.marker.addListener('mouseover', function() {
-                    findingInfoWindow.open(map, this);
-                });
+                    let findingInfoWindow = new google.maps.InfoWindow({
+                        content: buildFindingInfoWindowContent(inFinding)
+                    });
 
-                finding.marker.addListener('mouseout', function() {
-                    findingInfoWindow.close();
-                });
+                    finding.marker.addListener('click', function () {
+                        window.location.href = this.url;
+                    });
+
+                    finding.marker.addListener('mouseover', function () {
+                        findingInfoWindow.open(map, this);
+                    });
+
+                    finding.marker.addListener('mouseout', function () {
+                        findingInfoWindow.close();
+                    });
+                }
             }
-        });
+        );
     }).fail(function () {
         alert("Failed to upload findings in radius.");
     })
@@ -180,14 +201,23 @@ function buildFindingInfoWindowContent(finding) {
     return " <div class=\"ui card\">\n" +
         "        <div class=\"content\">\n" +
         "            <div class=\"header\">\n" +
-                finding.name +
+        finding.name +
         "            </div>\n" +
         "            <div class=\"meta\">\n" +
-                finding.dateFound +
+        finding.dateFound +
         "            </div>\n" +
         "            <div class=\"description\">\n" +
-                finding.description +
+        finding.description +
         "            </div>\n" +
         "        </div>\n" +
         "    </div>"
+}
+
+// TODO move
+function getDayDifferenceBetweenDates(date1, date2) {
+    let one_day = 1000 * 60 * 60 * 24;    // Convert both dates to milliseconds
+    let date1_ms = date1.getTime();
+    let date2_ms = date2.getTime();    // Calculate the difference in milliseconds
+    let difference_ms = date2_ms - date1_ms;        // Convert back to days and return
+    return Math.abs(Math.round(difference_ms / one_day));
 }
