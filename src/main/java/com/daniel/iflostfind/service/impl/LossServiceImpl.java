@@ -93,9 +93,9 @@ public class LossServiceImpl implements LossService {
 
         Page<Finding> result;
         if (group.equals(FindingGroup.ALL)) {
-            result = lossRepository.findAll(pageable);
+            result = lossRepository.findAllByOrderByDateFound(pageable);
         } else {
-            result = lossRepository.findAllByFindingGroup(group, pageable);
+            result = lossRepository.findAllByFindingGroupOrderByDateFound(group, pageable);
         }
 
         PaginationInfo pagingInfo = new PaginationInfo(
