@@ -11,12 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-public class LossRestController {
+public class FindingRestController {
 
     private final LossService lossService;
 
     @Autowired
-    public LossRestController(LossService lossService) {
+    public FindingRestController(LossService lossService) {
         this.lossService = lossService;
     }
 
@@ -28,15 +28,5 @@ public class LossRestController {
 
         Coordinate pivotLocation = new Coordinate(lat, lng);
         return lossService.getAllWithinRadiusOfCoordinate(pivotLocation, r);
-    }
-
-    @GetMapping("/api/findings/nearest")
-    public List<FindingDto> getTopNearestFindings(
-            @RequestParam("pivotLat") double lat,
-            @RequestParam("pivotLng") double lng,
-            @RequestParam("limit") int limit) {
-
-        Coordinate pivotLocation = new Coordinate(lat, lng);
-        return lossService.getTopNearestLosses(pivotLocation, limit);
     }
 }

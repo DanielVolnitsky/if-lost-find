@@ -30,10 +30,10 @@
                     <div class="ui link card" th:each="f : ${findings}">
                         <a style="color: black" th:href="@{/findings/{id}(id = ${f.id})}">
                             <div class="ui left piled segment">
-                                <div class="finding-group ui top right attached label" th:text="${f.findingGroupName}"
-                                     th:finding-age="${f.daysOld}"></div>
+                                <div class="finding-group ui top right attached label" th:finding-age="${f.daysOld}"
+                                     th:text="${f.findingGroupName}"></div>
 
-                                <img alt="finding image" class="ui tiny left floated image" src="img/matthew.png"
+                                <img alt="finding image" class="ui tiny left floated image" src="../img/matthew.png"
                                      style="margin-top: 0px !important; margin-bottom: 0px">
 
                                 <h3 class="ui header text-center" style="margin-top: 0px; margin-bottom: 5px"
@@ -55,7 +55,8 @@
             <!--FINDING CARDS END-->
 
             <div class="three wide column">
-                <!--radius filter BEGIN-->
+
+                <!--RADIUS FILTER BEGIN-->
                 <div class="ui vertical fluid">
                     <div class="container">
                         <div class="ui segment">
@@ -63,6 +64,8 @@
                                 <input name="example" type="checkbox">
                                 <label>Search in radius</label>
                             </div>
+                        </div>
+                        <div class="ui segment">
                             <div class="ui divider"></div>
                             <div class="ui green range" id="range"></div>
                             <div class="ui divider"></div>
@@ -73,18 +76,18 @@
                                         <span id="display"></span>
                                     </div>
                                     <div class="right floated column">
-                                        <button class="ui right floated tiny button green" id="radius-btn">Apply
-                                        </button>
+                                        <a class="ui right floated tiny button green" id="radius-submit"
+                                           th:href="@{/findings/nearby}">Apply</a>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <!--radius filter END-->
+                <!--RADIUS FILTER END-->
 
                 <!--group filter BEGIN-->
-                <div class="ui vertical fluid right tabular menu">
+                <div class="ui vertical fluid right tabular menu" id="group-filter">
                     <a class="item" th:classappend="${g.equalsIgnoreCase(filterGroup)} ? active"
                        th:each="g : ${findingGroups}"
                        th:href="@{/findings(page=1, group=${g})}" th:text="${g}">
@@ -93,7 +96,8 @@
                 <!--group filter END-->
             </div>
         </div>
-        <div class="row centered">
+
+        <div th:if="${pagination != null}" class="row centered">
             <div class="five wide column">
                 <div class="ui pagination menu">
                     <a class="icon item"
@@ -126,6 +130,7 @@
 <script th:src="@{/js/lib/jquery.js}"></script>
 <script th:src="@{/js/lib/semantic.js}"></script>
 <script th:src="@{/js/custom/range.js}"></script>
+<script th:src="@{/js/map-common.js}"></script>
 <script th:src="@{/js/page/findings.js}"></script>
 
 <script async defer

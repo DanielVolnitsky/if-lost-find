@@ -1,6 +1,7 @@
 package com.daniel.iflostfind.controller;
 
 import com.daniel.iflostfind.configuration.security.PersonDetails;
+import com.daniel.iflostfind.domain.Coordinate;
 import com.daniel.iflostfind.domain.FindingGroup;
 import com.daniel.iflostfind.domain.User;
 import com.daniel.iflostfind.service.GoogleMapKeyService;
@@ -39,6 +40,24 @@ public class FindingController {
         this.lossService = lossService;
         this.lossGroupService = lossGroupService;
         this.googleMapsService = googleMapsService;
+    }
+
+    @GetMapping("/findings/nearby")
+    public ModelAndView showFindingsNearby(
+            @RequestParam(name = "radius") int radius,
+            @RequestParam(name = "user-lat") double userLat,
+            @RequestParam(name = "user-lng") double userLng) {
+
+        Coordinate pivot = new Coordinate(userLat, userLng);
+        List<FindingDto> nearest = lossService.getNearestFindings(pivot, radius, 99);
+
+        ModelAndView mav = new ModelAndView("findings");
+        mav.addObject("findings", nearest);
+        mav.addObject("filterGroup", "All");
+        mav.addObject("findingGroups", lossGroupService.getLossGroupNames());
+        mav.addObject("google_map_key", googleMapsService.getMapKey());
+
+        return mav;
     }
 
     //TODO filter or AOP

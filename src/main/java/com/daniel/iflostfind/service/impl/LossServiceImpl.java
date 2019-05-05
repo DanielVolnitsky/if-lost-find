@@ -60,7 +60,7 @@ public class LossServiceImpl implements LossService {
     public List<FindingDto> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
         List<Finding> all = (List<Finding>) lossRepository.findAll();
         List<Finding> inRadius = all.stream()
-                .filter(l -> isLossWithinRadius(pivot, l, radius))
+                .filter(l -> isFindingWithinRadius(pivot, l, radius))
                 .collect(toList());
 
         return findingConverter.convertEntitiesToDtos(inRadius);
@@ -68,14 +68,15 @@ public class LossServiceImpl implements LossService {
 
     //TODO optimize
     @Override
-    public List<FindingDto> getTopNearestLosses(Coordinate pivot, int limit) {
-        List<Finding> all = (List<Finding>) lossRepository.findAll();
+    public List<FindingDto> getNearestFindings(Coordinate pivot, int radius, int amount) {
+        List<Finding> all = lossRepository.findAllByOrderByDateFound();
         List<Finding> nearest = all.stream()
+                .filter(f -> isFindingWithinRadius(pivot, f, radius))
                 .sorted(Comparator.comparingDouble(l -> {
                     DiscoveryPlace dp = l.getDiscoveryPlace();
                     return coordinateService.getDistanceBetweenCoordinates(pivot, dp.getCoordinate());
                 }))
-                .limit(limit)
+                .limit(amount)
                 .collect(toList());
 
         return findingConverter.convertEntitiesToDtos(nearest);
@@ -107,7 +108,7 @@ public class LossServiceImpl implements LossService {
         return new PageableDto<>(pagingInfo, dtos);
     }
 
-    private boolean isLossWithinRadius(Coordinate pivot, Finding finding, double radius) {
+    private boolean isFindingWithinRadius(Coordinate pivot, Finding finding, double radius) {
         DiscoveryPlace dp = finding.getDiscoveryPlace();
         return coordinateService.getDistanceBetweenCoordinates(pivot, dp.getCoordinate()) <= radius;
     }

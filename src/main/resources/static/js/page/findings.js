@@ -1,6 +1,24 @@
-let geocoder;
+let geocoder, userLocation;
+
+function setRadiusSubmitEvent() {
+    $('#radius-submit').on('click', function () {
+        let radius = $('#display').text();
+
+        let href = $(this).attr('href');
+        href = href + '?radius=' + radius + '&user-lat=' + userLocation.lat + '&user-lng=' + userLocation.lng;
+
+        $(this).attr('href', href);
+    });
+}
 
 $(function () {
+
+    processCurrentLocation(function (loc) {
+        userLocation = {
+            lat: loc.coords.latitude,
+            lng: loc.coords.longitude
+        };
+    });
 
     $('.finding-group').each(function () {
         let wrapper = $(this);
@@ -10,19 +28,17 @@ $(function () {
     });
 
     $('#range').range({
-        min: 0,
-        max: 100,
-        start: 0,
+        min: 1,
+        max: 20,
+        start: 1,
         onChange: function (value) {
             $('#display').html(value);
         }
     });
 
-    $('#range').addClass('disabled');
-    $('#radius-val-wrapper').hide();
-    $('#radius-btn').addClass('disabled');
-
-    $('#radius-cbx').addClass('disabled');
+    setRadiusSubmitEvent();
+    disableFindingsInRadiusBlock();
+    setRadiusCheckboxEvents();
 });
 
 function initGoogleMapsApiLogic() {
@@ -48,12 +64,27 @@ function initGoogleMapsApiLogic() {
     }
 }
 
-$('.ui.menu .ui.dropdown').dropdown({
-    on: 'hover'
-});
-$('.ui.menu a.item').on('click', function () {
-    $(this)
-        .addClass('active')
-        .siblings()
-        .removeClass('active');
-});
+function disableFindingsInRadiusBlock() {
+    $('#range').addClass('disabled');
+    $('#radius-val-wrapper').hide();
+    $('#radius-submit').addClass('disabled');
+}
+
+function enableFindingsInRadiusBlock() {
+    $('#range').removeClass('disabled');
+    $('#radius-val-wrapper').show();
+    $('#radius-submit').removeClass('disabled');
+}
+
+function setRadiusCheckboxEvents() {
+    $('#radius-cbx').checkbox({
+        onChecked: function () {
+            enableFindingsInRadiusBlock();
+            $('#group-filter').hide();
+        },
+        onUnchecked: function () {
+            disableFindingsInRadiusBlock();
+            $('#group-filter').show();
+        }
+    });
+}

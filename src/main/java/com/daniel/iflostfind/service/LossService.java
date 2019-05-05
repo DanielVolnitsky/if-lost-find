@@ -17,7 +17,7 @@ public interface LossService {
 
     List<FindingDto> getAllWithinRadiusOfCoordinate(Coordinate coordinate, double radiusKm);
 
-    List<FindingDto> getTopNearestLosses(Coordinate pivot, int limit);
+    List<FindingDto> getNearestFindings(Coordinate pivot, int radius, int amount);
 
     PageableDto<List<FindingDto>> getFilteredByGroup(Integer page, Integer limit, FindingGroup group);
 
