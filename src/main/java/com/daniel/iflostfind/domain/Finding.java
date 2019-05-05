@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 @Entity
 @Table(name = "finding")
@@ -21,6 +22,7 @@ public class Finding {
 
     private String description;
 
+    @Column(nullable = false)
     private LocalDate dateFound;
 
     @Enumerated(EnumType.STRING)
@@ -29,7 +31,15 @@ public class Finding {
     @Embedded
     private DiscoveryPlace discoveryPlace;
 
+    @Transient
+    private long daysOld;
+
     @OneToOne
     private User reporter;
+
+    @PostLoad
+    private void onLoad() {
+        this.daysOld = ChronoUnit.DAYS.between(this.dateFound, LocalDate.now());
+    }
 }
 

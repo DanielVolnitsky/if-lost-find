@@ -6,7 +6,6 @@ import lombok.Setter;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
@@ -36,4 +35,6 @@ public class FindingDto {
 
     @NotBlank
     private String discoveryPlaceId;
+
+    private long daysOld;
 }

@@ -65,6 +65,8 @@ public class FindingConverter implements
         dto.setLatitude(co.getLatitude());
         dto.setLongitude(co.getLongitude());
 
+        dto.setDaysOld(finding.getDaysOld());
+
         return dto;
     }
 

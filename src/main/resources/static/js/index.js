@@ -1,14 +1,10 @@
 const lossesInRadiusUrl = "/api/findings";
 const lossesRadiusKm = 100;
 
-let markerItems = {
-    medium: {
-        url: "../img/blue-dot.png"
-    },
-    old: {
-        url: "../img/yellow-dot.png"
-    },
-}
+const colorImgUrlMap = new Map([
+    ['yellow',  '../img/yellow-dot.png'],
+    ['blue',    '../img/blue-dot.png']
+]);
 
 let findings = [];
 
@@ -142,15 +138,10 @@ function moveLocationSearchControl() {
 
 function loadLossesInRadius(location, radius) {
 
-
     let query = lossesInRadiusUrl + "?pivotLat=" + location.lat() + "&pivotLng=" + location.lng() + "&radius=" + radius;
 
     $.get(query, function (inFindings) {
         $.each(inFindings, function (index, inFinding) {
-
-                let today = new Date();
-                let found = new Date(inFinding.dateFound);
-                let diff = getDayDifferenceBetweenDates(today, found);
 
                 let finding = {
                     group: inFinding.findingGroupName,
@@ -162,10 +153,10 @@ function loadLossesInRadius(location, radius) {
                     })
                 };
 
-                if (diff > 7 && diff < 31) {
-                    finding.marker.setIcon("../img/yellow-dot.png");
-                } else if (diff > 30) {
-                    finding.marker.setIcon("../img/blue-dot.png");
+                let color = getColorNameForFindingWithAge(inFinding.daysOld);
+                let colorImgUrl = colorImgUrlMap.get(color);
+                if(colorImgUrl !== undefined){
+                    finding.marker.setIcon(colorImgUrl);
                 }
 
                 let existingMarker = findings.find(l => areLossMarkersEqual(l.marker, finding.marker));
@@ -211,13 +202,4 @@ function buildFindingInfoWindowContent(finding) {
         "            </div>\n" +
         "        </div>\n" +
         "    </div>"
-}
-
-// TODO move
-function getDayDifferenceBetweenDates(date1, date2) {
-    let one_day = 1000 * 60 * 60 * 24;    // Convert both dates to milliseconds
-    let date1_ms = date1.getTime();
-    let date2_ms = date2.getTime();    // Calculate the difference in milliseconds
-    let difference_ms = date2_ms - date1_ms;        // Convert back to days and return
-    return Math.abs(Math.round(difference_ms / one_day));
 }

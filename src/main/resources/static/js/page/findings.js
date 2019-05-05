@@ -1,5 +1,30 @@
 let geocoder;
 
+$(function () {
+
+    $('.finding-group').each(function () {
+        let wrapper = $(this);
+        let age = wrapper.attr('finding-age');
+        let color = getColorNameForFindingWithAge(age);
+        wrapper.addClass(color);
+    });
+
+    $('#range').range({
+        min: 0,
+        max: 100,
+        start: 0,
+        onChange: function (value) {
+            $('#display').html(value);
+        }
+    });
+
+    $('#range').addClass('disabled');
+    $('#radius-val-wrapper').hide();
+    $('#radius-btn').addClass('disabled');
+
+    $('#radius-cbx').addClass('disabled');
+});
+
 function initGoogleMapsApiLogic() {
     geocoder = new google.maps.Geocoder;
 
@@ -17,33 +42,11 @@ function initGoogleMapsApiLogic() {
     });
 
     function buildAddressByGeocodingResult(result) {
-         let comps = result.address_components;
-         let needed = [comps[2].long_name, comps[1].long_name, comps[0].long_name];
-         return needed.join(', ')
+        let comps = result.address_components;
+        let needed = [comps[2].long_name, comps[1].long_name, comps[0].long_name];
+        return needed.join(', ')
     }
 }
-
-$(function () {
-
-    $('.finding-group').each(function () {
-        $(this).addClass(getRandomBrightColor());
-    })
-
-    $('#range').range({
-        min: 0,
-        max: 100,
-        start: 0,
-        onChange: function (value) {
-            $('#display').html(value);
-        }
-    });
-
-    $('#range').addClass('disabled');
-    $('#radius-val-wrapper').hide();
-    $('#radius-btn').addClass('disabled');
-
-    $('#radius-cbx').addClass('disabled');
-});
 
 $('.ui.menu .ui.dropdown').dropdown({
     on: 'hover'

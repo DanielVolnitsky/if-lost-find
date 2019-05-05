@@ -28,9 +28,10 @@
             <div class="twelve wide stretched column">
                 <div class="ui three stackable cards" style="align-items: flex-start">
                     <div class="ui link card" th:each="f : ${findings}">
-                        <a th:href="@{/findings/{id}(id = ${f.id})}" style="color: black">
+                        <a style="color: black" th:href="@{/findings/{id}(id = ${f.id})}">
                             <div class="ui left piled segment">
-                                <div class="finding-group ui top right attached label" th:text="${f.findingGroupName}"></div>
+                                <div class="finding-group ui top right attached label" th:text="${f.findingGroupName}"
+                                     th:finding-age="${f.daysOld}"></div>
 
                                 <img alt="finding image" class="ui tiny left floated image" src="img/matthew.png"
                                      style="margin-top: 0px !important; margin-bottom: 0px">
