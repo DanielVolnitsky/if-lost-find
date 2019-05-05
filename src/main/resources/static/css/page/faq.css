@@ -1,0 +1,14 @@
+main {
+    display: flex;
+    justify-content: center;
+    height: calc(100vh - 68px);
+}
+.page-faq {
+    margin-top: 20px;
+}
+
+.page-faq-inverted {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end
+}

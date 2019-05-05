@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="ie=edge" http-equiv="X-UA-Compatible">
+
+    <title>FAQ</title>
+
+    <link rel="stylesheet" th:href="@{/css/lib/semantic.css}">
+    <link rel="stylesheet" th:href="@{/css/page/faq.css}">
+</head>
+
+<body>
+
+<nav th:replace="partials/nav.html :: nav"></nav>
+
+<main>
+    <div class="ui vertical segment" style="width: 60%">
+        <div class="ui huge centered header">
+            Pages
+        </div>
+
+        <div class="page-faq">
+            <div class="ui large header">
+                <a th:href="@{/index}">Findings Map</a>
+            </div>
+
+            <div class="ui styled accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    What are the markers on the map for?
+                </div>
+                <div class="content">
+                    <p class="transition hidden">
+                        Each marker stands for a certain finding. A marker is located exactly where it has been reported
+                        to be found. When you mouse over a marker - you see a short information on a finding that this
+                        marker corresponds to.
+                    </p>
+                </div>
+
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Why markers have different colors?
+                </div>
+                <div class="content">
+                    <p class="transition hidden">
+                        A color specifies how old some finding report is:
+                        <br>
+                        1) Red - 'hot' finding, that has been reported within the week;
+                        <br>
+                        2) Yellow - finding, that has been reported within the month, but more than a week ago;
+                        <br>
+                        3) Blue - 'cold' finding, that has been reported more than a month ago
+                    </p>
+                </div>
+
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    How do I navigate the map?
+                </div>
+                <div class="content">
+                    <p class="transition hidden">
+                        You can drag the map or use the address search field to move to a certain address location.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-faq page-faq-inverted">
+            <div class="ui large header">
+                <a th:href="@{/findings}">Findings Feed</a>
+            </div>
+            <div class="ui styled accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    What does the 'Radius' block is for?
+                </div>
+                <div class="content">
+                    <p class="transition hidden">
+                        It gives an opportunity to display findings that are nearby your location. Changing the 'radius'
+                        value affects a radius of coverage.
+                    </p>
+                </div>
+
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    What does the 'Radius' block is disabled?
+                </div>
+                <div class="content">
+                    <p class="transition hidden">
+                        It is disabled in case you did not allow access to geolocation.
+                        Please do that in order to have an access to this and all other features of the site.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="page-faq">
+            <div class="ui large header">
+                <a th:href="@{/findings/report}">Finding Report</a>
+            </div>
+            <div class="ui styled accordion">
+                <div class="title">
+                    <i class="dropdown icon"></i>
+                    Why do I need the map here?
+                </div>
+                <div class="content">
+                    <p class="transition hidden">It is here to let you to specify your finding location. One marker will
+                        help us a lot with an owner finding.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</main>
+
+<footer th:replace="partials/footer.html :: footer"></footer>
+
+<!-- Scripts -->
+<script th:src="@{/js/lib/jquery.js}"></script>
+<script th:src="@{/js/lib/semantic.js}"></script>
+<script>
+    $('.ui.accordion').accordion();
+</script>
+<!-- Scripts -->
+
+</body>
+
+</html>

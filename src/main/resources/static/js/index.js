@@ -2,8 +2,9 @@ const lossesInRadiusUrl = "/api/findings";
 const lossesRadiusKm = 100;
 
 const colorImgUrlMap = new Map([
-    ['yellow',  '../img/yellow-dot.png'],
-    ['blue',    '../img/blue-dot.png']
+    ['yellow',  '../img/yellow.png'],
+    ['blue',    '../img/blue.png'],
+    ['red',    '../img/red.png']
 ]);
 
 let findings = [];

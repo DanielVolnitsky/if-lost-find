@@ -10,6 +10,12 @@ $(function () {
             lat: loc.coords.latitude,
             lng: loc.coords.longitude
         };
+
+    }, function () {
+        $('#range').addClass('disabled');
+        $('#radius-val-wrapper').addClass('disabled');
+        $('#radius-submit').addClass('disabled');
+        $('#radius-search-disabled-msg').css('display', 'block');
     });
 
     function setRadiusSubmitEvent() {

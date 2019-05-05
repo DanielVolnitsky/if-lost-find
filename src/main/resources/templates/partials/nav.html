@@ -10,6 +10,7 @@
                     <a th:classappend="${#httpServletRequest.getRequestURI() == '/index' ? 'active':''}" class="item" th:href="@{/index}">Map</a>
                     <a th:classappend="${#httpServletRequest.getRequestURI() == '/findings' ? 'active':''}" class="item" th:href="@{/findings}">Findings</a>
                     <a th:classappend="${#httpServletRequest.getRequestURI() == '/findings/report' ? 'active':''}" class="item" th:href="@{/findings/report}">Report</a>
+                    <a th:classappend="${#httpServletRequest.getRequestURI() == '/faq' ? 'active':''}" class="item" th:href="@{/faq}">FAQ</a>
 
                     <a th:classappend="${#httpServletRequest.getRequestURI() == '/login' ? 'active':''}" class="item" sec:authorize="isAnonymous()" th:href="@{/login}">Log In</a>
                     <a class="item" sec:authorize="isAuthenticated()" th:href="@{/logout}">Log Out</a>

@@ -27,8 +27,6 @@
         <div class="row centered">
             <div class="twelve wide stretched column">
                 <div class="ui breadcrumb">
-                    <a class="section" th:href="@{/index}">Home</a>
-                    <i class="right angle icon divider"></i>
                     <a class="section" th:href="@{/findings}">Findings</a>
                     <i class="right angle icon divider"></i>
                     <div th:text="${breadcrumb}" class="active section">All</div>
@@ -70,6 +68,10 @@
             <!--FINDING CARDS END-->
 
             <div class="three wide column">
+
+                <div id="radius-search-disabled-msg" class="ui pointing below red basic label" style="display: none">
+                    Enable browser geolocation access to use the nearby findings search!
+                </div>
 
                 <!--RADIUS FILTER BEGIN-->
                 <div class="ui vertical fluid">
