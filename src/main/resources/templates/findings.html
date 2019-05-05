@@ -22,8 +22,23 @@
 
 <main>
     <div class="ui grid" style="margin-top: 20px">
-        <div class="row centered">
 
+        <!--BREADCRUMB BEGIN-->
+        <div class="row centered">
+            <div class="twelve wide stretched column">
+                <div class="ui breadcrumb">
+                    <a class="section" th:href="@{/index}">Home</a>
+                    <i class="right angle icon divider"></i>
+                    <a class="section" th:href="@{/findings}">Findings</a>
+                    <i class="right angle icon divider"></i>
+                    <div th:text="${breadcrumb}" class="active section">All</div>
+                </div>
+            </div>
+            <div class="three wide column"></div>
+        </div>
+        <!--BREADCRUMB END-->
+
+        <div class="row centered">
             <!--FINDING CARDS BEGIN-->
             <div class="twelve wide stretched column">
                 <div class="ui three stackable cards" style="align-items: flex-start">
@@ -33,7 +48,7 @@
                                 <div class="finding-group ui top right attached label" th:finding-age="${f.daysOld}"
                                      th:text="${f.findingGroupName}"></div>
 
-                                <img alt="finding image" class="ui tiny left floated image" src="../img/matthew.png"
+                                <img alt="finding image" class="ui tiny left floated image" src="../img/question.jpg"
                                      style="margin-top: 0px !important; margin-bottom: 0px">
 
                                 <h3 class="ui header text-center" style="margin-top: 0px; margin-bottom: 5px"
@@ -59,12 +74,6 @@
                 <!--RADIUS FILTER BEGIN-->
                 <div class="ui vertical fluid">
                     <div class="container">
-                        <div class="ui segment">
-                            <div class="ui checkbox" id="radius-cbx">
-                                <input name="example" type="checkbox">
-                                <label>Search in radius</label>
-                            </div>
-                        </div>
                         <div class="ui segment">
                             <div class="ui divider"></div>
                             <div class="ui green range" id="range"></div>
@@ -97,7 +106,7 @@
             </div>
         </div>
 
-        <div th:if="${pagination != null}" class="row centered">
+        <div class="row centered" th:if="${pagination != null}">
             <div class="five wide column">
                 <div class="ui pagination menu">
                     <a class="icon item"

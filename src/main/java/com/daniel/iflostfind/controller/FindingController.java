@@ -55,6 +55,7 @@ public class FindingController {
         mav.addObject("findings", nearest);
         mav.addObject("filterGroup", "All");
         mav.addObject("findingGroups", lossGroupService.getLossGroupNames());
+        mav.addObject("breadcrumb", "All within " + radius + " km from you");
         mav.addObject("google_map_key", googleMapsService.getMapKey());
 
         return mav;
@@ -88,6 +89,7 @@ public class FindingController {
         Set<String> lg = lossGroupService.getLossGroupNames();
         mav.addObject("findingGroups", lg);
 
+        mav.addObject("breadcrumb", type);
         mav.addObject("google_map_key", googleMapsService.getMapKey());
 
         return mav;

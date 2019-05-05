@@ -1,17 +1,9 @@
 let geocoder, userLocation;
 
-function setRadiusSubmitEvent() {
-    $('#radius-submit').on('click', function () {
-        let radius = $('#display').text();
-
-        let href = $(this).attr('href');
-        href = href + '?radius=' + radius + '&user-lat=' + userLocation.lat + '&user-lng=' + userLocation.lng;
-
-        $(this).attr('href', href);
-    });
-}
-
 $(function () {
+    initializeRangeController();
+    setRadiusSubmitEvent();
+    applyColorsToFindingGroups();
 
     processCurrentLocation(function (loc) {
         userLocation = {
@@ -20,25 +12,36 @@ $(function () {
         };
     });
 
-    $('.finding-group').each(function () {
-        let wrapper = $(this);
-        let age = wrapper.attr('finding-age');
-        let color = getColorNameForFindingWithAge(age);
-        wrapper.addClass(color);
-    });
+    function setRadiusSubmitEvent() {
+        $('#radius-submit').on('click', function () {
+            let radius = $('#display').text();
 
-    $('#range').range({
-        min: 1,
-        max: 20,
-        start: 1,
-        onChange: function (value) {
-            $('#display').html(value);
-        }
-    });
+            let href = $(this).attr('href');
+            href = href + '?radius=' + radius + '&user-lat=' + userLocation.lat + '&user-lng=' + userLocation.lng;
 
-    setRadiusSubmitEvent();
-    disableFindingsInRadiusBlock();
-    setRadiusCheckboxEvents();
+            $(this).attr('href', href);
+        });
+    }
+
+    function applyColorsToFindingGroups() {
+        $('.finding-group').each(function () {
+            let wrapper = $(this);
+            let age = wrapper.attr('finding-age');
+            let color = getColorNameForFindingWithAge(age);
+            wrapper.addClass(color);
+        });
+    }
+
+    function initializeRangeController() {
+        $('#range').range({
+            min: 1,
+            max: 20,
+            start: 1,
+            onChange: function (value) {
+                $('#display').html(value);
+            }
+        });
+    }
 });
 
 function initGoogleMapsApiLogic() {
@@ -62,29 +65,4 @@ function initGoogleMapsApiLogic() {
         let needed = [comps[2].long_name, comps[1].long_name, comps[0].long_name];
         return needed.join(', ')
     }
-}
-
-function disableFindingsInRadiusBlock() {
-    $('#range').addClass('disabled');
-    $('#radius-val-wrapper').hide();
-    $('#radius-submit').addClass('disabled');
-}
-
-function enableFindingsInRadiusBlock() {
-    $('#range').removeClass('disabled');
-    $('#radius-val-wrapper').show();
-    $('#radius-submit').removeClass('disabled');
-}
-
-function setRadiusCheckboxEvents() {
-    $('#radius-cbx').checkbox({
-        onChecked: function () {
-            enableFindingsInRadiusBlock();
-            $('#group-filter').hide();
-        },
-        onUnchecked: function () {
-            disableFindingsInRadiusBlock();
-            $('#group-filter').show();
-        }
-    });
 }
