@@ -1,7 +1,7 @@
 package com.daniel.iflostfind.service.impl;
 
 import com.daniel.iflostfind.domain.*;
-import com.daniel.iflostfind.repository.LossRepository;
+import com.daniel.iflostfind.repository.FindingRepository;
 import com.daniel.iflostfind.service.CoordinateService;
 import com.daniel.iflostfind.service.LossService;
 import com.daniel.iflostfind.service.converter.impl.FindingConverter;
@@ -26,18 +26,18 @@ import static java.util.stream.Collectors.toList;
 public class LossServiceImpl implements LossService {
 
     private final CoordinateService coordinateService;
-    private final LossRepository lossRepository;
+    private final FindingRepository findingRepository;
     private final FindingConverter findingConverter;
     private final FindingWithReporterConverter findingWithReporterConverter;
 
     @Autowired
     public LossServiceImpl(CoordinateService coordinateService,
-                           LossRepository lossRepository,
+                           FindingRepository findingRepository,
                            FindingConverter findingConverter,
                            FindingWithReporterConverter findingWithReporterConverter) {
 
         this.coordinateService = coordinateService;
-        this.lossRepository = lossRepository;
+        this.findingRepository = findingRepository;
         this.findingConverter = findingConverter;
         this.findingWithReporterConverter = findingWithReporterConverter;
     }
@@ -46,19 +46,19 @@ public class LossServiceImpl implements LossService {
     public void add(FindingDto dto, User user) {
         Finding finding = findingConverter.convertDtoToEntity(dto);
         finding.setReporter(user);
-        lossRepository.save(finding);
+        findingRepository.save(finding);
     }
 
     @Override
     public List<FindingDto> getAll() {
-        List<Finding> findings = (List<Finding>) lossRepository.findAll();
+        List<Finding> findings = (List<Finding>) findingRepository.findAll();
         return findingConverter.convertEntitiesToDtos(findings);
     }
 
     //TODO optimize
     @Override
     public List<FindingDto> getAllWithinRadiusOfCoordinate(Coordinate pivot, double radius) {
-        List<Finding> all = (List<Finding>) lossRepository.findAll();
+        List<Finding> all = (List<Finding>) findingRepository.findAll();
         List<Finding> inRadius = all.stream()
                 .filter(l -> isFindingWithinRadius(pivot, l, radius))
                 .collect(toList());
@@ -69,13 +69,14 @@ public class LossServiceImpl implements LossService {
     //TODO optimize
     @Override
     public List<FindingDto> getNearestFindings(Coordinate pivot, int radius, int amount) {
-        List<Finding> all = lossRepository.findAllByOrderByDateFound();
+        List<Finding> all = findingRepository.findAllByOrderByDateFoundDesc();
         List<Finding> nearest = all.stream()
                 .filter(f -> isFindingWithinRadius(pivot, f, radius))
                 .sorted(Comparator.comparingDouble(l -> {
                     DiscoveryPlace dp = l.getDiscoveryPlace();
                     return coordinateService.getDistanceBetweenCoordinates(pivot, dp.getCoordinate());
                 }))
+                .sorted((a, b) -> b.getDateFound().compareTo(a.getDateFound()))
                 .limit(amount)
                 .collect(toList());
 
@@ -84,7 +85,7 @@ public class LossServiceImpl implements LossService {
 
     @Override
     public Optional<FindingWithReporterDto> getAlongWithReporter(long lossId) {
-        Optional<Finding> loss = lossRepository.findById(lossId);
+        Optional<Finding> loss = findingRepository.findById(lossId);
         return loss.map(findingWithReporterConverter::convertEntityToDto);
     }
 
@@ -94,9 +95,9 @@ public class LossServiceImpl implements LossService {
 
         Page<Finding> result;
         if (group.equals(FindingGroup.ALL)) {
-            result = lossRepository.findAllByOrderByDateFound(pageable);
+            result = findingRepository.findAllByOrderByDateFoundDesc(pageable);
         } else {
-            result = lossRepository.findAllByFindingGroupOrderByDateFound(group, pageable);
+            result = findingRepository.findAllByFindingGroupOrderByDateFoundDesc(group, pageable);
         }
 
         PaginationInfo pagingInfo = new PaginationInfo(

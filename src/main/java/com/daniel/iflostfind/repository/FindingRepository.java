@@ -10,8 +10,11 @@ import org.springframework.stereotype.Repository;
 import java.util.List;
 
 @Repository
-public interface LossRepository extends PagingAndSortingRepository<Finding, Long> {
-    Page<Finding> findAllByFindingGroupOrderByDateFound(FindingGroup type, Pageable pageable);
-    Page<Finding> findAllByOrderByDateFound(Pageable pageable);
-    List<Finding> findAllByOrderByDateFound();
+public interface FindingRepository extends PagingAndSortingRepository<Finding, Long> {
+    Page<Finding> findAllByFindingGroupOrderByDateFoundDesc(FindingGroup type, Pageable pageable);
+
+    Page<Finding> findAllByOrderByDateFoundDesc(Pageable pageable);
+
+    List<Finding> findAllByOrderByDateFoundDesc();
 }
+

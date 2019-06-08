@@ -27,6 +27,7 @@ import java.util.Set;
 @Controller
 public class FindingController {
 
+    public static final int AMOUNT_TO_DISPLAY = 99;
     private final LossService lossService;
     private final LossGroupService lossGroupService;
     private final GoogleMapKeyService googleMapsService;
@@ -49,7 +50,7 @@ public class FindingController {
             @RequestParam(name = "user-lng") double userLng) {
 
         Coordinate pivot = new Coordinate(userLat, userLng);
-        List<FindingDto> nearest = lossService.getNearestFindings(pivot, radius, 99);
+        List<FindingDto> nearest = lossService.getNearestFindings(pivot, radius, AMOUNT_TO_DISPLAY);
 
         ModelAndView mav = new ModelAndView("findings");
         mav.addObject("findings", nearest);
